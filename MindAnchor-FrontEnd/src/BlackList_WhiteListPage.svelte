@@ -223,6 +223,7 @@
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    font-family: 'Inria Sans', sans-serif;
   }
 
   .page2-container {
@@ -232,7 +233,7 @@
     padding: 20px;
     box-sizing: border-box;
     overflow: hidden;
-    font-family: Arial, sans-serif;
+    font-family: 'Inria Sans', sans-serif;
   }
 
 
@@ -292,7 +293,7 @@
   hr {
     border: none;
     height: 2px;
-    background-color: #2d2d84;
+    background-color: rgb(1, 1, 124);
     margin: 10px 0;
   }
 
@@ -400,7 +401,7 @@
   }
 
   .page2-confirm {
-    background: #2d2d84;
+    background: rgb(1, 1, 124);
     color: white;
     border: none;
     border-radius: 5px;

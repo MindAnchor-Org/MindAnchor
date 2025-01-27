@@ -45,6 +45,9 @@
     if (end < start) {
       alert("The end date and time cannot be before the start date and time.");
       return;
+    }else if(start.getTime() === end.getTime() ){
+      alert("The time cannot be the same!");
+      return;
     }
 
     // If validation passes, proceed
@@ -62,7 +65,7 @@
   }
 
   function goToBackList_WhiteListPage() {
-    currentPage.set('BackList_WhiteListPage');
+    currentPage.set('BlackList_WhiteListPage');
   }
 </script>
 
@@ -82,8 +85,8 @@
     </div>
     <div style="display: flex;">
       <label for="Startdate" style="padding-right: 125px;font-weight:bold;">Start Date</label>
-      <label for="Startdate" style="padding-right: 125px;font-weight:bold;">End Date</label>
-      <label for="Startdate" style="padding-right: 110px;font-weight:bold;">Start Time</label>
+      <label for="Startdate" style="padding-right: 145px;font-weight:bold;">End Date</label>
+      <label for="Startdate" style="padding-right: 130px;font-weight:bold;">Start Time</label>
       <label for="Startdate" style="font-weight:bold;">End Time</label>
     </div>
   </div>
@@ -126,6 +129,7 @@
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
+      font-family: 'Inria Sans', sans-serif;
     }
   
     .page1-container {
@@ -135,7 +139,7 @@
       padding: 20px;
       box-sizing: border-box;
       overflow: hidden; /* Prevent internal scrolling */
-      font-family: Arial, sans-serif;
+      font-family: 'Inria Sans', sans-serif;
     }
   
     h1 {
@@ -146,7 +150,7 @@
     hr {
       border: 0;
       height: 2px;
-      background-color: blue;
+      background-color: rgb(1, 1, 124);
       margin-bottom: 20px;
     }
   
@@ -190,7 +194,7 @@
     }
   
     button.page1-confirm {
-      background-color: blue;
+      background-color: rgb(1, 1, 124);
       color: white;
     }
   

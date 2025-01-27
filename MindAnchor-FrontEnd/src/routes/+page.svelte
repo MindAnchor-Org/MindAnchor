@@ -6,6 +6,6 @@
 
 {#if $currentPage === 'SchedulePage'}
   <SchedulePage />
-{:else if $currentPage === 'BackList_WhiteListPage'}
+{:else if $currentPage === 'BlackList_WhiteListPage'}
   <BlackList_WhiteListPage />
 {/if}
