@@ -1,100 +1,121 @@
 <script lang="ts">
-    import {currentPage} from './store';
-    type Task = string;
-    type Schedule = {
-      startDate: string;
-      endDate: string;
-      startTime: string;
-      endTime: string;
-      tasks: Task[];
-    };
-  
-    let startDate: string = '';
-    let endDate: string = '';
-    let startTime: string = '';
-    let endTime: string = '';
-    let task: string = '';
-    let tasks: Task[] = [];
-  
-    function addTask(): void {
-      if (task.trim()) {
-        tasks = [...tasks, task];
-        task = '';
-      }
+  import { currentPage } from './store';
+
+  type Task = string;
+  type Schedule = {
+    startDate: string;
+    endDate: string;
+    startTime: string;
+    endTime: string;
+    tasks: Task[];
+  };
+
+  let startDate: string = '';
+  let endDate: string = '';
+  let startTime: string = '';
+  let endTime: string = '';
+  let task: string = '';
+  let tasks: Task[] = [];
+
+
+  function addTask(): void {
+    if (task.trim()) {
+      tasks = [...tasks, task];
+      task = '';
     }
-    function goToBackList_WhiteListPage() {
-        currentPage.set('BackList_WhiteListPage');  // Update the store to 'page2'
+  }
+
+  function removeTask(index: number): void {
+    //The filter method creates a new array that doesnt include index of the passed index, and then assign the new array to the old tasks array.
+    tasks = tasks.filter((_, i) => i !== index);
+  }
+
+  function confirmSchedule(): void {
+    // Check if all fields are filled
+    if (!startDate || !endDate || !startTime || !endTime) {
+      alert("Please fill in all the date and time fields.");
+      return;
     }
-  
-    function removeTask(index: number): void {
-      tasks = tasks.filter((_, i) => i !== index);
+
+    // Combine date and time into Date objects for comparison
+    const start = new Date(`${startDate}T${startTime}`);
+    const end = new Date(`${endDate}T${endTime}`);
+
+    // Check if end date and time are before start date and time
+    if (end < start) {
+      alert("The end date and time cannot be before the start date and time.");
+      return;
     }
-  
-    function confirmSchedule(): void {
-      const schedule: Schedule = { startDate, endDate, startTime, endTime, tasks };
-      goToBackList_WhiteListPage();
-      console.log('Activity Duration & To-Do List Confirmed:', schedule);
-    }
-  
-    function discardSchedule(): void {
-      startDate = '';
-      endDate = '';
-      startTime = '';
-      endTime = '';
-      tasks = [];
-    }
+
+    // If validation passes, proceed
+    const schedule: Schedule = { startDate, endDate, startTime, endTime, tasks };
+    goToBackList_WhiteListPage();
+    console.log("Activity Duration & To-Do List Confirmed:", schedule);
+  }
+
+  function discardSchedule(): void {
+    startDate = '';
+    endDate = '';
+    startTime = '';
+    endTime = '';
+    tasks = [];
+  }
+
+  function goToBackList_WhiteListPage() {
+    currentPage.set('BackList_WhiteListPage');
+  }
 </script>
-  
+
 <div class="page1-container">
-    <div class="page1-header">
-      <img src="/icon.png" alt="" width="25px" height="2px">
-      <h1>MindAnchor</h1>
+  <div class="page1-header">
+    <img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px">
+    <h1>MindAnchor</h1>
+  </div>
+  <hr />
+  <div class="page1-duration">
+    <label for="page1-duration" style="font-weight: bold;">Enter the duration of the activity:</label>
+    <div id="page1-duration" class="page1-inputs">
+      <input type="date" bind:value={startDate} placeholder="Start Date" name="Startdate" />
+      <input type="date" bind:value={endDate} placeholder="End Date" name="EndDate" />
+      <input type="time" bind:value={startTime} placeholder="Start Time" name="StartTime" />
+      <input type="time" bind:value={endTime} placeholder="End Time" name="EndTime" />
     </div>
-    <hr />
-    <div class="page1-duration">
-      <label for="page1-duration" style="font-weight: bold;">Enter the duration of the activity:</label>
-      <div id="page1-duration" class="page1-inputs">
-        <input type="date" bind:value={startDate} placeholder="Start Date" name="Startdate" />
-        <input type="date" bind:value={endDate} placeholder="End Date" name="EndDate" />
-        <input type="time" bind:value={startTime} placeholder="Start Time" name="StartTime" />
-        <input type="time" bind:value={endTime} placeholder="End Time" name="EndTime" />
-      </div>
-      <div style="display: flex;">
-        <label for="Startdate" style="padding-right: 125px;font-weight:bold;">Start Date</label>
-        <label for="Startdate" style="padding-right: 125px;font-weight:bold;">End Date</label>
-        <label for="Startdate" style="padding-right: 110px;font-weight:bold;">Start Time</label>
-        <label for="Startdate" style="font-weight:bold;">End Time</label>
-      </div>
+    <div style="display: flex;">
+      <label for="Startdate" style="padding-right: 125px;font-weight:bold;">Start Date</label>
+      <label for="Startdate" style="padding-right: 125px;font-weight:bold;">End Date</label>
+      <label for="Startdate" style="padding-right: 110px;font-weight:bold;">Start Time</label>
+      <label for="Startdate" style="font-weight:bold;">End Time</label>
     </div>
-  
-    <div class="page1-tasks">
-      <label for="page1-tasks" style="font-weight: bold;">List the tasks to do during this activity:</label>
-      <div id="page1-tasks" class="page1-task-input">
-        <input
-          type="text"
-          style="border-radius: 20px;"
-          bind:value={task}
-          placeholder="Enter a task"
-          on:keydown={(e) => e.key === 'Enter' && addTask()}
-        />
-        <button on:click={addTask} style="font-size: 2em;">+</button>
-      </div>
-      <div class="page1-task-list-wrapper">
-        <ul>
-          {#each tasks as task, index}
-            <li>
-              {task}
-              <button on:click={() => removeTask(index)} style="font-size: 2em;">✖</button>
-            </li>
-          {/each}
-        </ul>
-      </div>
+  </div>
+
+  <div class="page1-tasks">
+    <label for="page1-tasks" style="font-weight: bold;">List the tasks to do during this activity:</label>
+    <div id="page1-tasks" class="page1-task-input">
+      <input
+        type="text"
+        style="border-radius: 20px;"
+        bind:value={task}
+        placeholder="Enter a task"
+        on:keydown={(e) => e.key === 'Enter' && addTask()}
+      />
+      <button on:click={addTask} style="font-size: 2em;">+</button>
     </div>
-  
-    <div class="page1-actions">
-      <button class="page1-confirm" on:click={confirmSchedule}>Confirm Activity Duration & To-Do List</button>
-      <button class="page1-discard" on:click={discardSchedule}>Discard This Schedule</button>
+    <div class="page1-task-list-wrapper">
+      <ul>
+        {#each tasks as task, index}
+          <li>
+            {task}
+            <button on:click={() => removeTask(index)} style="font-size: 2em;">✖</button>
+          </li>
+        {/each}
+      </ul>
     </div>
+  </div>
+
+  <div class="page1-actions">
+    <button class="page1-confirm" on:click={confirmSchedule}>Confirm Activity Duration & To-Do List</button>
+    <button class="page1-discard" on:click={discardSchedule}>Discard This Schedule</button>
+  </div>
 </div>
 <style>
     :global(html, body) {
@@ -140,7 +161,6 @@
     .page1-tasks {
       margin-bottom: 20px;
     }
-  
     .page1-inputs {
       display: flex;
       justify-content: space-between;
@@ -225,9 +245,13 @@
       height: 25px;
       margin-bottom: 10px;
     }
+    .page1-header h1 {
+      font-size: 1.5em;
+      margin-left: 10;
+      margin-right: 400px;
+    }
   
     .page1-header img {
       display: block;
     }
 </style>
-  

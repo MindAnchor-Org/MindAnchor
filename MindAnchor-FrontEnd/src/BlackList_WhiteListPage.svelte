@@ -26,8 +26,8 @@
     { name: "Travel/Tourism", selected: false, disabled: false },
   ];
 
-  let blacklistUrl: string = "";
-  let whitelistUrl: string = "";
+  let blacklistUrl: string = ""; //temp store
+  let whitelistUrl: string = ""; //temp store
   let blacklistUrls: string[] = [];
   let whitelistUrls: string[] = [];
   let activeTab: "blacklist" | "whitelist" = "blacklist";
@@ -77,14 +77,21 @@
   }
 
   function discard(): void {
-    blacklistCategories.forEach((category) => {
-      category.selected = false;
-      category.disabled = false;
-    });
-    whitelistCategories.forEach((category) => {
-      category.selected = false;
-      category.disabled = false;
-    });
+    // Reset blacklist categories
+    blacklistCategories = blacklistCategories.map((category) => ({
+      ...category,
+      selected: false,
+      disabled: false,
+    }));
+
+    // Reset whitelist categories
+    whitelistCategories = whitelistCategories.map((category) => ({
+      ...category,
+      selected: false,
+      disabled: false,
+    }));
+
+    // Clear URLs and input fields
     blacklistUrls = [];
     whitelistUrls = [];
     blacklistUrl = "";
@@ -102,7 +109,7 @@
 
 <div class="page2-container">
   <div class="page2-header">
-    <img src="/icon.png" alt="MindAnchor Logo" width="30px" />
+    <img src="/icon.png" alt="MindAnchor Logo" width="25px" height="1px"/>
     <h1>MindAnchor</h1>
     <button class="page2-help" on:click={toggleHelpPopup}>?</button>
   </div>
@@ -238,6 +245,9 @@
     margin-left: 10;
     margin-right: 400px;
   }
+  .page2-header img {
+    display: block;
+  }
   .page2-header .page2-help {
     background: none;
     border: 2px solid black;
@@ -329,12 +339,12 @@
     font-size: 0.9em;
   }
 
-  .page2-categories button.selected {
+  .selected {
     background: gray;
     color: white;
   }
 
-  .page2-categories button.disabled {
+  .disabled {
     cursor: not-allowed;
     opacity: 0.5;
   }
