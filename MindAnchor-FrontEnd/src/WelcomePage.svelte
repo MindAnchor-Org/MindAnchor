@@ -17,10 +17,6 @@
         return () => clearInterval(timer);
     });
 
-    function handleExperienceNow() {
-        // Redirect to dashboard or next page
-        window.location.href = '/dashboard'; // Update the URL as needed
-    }
 </script>
 
 <style>
