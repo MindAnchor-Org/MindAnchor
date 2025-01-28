@@ -1,5 +1,6 @@
 <script>
     import { onMount } from 'svelte';
+    import { currentPage } from '../store.js';
 
     let countdown = 10;
 
@@ -9,13 +10,18 @@
                 countdown -= 1;
             } else {
                 clearInterval(timer);
-                // Redirect to dashboard or next page
-                window.location.href = '/dashboard'; // Update the URL as needed
+                // Redirect to dashboard
+                currentPage.set('Dashboard');
             }
         }, 1000);
 
         return () => clearInterval(timer);
     });
+
+    function handleExperienceNow() {
+        // Redirect to dashboard
+        currentPage.set('Dashboard');
+    }
 
 </script>
 
@@ -61,7 +67,7 @@
       You will be directed to the dashboard in {countdown} seconds, or you can
       experience MindAnchor now with the button below. :D
     </p>
-    <button class="button" on:click="{() => (window.location.href = '/dashboard.html')}">
+    <button class="button" on:click="{handleExperienceNow}">
       Experience MindAnchor Now!
     </button>
   </div>

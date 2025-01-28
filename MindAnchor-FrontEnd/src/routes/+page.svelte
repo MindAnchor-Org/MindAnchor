@@ -1,11 +1,12 @@
 <script>
   import { currentPage } from '../store.js';
-  import SchedulePage from '../SchedulePage.svelte';
-  import BlackList_WhiteListPage from '../BlackList_WhiteListPage.svelte'
+  import WelcomePage from '../components/WelcomePage.svelte';
+  import Dashboard from '../components/Dashboard.svelte'; // Add this component later
+
 </script>
 
-{#if $currentPage === 'SchedulePage'}
-  <SchedulePage />
-{:else if $currentPage === 'BlackList_WhiteListPage'}
-  <BlackList_WhiteListPage />
+{#if $currentPage === 'WelcomePage'}
+    <WelcomePage />
+{:else if $currentPage === 'Dashboard'}
+    <Dashboard />
 {/if}
