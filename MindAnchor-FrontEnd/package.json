@@ -4,13 +4,14 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"devext": "nodemon --watch src --watch static --exec \"vite build\" -e json,ts,css,html,svelte",
+		"devext": "npm run clean && nodemon --watch src --watch static --exec \"vite build\" -e json,ts,css,html,svelte",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint ."
+		"lint": "prettier --check . && eslint .",
+		"clean": "rimraf build"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.0.0",
@@ -26,6 +27,7 @@
 		"prettier": "^3.3.2",
 		"prettier-plugin-svelte": "^3.2.6",
 		"prettier-plugin-tailwindcss": "^0.6.5",
+		"rimraf": "^6.0.1",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"sveltekit-adapter-chrome-extension": "^2.0.1",
