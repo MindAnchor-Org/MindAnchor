@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { currentPage } from './store';
+  import { currentPage } from '../store';
 
   type Task = string;
   type Schedule = {
