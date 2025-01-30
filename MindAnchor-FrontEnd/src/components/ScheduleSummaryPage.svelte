@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+    import { currentPage } from '../store.js';
   
     type Schedule = {
       id: number;
@@ -137,6 +138,6 @@
         {/each}
       </div>
     {/if}
-    <button class="schedule-btn" on:click={() => window.location.href='/schedule'}>Schedule New Activity</button>
+    <button class="schedule-btn" on:click={() => currentPage.set('SchedulePage')}>Schedule New Activity</button>
   </div>
   
