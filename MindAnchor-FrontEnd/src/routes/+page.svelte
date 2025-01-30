@@ -5,6 +5,7 @@
     import SchedulePage from '../components/SchedulePage.svelte';
     import BlackListWhiteListPage from '../components/BlackList_WhiteListPage.svelte';
     import ScheduleSummaryPage from '../components/ScheduleSummaryPage.svelte';
+    import T_and_C_Page from '../components/T_and_C_Page.svelte';
   </script>
   
   {#if $currentPage === 'WelcomePage'}
@@ -17,5 +18,9 @@
       <BlackListWhiteListPage />
   {:else if $currentPage === 'ScheduleSummaryPage'}
       <ScheduleSummaryPage />
+  {:else if $currentPage === 'T_and_C_Page'}
+      <T_and_C_Page />
   {/if}
+
+
   
