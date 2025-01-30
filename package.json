@@ -1,8 +1,0 @@
-{
-  "devDependencies": {
-    "@types/eslint-config-prettier": "^6.11.3"
-  },
-  "dependencies": {
-    "vite": "^6.0.11"
-  }
-}
