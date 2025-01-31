@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { get } from "svelte/store";
+	import { scheduleStore } from "../store";
+
   type Category = { name: string; selected: boolean; disabled: boolean };
 
   // Blacklist and Whitelist categories
@@ -73,6 +76,25 @@
   }
 
   function confirm(): void {
+    const schedule = get(scheduleStore);
+    if (!schedule) {
+      alert("No scheduling data found. Please go back and confirm the schedule first.");
+      return;
+    }
+    const combinedData = {
+      schedule,
+      blacklistWhitelist: {
+        blacklistCategories,
+        whitelistCategories,
+        blacklistUrls,
+        whitelistUrls
+      }
+    };
+
+    localStorage.setItem('schedules', JSON.stringify(combinedData));
+
+    console.log("Combined Data Confirmed:", combinedData);
+
     console.log("Blacklist & Whitelist Confirmed", { blacklistCategories, whitelistCategories, blacklistUrls, whitelistUrls });
   }
 

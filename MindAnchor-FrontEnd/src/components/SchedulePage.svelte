@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { currentPage } from '../store';
+  import { currentPage, scheduleIdCounter, scheduleStore } from '../store';
 
   type Task = string;
   type Schedule = {
+    id: number;
     startDate: string;
     endDate: string;
     startTime: string;
@@ -49,11 +50,28 @@
       alert("The time cannot be the same!");
       return;
     }
+    scheduleIdCounter.update((currentId) => {
+      const id = currentId; // This is the current ID to use for the schedule
+      // Increment the counter after using the current ID
+      localStorage.setItem('scheduleIdCounter', (currentId + 1).toString());
+      return currentId + 1; // Increment and store the updated value
+    });
 
-    // If validation passes, proceed
-    const schedule: Schedule = { startDate, endDate, startTime, endTime, tasks };
-    goToBackList_WhiteListPage();
-    console.log("Activity Duration & To-Do List Confirmed:", schedule);
+    // Use the current ID value to create the schedule
+    scheduleIdCounter.subscribe((currentId) => {
+      const schedule: Schedule = {
+        id: currentId, // Use the updated ID here
+        startDate,
+        endDate,
+        startTime,
+        endTime,
+        tasks
+      };
+
+      scheduleStore.set(schedule);
+      goToBackList_WhiteListPage();
+      console.log("Activity Duration & To-Do List Confirmed:", schedule);
+    });
   }
 
   function discardSchedule(): void {
