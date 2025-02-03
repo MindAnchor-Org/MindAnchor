@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { currentPage } from '../store.js';
+    import { currentPage } from '../../lib/store.js';
   
     type Schedule = {
       id: number;

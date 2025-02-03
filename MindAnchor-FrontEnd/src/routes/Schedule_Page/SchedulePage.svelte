@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { currentPage, scheduleIdCounter, scheduleStore } from '../store';
+  import { currentPage, scheduleIdCounter, scheduleStore } from '../../lib/store';
 
   type Task = string;
   type Schedule = {

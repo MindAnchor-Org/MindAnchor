@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { currentPage } from '../store';
+  import { currentPage } from '../../lib/store';
 
   let countdown = 10;
 

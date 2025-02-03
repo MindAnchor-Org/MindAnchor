@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { get } from "svelte/store";
-	import { scheduleStore } from "../store";
+	import { scheduleStore } from "../../lib/store";
 
   type Category = { name: string; selected: boolean; disabled: boolean };
 

@@ -1,11 +1,11 @@
 <script>
-    import WelcomePage from '../components/WelcomePage.svelte';
-    import Dashboard from '../components/Dashboard.svelte';
-    import SchedulePage from '../components/SchedulePage.svelte';
-    import BlackListWhiteListPage from '../components/BlackList_WhiteListPage.svelte';
-    import ScheduleSummaryPage from '../components/ScheduleSummaryPage.svelte';
-    import T_and_C_Page from '../components/T_and_C_Page.svelte';
-	import { currentPage } from '../store';
+    import WelcomePage from './Welcome_Page/WelcomePage.svelte';
+    import Dashboard from './DashBoard_Page/Dashboard.svelte';
+    import SchedulePage from './Schedule_Page/SchedulePage.svelte';
+    import BlackListWhiteListPage from './BlackList_WhiteList_Page/BlackList_WhiteListPage.svelte';
+    import ScheduleSummaryPage from './Schedule_Summary_Page/ScheduleSummaryPage.svelte';
+    import T_and_C_Page from './T_and_C_Page/T_and_C_Page.svelte';
+	import { currentPage } from '../lib/store';
   </script>
   
   {#if $currentPage === 'WelcomePage'}
