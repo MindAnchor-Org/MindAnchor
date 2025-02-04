@@ -6,7 +6,7 @@
     import ScheduleSummaryPage from './Schedule_Summary_Page/ScheduleSummaryPage.svelte';
     import T_and_C_Page from './T_and_C_Page/T_and_C_Page.svelte';
 	import { currentPage } from '../lib/store';
-  </script>
+</script>
   
   {#if $currentPage === 'WelcomePage'}
       <WelcomePage />
@@ -21,6 +21,3 @@
   {:else if $currentPage === 'T_and_C_Page'}
       <T_and_C_Page />
   {/if}
-
-
-  

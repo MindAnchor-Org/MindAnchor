@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { currentPage } from '../../lib/store';
-
+  
   let countdown = 10;
 
   onMount(() => {
@@ -11,7 +11,7 @@
           } else {
               clearInterval(timer);
               // Redirect to dashboard or next page
-              currentPage.set('Dashboard'); // Update the URL as needed
+              currentPage.set('ScheduleSummaryPage'); // Update the URL as needed
           }
       }, 1000);
 
@@ -20,7 +20,7 @@
 
   function handleExperienceNow() {
       // Redirect to dashboard or next page
-      currentPage.set('Dashboard'); // Update the URL as needed
+      currentPage.set('ScheduleSummaryPage'); // Update the URL as needed
   }
 </script>
 

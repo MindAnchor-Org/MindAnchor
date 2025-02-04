@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { get } from "svelte/store";
-	import { scheduleStore } from "../../lib/store";
+	import { currentPage, scheduleStore } from "../../lib/store";
 
   type Category = { name: string; selected: boolean; disabled: boolean };
 
@@ -118,6 +118,7 @@
     whitelistUrls = [];
     blacklistUrl = "";
     whitelistUrl = "";
+    goToScheduleSummaryPage();
   }
 
   function switchTab(tab: "blacklist" | "whitelist"): void {
@@ -126,6 +127,9 @@
   // Function to toggle the help popup
   function toggleHelpPopup(): void {
     showHelpPopup = !showHelpPopup;
+  }
+  function goToScheduleSummaryPage(){
+    currentPage.set('ScheduleSummaryPage');
   }
 </script>
 
@@ -257,7 +261,6 @@
     overflow: hidden;
     font-family: 'Inria Sans', sans-serif;
   }
-
 
   .page2-header {
     display: flex;

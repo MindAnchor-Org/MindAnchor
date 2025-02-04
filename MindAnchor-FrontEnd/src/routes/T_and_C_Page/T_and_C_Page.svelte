@@ -1,4 +1,6 @@
 <script>
+	import { currentPage } from "$lib/store";
+
     /* import { onMount } from 'svelte'; */ // Not needed in this case
     let agreed = false;
   </script>
@@ -76,7 +78,7 @@
   
   <div class="container">
     <div class="header">
-      <!-- <img src="/icon.png" alt="MindAnchor Logo"> -->
+      <img src="/icon.png" alt="MindAnchor Logo">
       <h2>MindAnchor</h2>
     </div>
   
@@ -94,11 +96,14 @@
     </div>
   
     <div class="checkbox-container">
-      <input type="checkbox" bind:checked={agreed}>
-      <label>I agree to all terms and conditions</label>
+      <input id="agree" type="checkbox" bind:checked={agreed}>
+      <label for="agree">I agree to all terms and conditions</label>
     </div>
   
-    <button class="continue-btn" on:click={() => alert('Continuing...')} disabled={!agreed}>
+    <button class="continue-btn" on:click={() => {
+      alert('Continuing...');
+      currentPage.set("WelcomePage");
+      }} disabled={!agreed}>
       Continue
     </button>
   </div>

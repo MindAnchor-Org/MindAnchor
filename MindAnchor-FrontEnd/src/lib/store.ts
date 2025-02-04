@@ -1,8 +1,19 @@
-// store.js
 import { writable } from 'svelte/store';
 
+// Checks whether the browser environment before accessing localStorage
+const savedPage = typeof window !== 'undefined' 
+  ? localStorage.getItem('currentPage') || 'T_and_C_Page' 
+  : 'T_and_C_Page'; // Default value if SSR
+
 // Store for managing the current page
-export const currentPage = writable('ScheduleSummaryPage');  // Default to 'page1'
+export const currentPage = writable(savedPage);
+
+// Subscribe to changes in currentPage and save to localStorage only in the browser
+if (typeof window !== 'undefined') {
+  currentPage.subscribe(value => {
+    localStorage.setItem('currentPage', value);
+  });
+}
 
 type Schedule = {
   id: number;

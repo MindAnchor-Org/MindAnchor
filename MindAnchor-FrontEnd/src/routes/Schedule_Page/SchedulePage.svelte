@@ -80,10 +80,14 @@
     startTime = '';
     endTime = '';
     tasks = [];
+    goToScheduleSummaryPage();
   }
 
   function goToBackList_WhiteListPage() {
     currentPage.set('BlackList_WhiteListPage');
+  }
+  function goToScheduleSummaryPage(){
+    currentPage.set('ScheduleSummaryPage');
   }
 </script>
 
@@ -149,7 +153,6 @@
       box-sizing: border-box;
       font-family: 'Inria Sans', sans-serif;
     }
-  
     .page1-container {
       width: 984px;
       border: 1px solid #ccc;
