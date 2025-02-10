@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 
 // Checks whether the browser environment before accessing localStorage
 const savedPage = typeof window !== 'undefined' 
-  ? localStorage.getItem('currentPage') || 'T_and_C_Page' 
+  ? localStorage.getItem('currentPage') || 'ScheduleSummaryPage' 
   : 'T_and_C_Page'; // Default value if SSR
 
 // Store for managing the current page
