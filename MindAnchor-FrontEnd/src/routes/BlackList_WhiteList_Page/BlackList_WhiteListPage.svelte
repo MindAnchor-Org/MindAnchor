@@ -1,6 +1,7 @@
 <script lang="ts">
-	import { get } from "svelte/store";
-	import { currentPage, scheduleStore } from "../../lib/store";
+  import { get } from "svelte/store";
+  import { currentPage, scheduleStore } from "../../lib/store";
+  import sites from "../../lib/data/top-sites.json";
 
   type Category = { name: string; selected: boolean; disabled: boolean };
 
@@ -29,13 +30,31 @@
     { name: "Travel/Tourism", selected: false, disabled: false },
   ];
 
-  let blacklistUrl: string = ""; //temp store
-  let whitelistUrl: string = ""; //temp store
+  let blacklistUrl: string = ""; // Temp store for blacklist URL
+  let whitelistUrl: string = ""; // Temp store for whitelist URL
   let blacklistUrls: string[] = [];
   let whitelistUrls: string[] = [];
   let activeTab: "blacklist" | "whitelist" = "blacklist";
-  let showHelpPopup: boolean = false; // New state for controlling the help popup visibility
+  let showHelpPopup: boolean = false; // Controls visibility of help popup
   let helpText: string = "This page allows you to manage your blacklist and whitelist categories as well as add URLs to these lists.";
+
+  let filteredBlacklistSuggestions: string[] = [];
+  let filteredWhitelistSuggestions: string[] = [];
+
+  // Handle URL input and filtering for suggestions
+  function filterSuggestions(query: string, list: string[]): string[] {
+    return list
+      .filter((url) => url.toLowerCase().includes(query.toLowerCase()))
+      .slice(0, 6); // Limit to first 6 results
+  }
+
+  function updateBlacklistSuggestions(): void {
+    filteredBlacklistSuggestions = filterSuggestions(blacklistUrl, sites);
+  }
+
+  function updateWhitelistSuggestions(): void {
+    filteredWhitelistSuggestions = filterSuggestions(whitelistUrl, sites);
+  }
 
   function toggleCategory(index: number, type: "blacklist" | "whitelist"): void {
     let categories = type === "blacklist" ? blacklistCategories : whitelistCategories;
@@ -61,9 +80,11 @@
     if (type === "blacklist" && blacklistUrl.trim()) {
       blacklistUrls = [...blacklistUrls, blacklistUrl];
       blacklistUrl = "";
+      updateBlacklistSuggestions();
     } else if (type === "whitelist" && whitelistUrl.trim()) {
       whitelistUrls = [...whitelistUrls, whitelistUrl];
       whitelistUrl = "";
+      updateWhitelistSuggestions();
     }
   }
 
@@ -124,11 +145,13 @@
   function switchTab(tab: "blacklist" | "whitelist"): void {
     activeTab = tab;
   }
+
   // Function to toggle the help popup
   function toggleHelpPopup(): void {
     showHelpPopup = !showHelpPopup;
   }
-  function goToScheduleSummaryPage(){
+
+  function goToScheduleSummaryPage() {
     currentPage.set('ScheduleSummaryPage');
   }
 </script>
@@ -189,9 +212,16 @@
             type="text"
             bind:value={blacklistUrl}
             placeholder="Add blacklist URL"
+            list="blacklist-suggestions"
+            on:input={updateBlacklistSuggestions}
             on:keydown={(e) => e.key === "Enter" && addUrl("blacklist")}
           />
           <button on:click={() => addUrl("blacklist")}>+</button>
+          <datalist id="blacklist-suggestions">
+            {#each filteredBlacklistSuggestions as suggestion}
+              <option value={suggestion} ></option>
+            {/each}
+          </datalist>
         </div>
         <div class="page2-url-list">
           <ul>
@@ -209,10 +239,17 @@
             type="text"
             bind:value={whitelistUrl}
             placeholder="Add whitelist URL"
+            list="whitelist-suggestions"
+            on:input={updateWhitelistSuggestions}
             on:keydown={(e) => e.key === "Enter" && addUrl("whitelist")}
           />
           <button on:click={() => addUrl("whitelist")}>+</button>
         </div>
+        <datalist id="whitelist-suggestions">
+          {#each filteredWhitelistSuggestions as suggestion}
+            <option value={suggestion}></option>
+          {/each}
+        </datalist>
         <div class="page2-url-list">
           <ul>
             {#each whitelistUrls as url, index}
@@ -231,6 +268,7 @@
     </div>
   </div>
 </div>
+
 {#if showHelpPopup}
   <div class="page2-help-popup">
     <div class="page2-popup-content">
