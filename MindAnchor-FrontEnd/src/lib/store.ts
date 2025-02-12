@@ -8,6 +8,9 @@ const savedPage = typeof window !== 'undefined'
 // Store for managing the current page
 export const currentPage = writable(savedPage);
 
+export const isBionified = writable(false);
+
+
 // Subscribe to changes in currentPage and save to localStorage only in the browser
 if (typeof window !== 'undefined') {
   currentPage.subscribe(value => {
@@ -26,4 +29,19 @@ type Schedule = {
 
 export const scheduleStore = writable<Schedule | null>(null);
 
-export const scheduleIdCounter = writable(0);
+const getStoredCounter = () => {
+  if (typeof window !== 'undefined') {
+    const storedValue = localStorage.getItem('scheduleIdCounter');
+    return storedValue ? parseInt(storedValue, 10) : 0;
+  }
+  return 0;
+};
+
+export const scheduleIdCounter = writable(getStoredCounter());
+
+// Persist changes to localStorage only in the browser
+if (typeof window !== 'undefined') {
+  scheduleIdCounter.subscribe((value) => {
+    localStorage.setItem('scheduleIdCounter', value.toString());
+  });
+}

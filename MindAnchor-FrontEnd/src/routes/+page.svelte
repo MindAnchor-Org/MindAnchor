@@ -22,5 +22,5 @@
 {:else if $currentPage === 'T_and_C_Page'}
     <T_and_C_Page />
 {:else if $currentPage === 'Active_State_Page'}
-    <ActiveStatePage/>
+    <ActiveStatePage/> 
 {/if}

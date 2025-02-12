@@ -10,7 +10,11 @@
   "icons": {
     "16": "icon.png"
   },
-  "permissions":[
-    "storage"
-  ]
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": ["*://*/*"]
 }

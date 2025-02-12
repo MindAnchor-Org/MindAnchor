@@ -51,10 +51,11 @@
       return;
     }
     scheduleIdCounter.update((currentId) => {
-      const id = currentId; // This is the current ID to use for the schedule
-      // Increment the counter after using the current ID
-      localStorage.setItem('scheduleIdCounter', (currentId + 1).toString());
-      return currentId + 1; // Increment and store the updated value
+      const id = currentId; // Use current ID for the schedule
+      const newId = currentId + 1; // Increment for the next schedule
+
+      localStorage.setItem('scheduleIdCounter', newId.toString()); // Store updated ID
+      return newId; // Update store value
     });
 
     // Use the current ID value to create the schedule

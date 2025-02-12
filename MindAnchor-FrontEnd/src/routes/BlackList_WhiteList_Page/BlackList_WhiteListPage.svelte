@@ -102,22 +102,43 @@
       alert("No scheduling data found. Please go back and confirm the schedule first.");
       return;
     }
-    const combinedData = {
+
+    // Try to retrieve and parse schedules from localStorage
+    let existingSchedules;
+    try {
+      existingSchedules = JSON.parse(localStorage.getItem('schedules') || '[]');
+        
+        // If it's not an array, reset it
+      if (!Array.isArray(existingSchedules)) {
+        console.error("Invalid schedules data in localStorage. Resetting.");
+        existingSchedules = [];
+      }
+    } catch (error) {
+      console.error("Error parsing schedules from localStorage:", error);
+      existingSchedules = []; // Reset to empty array if parsing fails
+    }
+
+    // Create new schedule data
+    const newSchedule = {
       schedule,
       blacklistWhitelist: {
-        blacklistCategories,
-        whitelistCategories,
-        blacklistUrls,
-        whitelistUrls
+          blacklistCategories,
+          whitelistCategories,
+          blacklistUrls,
+          whitelistUrls
       }
     };
 
-    localStorage.setItem('schedules', JSON.stringify(combinedData));
+    // Append new schedule
+    existingSchedules.push(newSchedule);
 
-    console.log("Combined Data Confirmed:", combinedData);
+    // Save updated list back to localStorage
+    localStorage.setItem('schedules', JSON.stringify(existingSchedules));
 
-    console.log("Blacklist & Whitelist Confirmed", { blacklistCategories, whitelistCategories, blacklistUrls, whitelistUrls });
+    console.log("Updated Schedule List:", existingSchedules);
+    goToScheduleSummaryPage();
   }
+
 
   function discard(): void {
     // Reset blacklist categories
