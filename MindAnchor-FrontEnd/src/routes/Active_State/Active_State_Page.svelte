@@ -1,19 +1,50 @@
-<script>
+<script lang="ts">
+	import { currentPage, currentScheduleId, scheduleStore, type Schedule } from "$lib/store";
     import { onMount } from "svelte";
       
     let countdown = 30; 
+    let schedule: Schedule | null = null;
+
   
     onMount(() => {
+      let selectedId = localStorage.getItem("currentScheduleId");
+      console.log("🔍 Retrieved Schedule ID:", selectedId, "Type:", typeof selectedId);
+
+      const storedData = localStorage.getItem("schedules");
+      console.log("📜 Retrieved Schedules:", storedData, "Type:", typeof storedData);
+
+      if (selectedId && storedData) {
+          try {
+              // Parse the schedules array
+              const schedules = JSON.parse(storedData);
+
+              // Find the schedule object inside each entry
+              const selectedSchedule = schedules.find((entry: any) => {
+                  return entry.schedule.id === parseInt(selectedId, 10);
+              });
+              if (selectedSchedule) {
+                  schedule = selectedSchedule.schedule;
+                // scheduleStore.set(selectedSchedule.schedule); // If you're using a store
+              } else {
+                  console.error("No schedule found with the ID:", selectedId);
+              }
+          } catch (error) {
+              console.error("Error parsing schedules:", error);
+          }
+      } else {
+          console.error("No selected ID or schedules found in localStorage.");
+      }
       const interval = setInterval(() => {
         if (countdown > 0) {
-          countdown--;
+            countdown--;
         } else {
-          clearInterval(interval);
-          console.log("Dashboard closed!");
-          window.close();
+            clearInterval(interval);
+            console.log("Dashboard closed!");
+            window.close();
         }
       }, 1000);
     });
+
   
     function bionifyText() {
       console.log("Bionify Text Activated");
@@ -34,6 +65,11 @@
   
     function stopActivity() {
       console.log("Activity Stopped");
+      currentScheduleId.set(0);
+      goToScheduleSummaryPage();
+    }
+    function goToScheduleSummaryPage(){
+      currentPage.set('ScheduleSummaryPage');
     }
   </script>
   
@@ -45,8 +81,8 @@
     <hr />
 
     <div class="description">
-        <p><strong>Schedule Name:</strong> &lt;name&gt;</p>
-        <p><strong>Start Time Date:</strong> &lt;date&gt;&lt;time&gt; | <strong>End Time Date:</strong> &lt;date&gt;&lt;time&gt;</p>
+        <p><strong>Schedule Id:</strong> {schedule?.id}</p>
+        <p><strong>Start Time Date:</strong> {schedule?.startDate + " : " + schedule?.startTime} | <strong>End Time Date:</strong> {schedule?.endDate + " : " + schedule?.endTime}</p>
     </div>
     
     <hr style="margin-top: 10px;">

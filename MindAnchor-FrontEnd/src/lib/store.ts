@@ -18,7 +18,7 @@ if (typeof window !== 'undefined') {
   });
 }
 
-type Schedule = {
+export type Schedule = {
   id: number;
   startDate: string;
   endDate: string;
@@ -45,3 +45,15 @@ if (typeof window !== 'undefined') {
     localStorage.setItem('scheduleIdCounter', value.toString());
   });
 }
+
+export const currentScheduleId = writable<number | null>(null);
+
+// Persist the current schedule ID to localStorage
+if (typeof window !== 'undefined') {
+  currentScheduleId.subscribe((value) => {
+    if (value !== null) {
+      localStorage.setItem('currentScheduleId', value.toString());
+    } 
+  });
+}
+

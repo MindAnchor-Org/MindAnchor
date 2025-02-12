@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { currentPage } from '../../lib/store.js';
+  import { currentPage, currentScheduleId } from '../../lib/store.js';
 
   type Schedule = {
     id: number;
@@ -46,6 +46,10 @@
       console.error("Error updating schedules in localStorage:", error);
     }
   }
+  function navigateToActiveState(id: number): void {
+    currentScheduleId.set(id); // Set the current schedule ID
+    currentPage.set('Active_State_Page'); // Navigate to the detail page
+  }
 </script>
 
 <style>
@@ -77,7 +81,6 @@
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
-    cursor: pointer;
   }
   .activity-box{
     height: 200px;
@@ -146,7 +149,7 @@
   {:else}
     <div class="activity-box">
       {#each schedules as schedule (schedule.id)}
-        <div class="activity-card">
+        <div class="activity-card" on:click={() => navigateToActiveState(schedule.id)}>
           <div>
             <p><strong>Activity Id:</strong> {schedule.id}</p>
             <p><strong>Start:</strong> {schedule.startDate} {schedule.startTime}</p>
