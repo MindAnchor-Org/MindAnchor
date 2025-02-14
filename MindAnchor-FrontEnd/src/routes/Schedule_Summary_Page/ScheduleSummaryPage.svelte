@@ -149,9 +149,9 @@
   {:else}
     <div class="activity-box">
       {#each schedules as schedule (schedule.id)}
-        <div class="activity-card" on:click={() => navigateToActiveState(schedule.id)}>
-          <div>
-            <p><strong>Activity Id:</strong> {schedule.id}</p>
+        <div class="activity-card">
+          <div on:click={() => navigateToActiveState(schedule.id)}>
+            <p><strong>Activity Name:</strong> {schedule.name}</p>
             <p><strong>Start:</strong> {schedule.startDate} {schedule.startTime}</p>
             <p><strong>End:</strong> {schedule.endDate} {schedule.endTime}</p>
           </div>

@@ -1,35 +1,20 @@
 <script lang="ts">
-  import { currentPage, scheduleIdCounter, scheduleStore } from '../../lib/store';
+  import { currentPage, currentScheduleId, scheduleIdCounter, scheduleStore } from '../../lib/store';
 
-  type Task = string;
+  let name : string;
   type Schedule = {
     id: number;
+    name: string,
     startDate: string;
     endDate: string;
     startTime: string;
     endTime: string;
-    tasks: Task[];
   };
 
   let startDate: string = '';
   let endDate: string = '';
   let startTime: string = '';
   let endTime: string = '';
-  let task: string = '';
-  let tasks: Task[] = [];
-
-
-  function addTask(): void {
-    if (task.trim()) {
-      tasks = [...tasks, task];
-      task = '';
-    }
-  }
-
-  function removeTask(index: number): void {
-    //The filter method creates a new array that doesnt include index of the passed index, and then assign the new array to the old tasks array.
-    tasks = tasks.filter((_, i) => i !== index);
-  }
 
   function confirmSchedule(): void {
     // Check if all fields are filled
@@ -50,6 +35,9 @@
       alert("The time cannot be the same!");
       return;
     }
+    if(name == null){
+      name = "untitled-"+localStorage.getItem('scheduleIdCounter');
+    }
     scheduleIdCounter.update((currentId) => {
       const id = currentId; // Use current ID for the schedule
       const newId = currentId + 1; // Increment for the next schedule
@@ -62,11 +50,11 @@
     scheduleIdCounter.subscribe((currentId) => {
       const schedule: Schedule = {
         id: currentId, // Use the updated ID here
+        name,
         startDate,
         endDate,
         startTime,
         endTime,
-        tasks
       };
 
       scheduleStore.set(schedule);
@@ -76,11 +64,11 @@
   }
 
   function discardSchedule(): void {
+    name = '';
     startDate = '';
     endDate = '';
     startTime = '';
     endTime = '';
-    tasks = [];
     goToScheduleSummaryPage();
   }
 
@@ -115,26 +103,15 @@
   </div>
 
   <div class="page1-tasks">
-    <label for="page1-tasks" style="font-weight: bold;">List the tasks to do during this activity:</label>
+    <label for="page1-tasks" style="font-weight: bold;">Name this activity:</label>
     <div id="page1-tasks" class="page1-task-input">
       <input
         type="text"
         style="border-radius: 20px;"
-        bind:value={task}
-        placeholder="Enter a task"
-        on:keydown={(e) => e.key === 'Enter' && addTask()}
+        bind:value={name}
+        placeholder="Enter a name for the schedule"
+        on:keydown={(e) => e.key === 'Enter' && confirmSchedule}
       />
-      <button on:click={addTask} style="font-size: 2em;">+</button>
-    </div>
-    <div class="page1-task-list-wrapper">
-      <ul>
-        {#each tasks as task, index}
-          <li>
-            {task}
-            <button on:click={() => removeTask(index)} style="font-size: 2em;">✖</button>
-          </li>
-        {/each}
-      </ul>
     </div>
   </div>
 
@@ -224,42 +201,6 @@
       background-color: red;
       color: white;
     }
-  
-    .page1-task-list-wrapper {
-      margin-top: 10px;
-      margin-bottom: 20px;
-      height: 200px;
-      max-height: 200px;
-      overflow-y: auto;
-      border: 1px solid #ccc;
-      padding: 10px;
-      border-radius: 5px;
-    }
-  
-    ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    }
-  
-    li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      margin-bottom: 5px;
-    }
-  
-    li button {
-      background: none;
-      border: none;
-      color: red;
-      cursor: pointer;
-      font-size: 1em;
-    }
-  
     .page1-actions {
       display: flex;
       justify-content: space-between;
