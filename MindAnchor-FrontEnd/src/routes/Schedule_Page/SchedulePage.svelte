@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { currentPage, currentScheduleId, scheduleIdCounter, scheduleStore } from '../../lib/store';
+  import { currentPage, scheduleIdCounter, scheduleStore } from '../../lib/store';
 
   let name : string;
   type Schedule = {
@@ -29,7 +29,7 @@
 
     // Check if end date and time are before start date and time
     if (end < start) {
-      alert("The end date and time cannot be before the start date and time.");
+      alert("The end date and time cannot be before the start date and time. And the name is optional");
       return;
     }else if(start.getTime() === end.getTime() ){
       alert("The time cannot be the same!");
@@ -109,8 +109,8 @@
         type="text"
         style="border-radius: 20px;"
         bind:value={name}
-        placeholder="Enter a name for the schedule"
-        on:keydown={(e) => e.key === 'Enter' && confirmSchedule}
+        placeholder="Enter a name for the schedule, or else it will be stored as untitled"
+        on:keydown={(e) => e.key === 'Enter' && confirmSchedule()}
       />
     </div>
   </div>

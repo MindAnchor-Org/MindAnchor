@@ -20,11 +20,11 @@ if (typeof window !== 'undefined') {
 
 export type Schedule = {
   id: number;
+  name : string
   startDate: string;
   endDate: string;
   startTime: string;
   endTime: string;
-  tasks: string[];
 };
 
 export const scheduleStore = writable<Schedule | null>(null);
@@ -56,4 +56,3 @@ if (typeof window !== 'undefined') {
     } 
   });
 }
-

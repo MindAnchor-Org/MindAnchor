@@ -15,7 +15,7 @@
 		"target": "esnext", // Target the latest ECMAScript version
 		"isolatedModules": true // Ensure each file can be transpiled independently
 	},
-	"include": ["src/**/*"], // Include all files in the src directory
+	"include": ["src/**/*","static/global.d.js","static/content.js"], // Include all files in the src directory
 	"exclude": ["node_modules", "**/*.spec.ts"] // Exclude node_modules and test files
 	// Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias
 	// except $lib which is handled by https://svelte.dev/docs/kit/configuration#files

@@ -133,10 +133,79 @@
     width: 80px;
     margin-bottom: 15px;
   }
+  .page1-header {
+      display: flex;
+      height: 25px;
+      margin-bottom: 10px;
+    }
+  .page1-header h1 {
+    font-size: 1.5em;
+    margin-left: 10;
+    margin-right: 400px;
+  }
+  
+  .page1-header img {
+    display: block;
+  }
+  .nav-container {
+    display:flex;
+    justify-content: space-around;
+    border-bottom: 2px solid #000080;
+    padding: 10px 20px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+  }
+
+  .nav-item:hover {
+    background-color: #e0e7ff;
+  }
+
+  .nav-item-active {
+    background-color: #c7d2fe;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .icon {
+    font-size: 18px;
+  }
 </style>
 
 <div class="container">
-  <h2 style="text-align: center;">Upcoming Activities</h2>
+  <div class="page1-header">
+    <img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px">
+    <h1>MindAnchor</h1>
+  </div>
+  <hr>
+  <nav class="nav-container">
+    <div class="nav-item-active">
+      <span class="icon">📅</span> Schedules
+    </div>
+    <div class="nav-item">
+      <span class="icon">📊</span> User Progress
+    </div>
+    <div class="nav-item">
+      <span class="icon">$</span> Subscription
+    </div>
+    <div class="nav-item">
+      <span class="icon">⚙️</span> Settings
+    </div>
+  </nav>
+  <h2 style="text-align: center; margin-top:10px;margin-bottom:10px;">Upcoming Activities</h2>
   {#if schedules.length === 0}
     <div class="empty-state-container">
       <div class="empty-state">
@@ -150,7 +219,7 @@
     <div class="activity-box">
       {#each schedules as schedule (schedule.id)}
         <div class="activity-card">
-          <div on:click={() => navigateToActiveState(schedule.id)}>
+          <div style="cursor: pointer;" on:click={() => navigateToActiveState(schedule.id)}>
             <p><strong>Activity Name:</strong> {schedule.name}</p>
             <p><strong>Start:</strong> {schedule.startDate} {schedule.startTime}</p>
             <p><strong>End:</strong> {schedule.endDate} {schedule.endTime}</p>

@@ -128,14 +128,10 @@
           whitelistUrls
       }
     };
-
     // Append new schedule
     existingSchedules.push(newSchedule);
-
     // Save updated list back to localStorage
     localStorage.setItem('schedules', JSON.stringify(existingSchedules));
-
-    console.log("Updated Schedule List:", existingSchedules);
     goToScheduleSummaryPage();
   }
 
