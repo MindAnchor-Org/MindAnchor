@@ -2,7 +2,7 @@
 
 Dear team,
 
-When installing the project, please run the following commands your terminal/CMD before coding.
+When installing the project, please run the following commands on your terminal/CMD before coding.
 
 ```npm install -g npm```
 
