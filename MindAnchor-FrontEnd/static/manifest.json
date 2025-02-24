@@ -11,7 +11,9 @@
     "16": "icon.png"
   },
   "permissions": [
+    "notifications",
     "storage",
+    "tabs",
     "activeTab",
     "scripting"
   ],
