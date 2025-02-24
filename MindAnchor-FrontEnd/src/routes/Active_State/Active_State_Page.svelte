@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { currentPage, currentScheduleId, isBionified, scheduleStore, type Schedule } from "$lib/store";
+  import { currentPage, currentScheduleId, isBionified, scheduleStore, type Schedule } from "../../lib/store";
   import { onMount } from "svelte";
   
   let countdown = 30; 
@@ -47,7 +47,7 @@
         window.close();
       }
     }, 1000);
-    chrome.storage.local.get("bionicEnabled", (data) => {
+    chrome.storage.local.get("bionicEnabled", (data: { bionicEnabled: boolean }) => {
       isBionicEnabled = data.bionicEnabled || false;
     });
   });

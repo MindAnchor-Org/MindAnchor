@@ -1,5 +1,5 @@
 <script>
-	import { currentPage } from "$lib/store";
+  import { currentPage } from "../../lib/store";
 
     /* import { onMount } from 'svelte'; */ // Not needed in this case
     let agreed = false;

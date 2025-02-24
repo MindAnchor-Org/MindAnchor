@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "sveltekit-adapter-chrome-extension": "^2.0.1"
+  }
+}
