@@ -15,6 +15,8 @@ export const isBionified = writable(false);
 if (typeof window !== 'undefined') {
   currentPage.subscribe(value => {
     localStorage.setItem('currentPage', value);
+    localStorage.setItem('scheduleIdCounter', '0');
+    localStorage.setItem('currentScheduleId', '0');
   });
 }
 
