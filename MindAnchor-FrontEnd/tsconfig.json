@@ -1,5 +1,4 @@
 {
-	"extends": "./.svelte-kit/tsconfig.json", // Ensure this file exists
 	"compilerOptions": {
 		"allowJs": true, // Allow JavaScript files to be compiled
 		"checkJs": true, // Enable type-checking for JavaScript files
