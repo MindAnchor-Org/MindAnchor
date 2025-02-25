@@ -17,7 +17,7 @@
 		"rootDir": "./src" // Specify the root directory of input files
 	},
 	"include": ["src/**/*"], // Include all files in the src directory
-	"exclude": ["node_modules", "**/*.spec.ts", "static/content.js", "static/global.d.js"] // Exclude node_modules, test files, and specific files to prevent overwriting
+	"exclude": ["node_modules", "**/*.spec.ts", "static/content.js", "static/global.d.js","./.svelte-kit/tsconfig.json"] // Exclude node_modules, test files, and specific files to prevent overwriting
 	// Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias
 	// except $lib which is handled by https://svelte.dev/docs/kit/configuration#files
 	//

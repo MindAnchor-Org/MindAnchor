@@ -325,6 +325,7 @@
     font-size: 1.5em;
     margin-left: 10;
     margin-right: 400px;
+    font-weight: bold;
   }
   .page2-header img {
     display: block;

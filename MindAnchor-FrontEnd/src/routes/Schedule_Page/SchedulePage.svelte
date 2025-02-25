@@ -144,6 +144,7 @@
     h1 {
       font-size: 1.8em;
       margin: 0 0 10px;
+      font-weight: bold;
     }
   
     hr {
