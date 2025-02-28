@@ -1,15 +1,15 @@
 <script lang="ts">
   const features = [
   {
-    icon: "../../public/pie-chart-icon.png",
+    icon: "../../../static/pie-chart-icon.png",
     text: "View your focus journey in an interactive pie chart with analysis on key improvements and distraction reductions."
   },
   {
-    icon: "../../public/calendar-icon.png", // Replace with the actual path of your calendar image
+    icon: "../../../static/calendar-icon.png", // Replace with the actual path of your calendar image
     text: "Sort and track your progress over days, weeks, months, or years to identify trends."
   },
   {
-    icon: "../../public/streak-icon.png", // Replace with the actual path of your trophy image
+    icon: "../../../static/streak-icon.png", // Replace with the actual path of your trophy image
     text: "Earn streak badges and focus points to celebrate your productivity milestones."
   }
 ];
