@@ -1,3 +1,5 @@
 <script></script>
 <style></style>
-<div></div>
+<div>
+    <h1>This is progress Chart</h1>
+</div>

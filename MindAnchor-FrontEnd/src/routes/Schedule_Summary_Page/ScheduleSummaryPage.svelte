@@ -50,6 +50,15 @@
     currentScheduleId.set(id); // Set the current schedule ID
     currentPage.set('Active_State_Page'); // Navigate to the detail page
   }
+  function goToUserProgress() {
+    currentPage.set('ProgressChart');
+  }
+  function goToSettings() {
+    currentPage.set('Settings');
+  }
+  function goToSubscription() {
+    currentPage.set('Subscription');
+  }
 </script>
 
 <style>
@@ -197,13 +206,19 @@
       <span class="icon">📅</span> Schedules
     </div>
     <div class="nav-item">
-      <span class="icon">📊</span> User Progress
+      <button class="icon" on:click={goToUserProgress} type="button">
+        📊 User Progress
+      </button>
+    </div>    
+    <div class="nav-item">
+      <button class="icon" on:click={goToSettings} type="button">
+        $ Subscription
+      </button>
     </div>
     <div class="nav-item">
-      <span class="icon">$</span> Subscription
-    </div>
-    <div class="nav-item">
-      <span class="icon">⚙️</span> Settings
+      <button class="icon" on:click={goToSubscription} type="button">
+        ⚙️ Settings
+      </button>
     </div>
   </nav>
   <h2 style="text-align: center; margin-top:10px;margin-bottom:10px;">Upcoming Activities</h2>

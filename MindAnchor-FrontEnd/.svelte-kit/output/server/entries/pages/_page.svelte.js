@@ -186,7 +186,7 @@ function BlackList_WhiteListPage($$payload, $$props) {
 function ScheduleSummaryPage($$payload, $$props) {
   push();
   let schedules = [];
-  $$payload.out += `<div class="container svelte-bw3odq"><div class="page1-header svelte-bw3odq"><img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px" class="svelte-bw3odq"> <h1 class="svelte-bw3odq">MindAnchor</h1></div> <hr> <nav class="nav-container svelte-bw3odq"><div class="nav-item-active svelte-bw3odq"><span class="icon svelte-bw3odq">📅</span> Schedules</div> <div class="nav-item svelte-bw3odq"><span class="icon svelte-bw3odq">📊</span> User Progress</div> <div class="nav-item svelte-bw3odq"><span class="icon svelte-bw3odq">$</span> Subscription</div> <div class="nav-item svelte-bw3odq"><span class="icon svelte-bw3odq">⚙️</span> Settings</div></nav> <h2 style="text-align: center; margin-top:10px;margin-bottom:10px;">Upcoming Activities</h2> `;
+  $$payload.out += `<div class="container svelte-bw3odq"><div class="page1-header svelte-bw3odq"><img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px" class="svelte-bw3odq"> <h1 class="svelte-bw3odq">MindAnchor</h1></div> <hr> <nav class="nav-container svelte-bw3odq"><div class="nav-item-active svelte-bw3odq"><span class="icon svelte-bw3odq">📅</span> Schedules</div> <div class="nav-item svelte-bw3odq"><button class="icon svelte-bw3odq" type="button">📊 User Progress</button></div> <div class="nav-item svelte-bw3odq"><button class="icon svelte-bw3odq" type="button">$ Subscription</button></div> <div class="nav-item svelte-bw3odq"><button class="icon svelte-bw3odq" type="button">⚙️ Settings</button></div></nav> <h2 style="text-align: center; margin-top:10px;margin-bottom:10px;">Upcoming Activities</h2> `;
   if (schedules.length === 0) {
     $$payload.out += "<!--[-->";
     $$payload.out += `<div class="empty-state-container svelte-bw3odq"><div class="empty-state svelte-bw3odq"><img src="/no_schedule.svg" alt="No Schedule" class="svelte-bw3odq"> <p>If you have scheduled any activities, they will appear here.</p> <p>You currently have no activities scheduled!</p> <p>Schedule an activity now with the button below :)</p></div></div>`;
@@ -223,7 +223,7 @@ function Active_State_Page($$payload, $$props) {
   pop();
 }
 function Progress_Chart($$payload) {
-  $$payload.out += `<div></div>`;
+  $$payload.out += `<div><h1>This is progress Chart</h1></div>`;
 }
 function _page($$payload) {
   var $$store_subs;
