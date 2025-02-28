@@ -11,6 +11,7 @@
         currentPage.set('Subscription');
     }
 </script>
+
 <style>
     .page1-header {
       display: flex;
@@ -63,6 +64,7 @@
     font-size: 18px;
   }
 </style>
+
 <div class="container">
     <div class="page1-header">
         <img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px">
@@ -76,20 +78,20 @@
               </button>
         </div>
         <div class="nav-item-active">
-            <button class="icon" type="button">
+            <button class="icon">
               📊 User Progress
             </button>
         </div>    
         <div class="nav-item">
-            <button class="icon" type="button">
-              $ Subscription
-            </button>
+          <button class="icon" on:click={goToSettings} type="button">
+            $ Subscription
+          </button>
         </div>
         <div class="nav-item">
-            <button class="icon" type="button">
-              ⚙️ Settings
-            </button>
+          <button class="icon" on:click={goToSubscription} type="button">
+            ⚙️ Settings
+          </button>
         </div>
         </nav>
-    <h1>This is progress Chart</h1>
+    
 </div>

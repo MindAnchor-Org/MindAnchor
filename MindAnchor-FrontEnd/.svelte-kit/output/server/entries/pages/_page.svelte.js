@@ -224,7 +224,7 @@ function Active_State_Page($$payload, $$props) {
 }
 function Progress_Chart($$payload, $$props) {
   push();
-  $$payload.out += `<div class="container"><div class="page1-header svelte-u59e5j"><img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px" class="svelte-u59e5j"> <h1 class="svelte-u59e5j">MindAnchor</h1></div> <hr> <nav class="nav-container svelte-u59e5j"><div class="nav-item svelte-u59e5j"><button class="icon svelte-u59e5j" type="button">📅 Schedules</button></div> <div class="nav-item-active svelte-u59e5j"><button class="icon svelte-u59e5j" type="button">📊 User Progress</button></div> <div class="nav-item svelte-u59e5j"><button class="icon svelte-u59e5j" type="button">$ Subscription</button></div> <div class="nav-item svelte-u59e5j"><button class="icon svelte-u59e5j" type="button">⚙️ Settings</button></div></nav> <h1>This is progress Chart</h1></div>`;
+  $$payload.out += `<div class="container"><div class="page1-header svelte-u59e5j"><img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px" class="svelte-u59e5j"> <h1 class="svelte-u59e5j">MindAnchor</h1></div> <hr> <nav class="nav-container svelte-u59e5j"><div class="nav-item svelte-u59e5j"><button class="icon svelte-u59e5j" type="button">📅 Schedules</button></div> <div class="nav-item-active svelte-u59e5j"><button class="icon svelte-u59e5j">📊 User Progress</button></div> <div class="nav-item svelte-u59e5j"><button class="icon svelte-u59e5j" type="button">$ Subscription</button></div> <div class="nav-item svelte-u59e5j"><button class="icon svelte-u59e5j" type="button">⚙️ Settings</button></div></nav></div>`;
   pop();
 }
 function _page($$payload) {
