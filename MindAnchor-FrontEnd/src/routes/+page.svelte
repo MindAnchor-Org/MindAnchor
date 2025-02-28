@@ -7,6 +7,7 @@
     import T_and_C_Page from './T_and_C_Page/T_and_C_Page.svelte';
 	import { currentPage } from '../lib/store';
 	import ActiveStatePage from './Active_State/Active_State_Page.svelte';
+    import Progress_Chart from './Progress_Chart/Progress_Chart.svelte';
 </script>
   
 {#if $currentPage === 'WelcomePage'}
@@ -21,6 +22,8 @@
     <ScheduleSummaryPage />
 {:else if $currentPage === 'T_and_C_Page'}
     <T_and_C_Page />
+{:else if $currentPage === 'ProgressChart'}
+    <Progress_Chart />
 {:else if $currentPage === 'Active_State_Page'}
     <ActiveStatePage/> 
 {/if}

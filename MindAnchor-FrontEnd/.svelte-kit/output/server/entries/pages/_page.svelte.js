@@ -52,6 +52,8 @@ const currentPage = writable(savedPage);
 if (typeof window !== "undefined") {
   currentPage.subscribe((value) => {
     localStorage.setItem("currentPage", value);
+    localStorage.setItem("scheduleIdCounter", "0");
+    localStorage.setItem("currentScheduleId", "0");
   });
 }
 const getStoredCounter = () => {
@@ -220,6 +222,9 @@ function Active_State_Page($$payload, $$props) {
   $$payload.out += `<div class="container svelte-1rhkqnl"><div class="page1-header svelte-1rhkqnl"><img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px" class="svelte-1rhkqnl"> <h1 class="svelte-1rhkqnl">MindAnchor</h1></div> <hr class="svelte-1rhkqnl"> <div class="description svelte-1rhkqnl"><p><strong class="svelte-1rhkqnl">Schedule Name:</strong> ${escape_html(schedule?.name)}</p> <p><strong class="svelte-1rhkqnl">Start Time Date:</strong> ${escape_html(schedule?.startDate + " : " + schedule?.startTime)} | <strong class="svelte-1rhkqnl">End Time Date:</strong> ${escape_html(schedule?.endDate + " : " + schedule?.endTime)}</p></div> <hr style="margin-top: 10px;" class="svelte-1rhkqnl"> <div class="buttons svelte-1rhkqnl"><button id="bionifyButton" class="btn btn-primary svelte-1rhkqnl"${attr("disabled", isBionicEnabled, true)}>Bionify webpage text</button> <button id="unbionifyButton" class="btn btn-secondary svelte-1rhkqnl"${attr("disabled", true, true)}>Unbionify webpage text</button></div> <div class="buttons svelte-1rhkqnl"><button class="btn btn-primary svelte-1rhkqnl">Activate motivational cues</button> <button class="btn btn-secondary svelte-1rhkqnl">Deactivate motivational cues</button></div> <h2 class="svelte-1rhkqnl">How have you been doing so far?</h2> <canvas id="chart"></canvas> <div class="actions svelte-1rhkqnl"><button class="btn stop-btn svelte-1rhkqnl">Stop current activity</button> <p class="countdown svelte-1rhkqnl">The dashboard will close in <strong class="svelte-1rhkqnl">${escape_html(countdown)}</strong> seconds!</p></div></div>`;
   pop();
 }
+function Progress_Chart($$payload) {
+  $$payload.out += `<div></div>`;
+}
 function _page($$payload) {
   var $$store_subs;
   if (store_get($$store_subs ??= {}, "$currentPage", currentPage) === "WelcomePage") {
@@ -252,11 +257,18 @@ function _page($$payload) {
               T_and_C_Page($$payload);
             } else {
               $$payload.out += "<!--[!-->";
-              if (store_get($$store_subs ??= {}, "$currentPage", currentPage) === "Active_State_Page") {
+              if (store_get($$store_subs ??= {}, "$currentPage", currentPage) === "ProgressChart") {
                 $$payload.out += "<!--[-->";
-                Active_State_Page($$payload);
+                Progress_Chart($$payload);
               } else {
                 $$payload.out += "<!--[!-->";
+                if (store_get($$store_subs ??= {}, "$currentPage", currentPage) === "Active_State_Page") {
+                  $$payload.out += "<!--[-->";
+                  Active_State_Page($$payload);
+                } else {
+                  $$payload.out += "<!--[!-->";
+                }
+                $$payload.out += `<!--]-->`;
               }
               $$payload.out += `<!--]-->`;
             }
