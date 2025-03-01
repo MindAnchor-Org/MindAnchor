@@ -10,7 +10,7 @@
 
   let selectedImageAlignment = 'Center';
   let selectedAnimationType = 'Fade';
-  let selectedAnimationDuration = '1s';
+  let selectedAnimationDuration = '10 seconds';
   let backgroundColor = '#ffffff';
   let textColor = '#000000';
   let uploadedImage: File | null = null;
@@ -122,6 +122,11 @@
   height: 35px; 
   padding: 5px;
   font-size: 16px; 
+  }
+
+  h2{
+    font-size: 18px;
+    padding-bottom: 20px;
   }
 
   label{
@@ -279,6 +284,10 @@
       
   </div>
 
+  <h2>
+    Set preferences for blacklisted site interference.
+  </h2>
+
   <div class="settings-container">
       <div class="image-upload-section">
       <label>Upload Image:
@@ -305,9 +314,9 @@
 
       <label>Animation Duration:
           <select bind:value={selectedAnimationDuration}>
-          <option>10s</option>
-          <option>20s</option>
-          <option>30s</option>
+          <option>10 seconds</option>
+          <option>20 seconds</option>
+          <option>30 seconds</option>
           </select>
       </label>
       <label>Background Colour:

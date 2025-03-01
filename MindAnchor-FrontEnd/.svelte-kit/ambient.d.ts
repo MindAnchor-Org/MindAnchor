@@ -26,20 +26,15 @@
  * ```
  */
 declare module '$env/static/private' {
-	export const NVM_INC: string;
 	export const TERM_PROGRAM: string;
 	export const NODE: string;
-	export const NVM_CD_FLAGS: string;
 	export const INIT_CWD: string;
 	export const SHELL: string;
 	export const TERM: string;
 	export const TMPDIR: string;
 	export const HOMEBREW_REPOSITORY: string;
-	export const CONDA_SHLVL: string;
 	export const npm_config_global_prefix: string;
-	export const CONDA_PROMPT_MODIFIER: string;
 	export const TERM_PROGRAM_VERSION: string;
-	export const GSETTINGS_SCHEMA_DIR_CONDA_BACKUP: string;
 	export const MallocNanoZone: string;
 	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
 	export const ZDOTDIR: string;
@@ -47,21 +42,16 @@ declare module '$env/static/private' {
 	export const npm_config_noproxy: string;
 	export const npm_config_local_prefix: string;
 	export const USER: string;
-	export const NVM_DIR: string;
 	export const COMMAND_MODE: string;
-	export const CONDA_EXE: string;
 	export const npm_config_globalconfig: string;
 	export const SSH_AUTH_SOCK: string;
 	export const __CF_USER_TEXT_ENCODING: string;
 	export const VSCODE_PROFILE_INITIALIZED: string;
 	export const npm_execpath: string;
-	export const _CE_CONDA: string;
 	export const PATH: string;
-	export const GSETTINGS_SCHEMA_DIR: string;
 	export const _: string;
 	export const npm_package_json: string;
 	export const __CFBundleIdentifier: string;
-	export const CONDA_PREFIX: string;
 	export const USER_ZDOTDIR: string;
 	export const npm_config_init_module: string;
 	export const npm_config_userconfig: string;
@@ -76,7 +66,6 @@ declare module '$env/static/private' {
 	export const npm_config_npm_version: string;
 	export const npm_config_node_gyp: string;
 	export const XPC_SERVICE_NAME: string;
-	export const _CE_M: string;
 	export const npm_package_version: string;
 	export const VSCODE_INJECTION: string;
 	export const HOME: string;
@@ -84,12 +73,9 @@ declare module '$env/static/private' {
 	export const VSCODE_GIT_ASKPASS_MAIN: string;
 	export const HOMEBREW_PREFIX: string;
 	export const LOGNAME: string;
-	export const CONDA_PYTHON_EXE: string;
 	export const npm_config_cache: string;
 	export const npm_lifecycle_script: string;
 	export const VSCODE_GIT_IPC_HANDLE: string;
-	export const NVM_BIN: string;
-	export const CONDA_DEFAULT_ENV: string;
 	export const npm_config_user_agent: string;
 	export const HOMEBREW_CELLAR: string;
 	export const INFOPATH: string;
@@ -130,20 +116,15 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
-		NVM_INC: string;
 		TERM_PROGRAM: string;
 		NODE: string;
-		NVM_CD_FLAGS: string;
 		INIT_CWD: string;
 		SHELL: string;
 		TERM: string;
 		TMPDIR: string;
 		HOMEBREW_REPOSITORY: string;
-		CONDA_SHLVL: string;
 		npm_config_global_prefix: string;
-		CONDA_PROMPT_MODIFIER: string;
 		TERM_PROGRAM_VERSION: string;
-		GSETTINGS_SCHEMA_DIR_CONDA_BACKUP: string;
 		MallocNanoZone: string;
 		ORIGINAL_XDG_CURRENT_DESKTOP: string;
 		ZDOTDIR: string;
@@ -151,21 +132,16 @@ declare module '$env/dynamic/private' {
 		npm_config_noproxy: string;
 		npm_config_local_prefix: string;
 		USER: string;
-		NVM_DIR: string;
 		COMMAND_MODE: string;
-		CONDA_EXE: string;
 		npm_config_globalconfig: string;
 		SSH_AUTH_SOCK: string;
 		__CF_USER_TEXT_ENCODING: string;
 		VSCODE_PROFILE_INITIALIZED: string;
 		npm_execpath: string;
-		_CE_CONDA: string;
 		PATH: string;
-		GSETTINGS_SCHEMA_DIR: string;
 		_: string;
 		npm_package_json: string;
 		__CFBundleIdentifier: string;
-		CONDA_PREFIX: string;
 		USER_ZDOTDIR: string;
 		npm_config_init_module: string;
 		npm_config_userconfig: string;
@@ -180,7 +156,6 @@ declare module '$env/dynamic/private' {
 		npm_config_npm_version: string;
 		npm_config_node_gyp: string;
 		XPC_SERVICE_NAME: string;
-		_CE_M: string;
 		npm_package_version: string;
 		VSCODE_INJECTION: string;
 		HOME: string;
@@ -188,12 +163,9 @@ declare module '$env/dynamic/private' {
 		VSCODE_GIT_ASKPASS_MAIN: string;
 		HOMEBREW_PREFIX: string;
 		LOGNAME: string;
-		CONDA_PYTHON_EXE: string;
 		npm_config_cache: string;
 		npm_lifecycle_script: string;
 		VSCODE_GIT_IPC_HANDLE: string;
-		NVM_BIN: string;
-		CONDA_DEFAULT_ENV: string;
 		npm_config_user_agent: string;
 		HOMEBREW_CELLAR: string;
 		INFOPATH: string;
