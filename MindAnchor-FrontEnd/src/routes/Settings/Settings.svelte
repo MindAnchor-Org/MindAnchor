@@ -13,14 +13,47 @@
   let selectedAnimationDuration = '10 seconds';
   let backgroundColor = '#ffffff';
   let textColor = '#000000';
+  // let uploadedImage: File | null = null;
+
+  import { onMount } from 'svelte';
+
   let uploadedImage: File | null = null;
+  let previewImage: string | null = null;
+  let isDragging = false;
 
   function handleImageUpload(event: Event) {
       const target = event.target as HTMLInputElement;
       if (target.files && target.files.length > 0) {
           uploadedImage = target.files[0];
+          previewImage = URL.createObjectURL(uploadedImage);
       }
   }
+
+  function handleDragOver(event: DragEvent) {
+      event.preventDefault();
+      isDragging = true;
+  }
+
+  function handleDragLeave() {
+      isDragging = false;
+  }
+
+  function handleDrop(event: DragEvent) {
+      event.preventDefault();
+      isDragging = false;
+
+      if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
+          uploadedImage = event.dataTransfer.files[0];
+          previewImage = URL.createObjectURL(uploadedImage);
+      }
+  }
+
+  // function handleImageUpload(event: Event) {
+  //     const target = event.target as HTMLInputElement;
+  //     if (target.files && target.files.length > 0) {
+  //         uploadedImage = target.files[0];
+  //     }
+  // }
   function goToUserProgress() {
     currentPage.set('ProgressChart');
   }
@@ -33,6 +66,15 @@
   function goToSubscription() {
       currentPage.set('Subscription');
   }
+  // let previewImage = String | null=null;
+
+  // function handleImageUpload(event) {
+  //     const file = event.target.files[0];
+  //     if (file) {
+  //         // previewImage = "dgjfbjfb";
+  //         previewImage = URL.createObjectURL(file);
+  //     }
+  // }
 </script>
 
 <style>
@@ -133,12 +175,126 @@
       font-size: 16px;
   }
 
-  .image-upload-section {
+  /* .image-upload-section {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       width: 40%;
+  } */
+
+  /* .image-upload-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    gap: 15px;
   }
+
+  .upload-box {
+      width: 100%;
+      max-width: 350px;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px dashed #007bff; 
+      border-radius: 12px; 
+      background-color: #f8f9fa;
+      color: #333;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+  }
+
+  .upload-box:hover {
+      background-color: #e3f2fd;
+      border-color: #0056b3;
+  }
+
+  .upload-box:active {
+      background-color: #d0ebff;
+  }
+
+  .upload-box span {
+      pointer-events: none;
+  }
+
+  .image-preview {
+      max-width: 100%;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid #007bff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  } */
+
+  .image-upload-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      border: 3px #007bff;
+      border-radius: 12px;
+      width: 200px;
+      max-width: 400px;
+      height: 180px;
+      background-color: #f8f9fa;
+      transition: all 0.3s ease-in-out;
+      cursor: pointer;
+      text-align: center;
+  }
+
+  .image-upload-container.dragging {
+      background-color: #e3f2fd;
+      border-color: #0056b3;
+  }
+
+  .image-upload-container:hover {
+      background-color: #e3f2fd;
+      border-color: #0056b3;
+  }
+
+  .upload-text {
+      font-size: 16px;
+      color: #333;
+      font-weight: 600;
+  }
+
+  .hidden-input {
+      display: none;
+  }
+
+  .image-preview {
+      margin-top: 15px;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid #007bff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .reset-button {
+      margin-top: 10px;
+      background-color: #007bff;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.3s;
+  }
+
+  .reset-button:hover {
+      background-color: darkred;
+  }
+
 
   .preferences-section {
   display: flex;
@@ -159,12 +315,6 @@
   flex-grow: 1; 
   max-width: 200px; 
   }
-
-  /* select , input{
-  display: block;
-  margin-left: auto; 
-  width: 200px;
-  } */
 
   select {
       display: block;
@@ -362,11 +512,44 @@
   </h2>
 
   <div class="settings-container">
-      <div class="image-upload-section">
+      <!-- <div class="image-upload-section">
       <label>Upload Image:
           <input type="file" accept="image/*" on:change={handleImageUpload}>
       </label>
-      </div>
+      </div> -->
+
+      <div class="image-upload-section">
+        <label for="imageUpload" class="upload-box">
+            {#if uploadedImage}
+                <img src={URL.createObjectURL(uploadedImage)} alt="Uploaded Image Preview" class="image-preview">
+            {:else}
+                <span>Click to upload an image</span>
+            {/if}
+            <input type="file" id="imageUpload" accept="image/*" on:change={handleImageUpload} hidden>
+        </label>
+    </div>
+
+      <!-- <div 
+      class="image-upload-container {isDragging ? 'dragging' : ''}"
+      role="button"
+      tabindex="0"
+      aria-label="Upload an image"
+      on:dragover={handleDragOver}
+      on:dragleave={handleDragLeave}
+      on:drop={handleDrop}
+      on:click={() => document.getElementById('fileInput')?.click()}
+      on:keypress={(e) => e.key === 'Enter' && document.getElementById('fileInput')?.click()}>
+        {#if previewImage}
+            <img src={previewImage} alt="Preview" class="image-preview" />
+            <button type="button" class="reset-button" on:click={() => { uploadedImage = null; previewImage = null; }}>Remove</button>
+        {:else}
+            <p class="upload-text">Drag & Drop an image or <strong>Click to Upload</strong></p>
+        {/if}
+      <input type="file" id="fileInput" class="hidden-input" accept="image/*" on:change={handleImageUpload} />
+      </div> -->
+
+    
+    
 
       <div class="preferences-section">
       <label>Image Alignment:
