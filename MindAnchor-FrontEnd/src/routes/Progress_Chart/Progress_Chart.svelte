@@ -13,7 +13,28 @@
 </script>
 
 <style>
-    .page1-header {
+  :global(html, body) {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    font-family: 'Inria Sans', sans-serif;
+  }
+
+  .container {
+    width: 984px;
+    border: 1px solid #0e0c0c;
+    background-color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-family: 'Inria Sans', sans-serif;
+  }
+
+  .page1-header {
       display: flex;
       height: 25px;
       margin-bottom: 10px;
@@ -60,6 +81,7 @@
     font-weight: 600;
     text-decoration: none;
   }
+
   .icon {
     font-size: 18px;
   }
