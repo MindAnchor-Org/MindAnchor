@@ -160,11 +160,84 @@
   max-width: 200px; 
   }
 
-  select , input{
+  /* select , input{
   display: block;
   margin-left: auto; 
   width: 200px;
+  } */
+
+  select {
+      display: block;
+      margin-left: auto;
+      width: 220px;
+      height: 40px;
+      padding: 8px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 8px; /* Curved edges */
+      background-color: #f9f9f9;
+      color: #333;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease-in-out;
   }
+
+  select:hover {
+      border-color: #007bff;
+  }
+
+  select:focus {
+      border-color: #0056b3;
+      box-shadow: 0 0 5px rgba(0, 91, 187, 0.5);
+  }
+
+  option {
+      background: white;
+      color: black;
+      font-size: 16px;
+  }
+
+  input[type="color"] {
+      appearance: none;
+      width: 200px;
+      height: 40px;
+      border: none;
+      border-radius: 8px; 
+      cursor: pointer;
+      border: 2px solid #ccc;
+      padding: 5px;
+      background: none;
+      outline: none;
+      transition: all 0.3s ease-in-out;
+  }
+
+  input[type="color"]::-webkit-color-swatch {
+      border-radius: 8px;
+      border: 2px solid #ccc;
+  }
+
+  input[type="color"]::-moz-color-swatch {
+      border-radius: 8px;
+      border: 2px solid #ccc;
+  }
+
+  input[type="color"]:hover {
+      border: 2px solid #007bff;
+  }
+
+  input[type="color"]:focus {
+      border: 2px solid #0056b3;
+      box-shadow: 0 0 5px rgba(0, 91, 187, 0.5);
+  }
+
+  label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 500;
+  }
+
 
   .save-btn {
       background-color: rgb(1, 1, 124);
