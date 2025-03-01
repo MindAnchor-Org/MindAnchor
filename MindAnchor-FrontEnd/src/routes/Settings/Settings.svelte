@@ -21,7 +21,9 @@
           uploadedImage = target.files[0];
       }
   }
-
+  function goToUserProgress() {
+    currentPage.set('ProgressChart');
+  }
   function goToScheduleSummaryPage() {
       currentPage.set('ScheduleSummaryPage');
   }
@@ -228,17 +230,17 @@
           </button>
     </div>
     <div class="nav-item">
-        <button class="icon">
+        <button class="icon" on:click={goToUserProgress} >
           📊 User Progress
         </button>
     </div>    
-    <div class="nav-item-active">
-      <button class="icon" on:click={goToSettings} type="button">
+    <div class="nav-item">
+      <button class="icon" on:click={goToSubscription} type="button">
         $ Subscription
       </button>
     </div>
-    <div class="nav-item">
-      <button class="icon" on:click={goToSubscription} type="button">
+    <div class="nav-item-active">
+      <button class="icon" type="button">
         ⚙️ Settings
       </button>
     </div>
