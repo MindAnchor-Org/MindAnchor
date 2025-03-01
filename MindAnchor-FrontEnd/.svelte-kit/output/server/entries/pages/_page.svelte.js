@@ -2,6 +2,7 @@ import { X as current_component, S as pop, P as push, Y as ensure_array_like, Z 
 import { e as escape_html } from "../../chunks/escaping.js";
 import "clsx";
 import { w as writable } from "../../chunks/index2.js";
+import "chart.js/auto";
 const replacements = {
   translate: /* @__PURE__ */ new Map([
     [true, "yes"],
@@ -224,7 +225,7 @@ function Active_State_Page($$payload, $$props) {
 }
 function Progress_Chart($$payload, $$props) {
   push();
-  $$payload.out += `<div class="container svelte-17y1myr"><div class="page1-header svelte-17y1myr"><img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px" class="svelte-17y1myr"> <h1 class="svelte-17y1myr">MindAnchor</h1></div> <hr> <nav class="nav-container svelte-17y1myr"><div class="nav-item svelte-17y1myr"><button class="icon svelte-17y1myr" type="button">📅 Schedules</button></div> <div class="nav-item-active svelte-17y1myr"><button class="icon svelte-17y1myr">📊 User Progress</button></div> <div class="nav-item svelte-17y1myr"><button class="icon svelte-17y1myr" type="button">$ Subscription</button></div> <div class="nav-item svelte-17y1myr"><button class="icon svelte-17y1myr" type="button">⚙️ Settings</button></div></nav></div>`;
+  $$payload.out += `<div class="container svelte-17y1myr"><div class="page1-header svelte-17y1myr"><img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px" class="svelte-17y1myr"> <h1 class="svelte-17y1myr">MindAnchor</h1></div> <hr> <nav class="nav-container svelte-17y1myr"><div class="nav-item svelte-17y1myr"><button class="icon svelte-17y1myr" type="button">📅 Schedules</button></div> <div class="nav-item-active svelte-17y1myr"><button class="icon svelte-17y1myr">📊 User Progress</button></div> <div class="nav-item svelte-17y1myr"><button class="icon svelte-17y1myr" type="button">$ Subscription</button></div> <div class="nav-item svelte-17y1myr"><button class="icon svelte-17y1myr" type="button">⚙️ Settings</button></div></nav> <div style="width: 300px; height: 300px;"><canvas></canvas></div></div>`;
   pop();
 }
 function SubscriptionPlan($$payload, $$props) {

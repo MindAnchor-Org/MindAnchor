@@ -1,5 +1,33 @@
-<script>
+<script lang="ts">
   import { currentPage } from "../../lib/store";
+
+  import { onMount } from "svelte";
+  import Chart from "chart.js/auto";
+
+  let chartContainer: any;
+
+  onMount(() => {
+    if (chartContainer) {
+      new Chart(chartContainer, {
+        type: "pie",
+        data: {
+          labels: ["Red", "Blue", "Yellow"],
+          datasets: [
+            {
+              label: "My Pie Chart",
+              data: [30, 40, 30],
+              backgroundColor: ["#ff6384", "#36a2eb", "#ffcd56"],
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false
+        }
+      });
+    }
+  });
 
     function goToScheduleSummaryPage(){
         currentPage.set('ScheduleSummaryPage');
@@ -114,6 +142,10 @@
             ⚙️ Settings
           </button>
         </div>
-        </nav>
+    </nav>
+    <div style="width: 300px; height: 300px;">
+      <canvas bind:this={chartContainer}></canvas>
+    </div>
+    
     
 </div>
