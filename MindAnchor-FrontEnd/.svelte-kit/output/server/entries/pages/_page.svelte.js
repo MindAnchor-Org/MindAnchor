@@ -227,6 +227,38 @@ function Progress_Chart($$payload, $$props) {
   $$payload.out += `<div class="container"><div class="page1-header svelte-u59e5j"><img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px" class="svelte-u59e5j"> <h1 class="svelte-u59e5j">MindAnchor</h1></div> <hr> <nav class="nav-container svelte-u59e5j"><div class="nav-item svelte-u59e5j"><button class="icon svelte-u59e5j" type="button">📅 Schedules</button></div> <div class="nav-item-active svelte-u59e5j"><button class="icon svelte-u59e5j">📊 User Progress</button></div> <div class="nav-item svelte-u59e5j"><button class="icon svelte-u59e5j" type="button">$ Subscription</button></div> <div class="nav-item svelte-u59e5j"><button class="icon svelte-u59e5j" type="button">⚙️ Settings</button></div></nav></div>`;
   pop();
 }
+function SubscriptionPlan($$payload, $$props) {
+  push();
+  const features = [
+    {
+      icon: "../../../static/pie-chart-icon.png",
+      text: "View your focus journey in an interactive pie chart with analysis on key improvements and distraction reductions."
+    },
+    {
+      icon: "../../../static/calendar-icon.png",
+      // Replace with the actual path of your calendar image
+      text: "Sort and track your progress over days, weeks, months, or years to identify trends."
+    },
+    {
+      icon: "../../../static/streak-icon.png",
+      // Replace with the actual path of your trophy image
+      text: "Earn streak badges and focus points to celebrate your productivity milestones."
+    }
+  ];
+  const each_array = ensure_array_like(features);
+  $$payload.out += `<div class="container"><div class="page1-header svelte-18ln71j"><img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px" class="svelte-18ln71j"> <h1 class="svelte-18ln71j">MindAnchor</h1></div> <hr> <nav class="nav-container svelte-18ln71j"><div class="nav-item svelte-18ln71j"><button class="icon svelte-18ln71j" type="button">📅 Schedules</button></div> <div class="nav-item svelte-18ln71j"><button class="icon svelte-18ln71j" type="button">📊 User Progress</button></div> <div class="nav-item-active svelte-18ln71j"><button class="icon svelte-18ln71j" type="button">$ Subscription</button></div> <div class="nav-item svelte-18ln71j"><button class="icon svelte-18ln71j" type="button">⚙️ Settings</button></div></nav> <div class="p-6 max-w-2xl mx-auto"><h2 class="text-xl font-bold mb-6">What to expect in the premium version?</h2> <div class="space-y-6 mb-8"><!--[-->`;
+  for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
+    let feature = each_array[$$index];
+    $$payload.out += `<div class="flex items-start gap-4"><img${attr("src", feature.icon)} alt="Feature Icon" class="w-8 h-8"> <p class="text-gray-700">${escape_html(feature.text)}</p></div>`;
+  }
+  $$payload.out += `<!--]--></div> <div class="bg-mindanchor-light rounded-lg p-6 text-center"><h3 class="text-2xl font-bold mb-2">Subscription Plan</h3> <div class="text-4xl font-bold mb-4">$0.99</div> <p class="text-gray-600 mb-6">to experience the premium version for a month!</p> <button class="w-full bg-mindanchor-blue text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors">Pay Now</button></div> <div class="text-right mt-4"><a href="#rate" class="text-mindanchor-blue hover:underline">Rate MindAnchor</a></div></div></div>`;
+  pop();
+}
+function Settings($$payload, $$props) {
+  push();
+  $$payload.out += `<div class="container"><div class="page1-header svelte-az7lgn"><img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px" class="svelte-az7lgn"> <h1 class="svelte-az7lgn">MindAnchor</h1></div> <hr> <nav class="nav-container svelte-az7lgn"><div class="nav-item svelte-az7lgn"><button class="icon svelte-az7lgn" type="button">📅 Schedules</button></div> <div class="nav-item svelte-az7lgn"><button class="icon svelte-az7lgn" type="button">📊 User Progress</button></div> <div class="nav-item svelte-az7lgn"><button class="icon svelte-az7lgn" type="button">$ Subscription</button></div> <div class="nav-item-active svelte-az7lgn"><button class="icon svelte-az7lgn" type="button">⚙️ Settings</button></div></nav> <h1>This is Settings page</h1></div>`;
+  pop();
+}
 function _page($$payload) {
   var $$store_subs;
   if (store_get($$store_subs ??= {}, "$currentPage", currentPage) === "WelcomePage") {
@@ -269,6 +301,20 @@ function _page($$payload) {
                   Active_State_Page($$payload);
                 } else {
                   $$payload.out += "<!--[!-->";
+                  if (store_get($$store_subs ??= {}, "$currentPage", currentPage) === "Subscription") {
+                    $$payload.out += "<!--[-->";
+                    SubscriptionPlan($$payload);
+                  } else {
+                    $$payload.out += "<!--[!-->";
+                    if (store_get($$store_subs ??= {}, "$currentPage", currentPage) === "Settings") {
+                      $$payload.out += "<!--[-->";
+                      Settings($$payload);
+                    } else {
+                      $$payload.out += "<!--[!-->";
+                    }
+                    $$payload.out += `<!--]-->`;
+                  }
+                  $$payload.out += `<!--]-->`;
                 }
                 $$payload.out += `<!--]-->`;
               }

@@ -8,6 +8,8 @@
 	import { currentPage } from '../lib/store';
 	import ActiveStatePage from './Active_State/Active_State_Page.svelte';
     import Progress_Chart from './Progress_Chart/Progress_Chart.svelte';
+  import SubscriptionPlan from './Subscription/SubscriptionPlan.svelte';
+  import Settings from './Settings/Settings.svelte';
 </script>
   
 {#if $currentPage === 'WelcomePage'}
@@ -26,4 +28,8 @@
     <Progress_Chart />
 {:else if $currentPage === 'Active_State_Page'}
     <ActiveStatePage/> 
+{:else if $currentPage === 'Subscription'}
+    <SubscriptionPlan/> 
+{:else if $currentPage === 'Settings'}
+    <Settings/> 
 {/if}

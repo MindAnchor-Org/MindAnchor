@@ -211,12 +211,12 @@
       </button>
     </div>    
     <div class="nav-item">
-      <button class="icon" on:click={goToSettings} type="button">
+      <button class="icon" on:click={goToSubscription} type="button">
         $ Subscription
       </button>
     </div>
     <div class="nav-item">
-      <button class="icon" on:click={goToSubscription} type="button">
+      <button class="icon" on:click={goToSettings} type="button">
         ⚙️ Settings
       </button>
     </div>

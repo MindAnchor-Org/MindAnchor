@@ -10,6 +10,9 @@
       function goToSubscription() {
           currentPage.set('Subscription');
       }
+      function goToUserProgress() {
+        currentPage.set('ProgressChart');
+      }
   </script>
   <style>
       .page1-header {
@@ -75,21 +78,21 @@
                   📅 Schedules
                 </button>
           </div>
-          <div class="nav-item-active">
-              <button class="icon">
+          <div class="nav-item">
+              <button class="icon" on:click={goToUserProgress} type="button">
                 📊 User Progress
               </button>
           </div>    
           <div class="nav-item">
-            <button class="icon" on:click={goToSettings} type="button">
+            <button class="icon" on:click={goToSubscription} type="button">
               $ Subscription
             </button>
           </div>
-          <div class="nav-item">
-            <button class="icon" on:click={goToSubscription} type="button">
+          <div class="nav-item-active">
+            <button class="icon" type="button">
               ⚙️ Settings
             </button>
           </div>
           </nav>
-      <h1>This is progress Chart</h1>
+      <h1>This is Settings page</h1>
   </div>

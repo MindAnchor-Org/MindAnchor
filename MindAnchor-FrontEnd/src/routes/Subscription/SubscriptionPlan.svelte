@@ -1,4 +1,18 @@
 <script lang="ts">
+  import { currentPage } from "../../lib/store";
+
+  function goToScheduleSummaryPage(){
+      currentPage.set('ScheduleSummaryPage');
+  }
+  function goToSettings() {
+      currentPage.set('Settings');
+  }
+  function goToSubscription() {
+      currentPage.set('Subscription');
+  }
+  function goToUserProgress() {
+    currentPage.set('ProgressChart');
+  }
   const features = [
   {
     icon: "../../../static/pie-chart-icon.png",
@@ -21,34 +35,117 @@
   };
 </script>
 
-<div class="p-6 max-w-2xl mx-auto">
-  <h2 class="text-xl font-bold mb-6">What to expect in the premium version?</h2>
-  
-  <div class="space-y-6 mb-8">
-    {#each features as feature}
-  <div class="flex items-start gap-4">
-    <img src="{feature.icon}" alt="Feature Icon" class="w-8 h-8">
-    <p class="text-gray-700">{feature.text}</p>
+<div class="container">
+  <div class="page1-header">
+      <img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px">
+      <h1>MindAnchor</h1>
   </div>
-     {/each}
-    
-  </div>
-
-  <div class="bg-mindanchor-light rounded-lg p-6 text-center">
-    <h3 class="text-2xl font-bold mb-2">Subscription Plan</h3>
-    <div class="text-4xl font-bold mb-4">$0.99</div>
-    <p class="text-gray-600 mb-6">
-      to experience the premium version for a month!
-    </p>
-    <button
-      on:click={handlePayNow}
-      class="w-full bg-mindanchor-blue text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
-    >
-      Pay Now
-    </button>
-  </div>
-
-  <div class="text-right mt-4">
-    <a href="#rate" class="text-mindanchor-blue hover:underline">Rate MindAnchor</a>
-  </div>
+  <hr>
+  <nav class="nav-container">
+      <div class="nav-item">
+          <button class="icon" on:click={goToScheduleSummaryPage} type="button">
+              📅 Schedules
+            </button>
+      </div>
+      <div class="nav-item" >
+          <button class="icon" on:click={goToUserProgress} type="button">
+            📊 User Progress
+          </button>
+      </div>    
+      <div class="nav-item-active">
+        <button class="icon"type="button">
+          $ Subscription
+        </button>
+      </div>
+      <div class="nav-item">
+        <button class="icon" on:click={goToSettings} type="button">
+          ⚙️ Settings
+        </button>
+      </div>
+      </nav>
+      <div class="p-6 max-w-2xl mx-auto">
+        <h2 class="text-xl font-bold mb-6">What to expect in the premium version?</h2>
+        
+        <div class="space-y-6 mb-8">
+          {#each features as feature}
+        <div class="flex items-start gap-4">
+          <img src="{feature.icon}" alt="Feature Icon" class="w-8 h-8">
+          <p class="text-gray-700">{feature.text}</p>
+        </div>
+           {/each}
+          
+        </div>
+      
+        <div class="bg-mindanchor-light rounded-lg p-6 text-center">
+          <h3 class="text-2xl font-bold mb-2">Subscription Plan</h3>
+          <div class="text-4xl font-bold mb-4">$0.99</div>
+          <p class="text-gray-600 mb-6">
+            to experience the premium version for a month!
+          </p>
+          <button
+            on:click={handlePayNow}
+            class="w-full bg-mindanchor-blue text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
+          >
+            Pay Now
+          </button>
+        </div>
+      
+        <div class="text-right mt-4">
+          <a href="#rate" class="text-mindanchor-blue hover:underline">Rate MindAnchor</a>
+        </div>
+      </div>
 </div>
+
+
+<style>
+  .page1-header {
+      display: flex;
+      height: 25px;
+      margin-bottom: 10px;
+    }
+  .page1-header h1 {
+    font-size: 1.5em;
+    margin-left: 10;
+    margin-right: 400px;
+    font-weight: bold;
+  }
+  
+  .page1-header img {
+    display: block;
+  }
+  .nav-container {
+    display:flex;
+    justify-content: space-around;
+    border-bottom: 2px solid #000080;
+    padding: 10px 20px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+  }
+
+  .nav-item:hover {
+    background-color: #e0e7ff;
+  }
+
+  .nav-item-active {
+    background-color: #c7d2fe;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .icon {
+    font-size: 18px;
+  }
+</style>
