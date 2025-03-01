@@ -256,7 +256,29 @@ function SubscriptionPlan($$payload, $$props) {
 }
 function Settings($$payload, $$props) {
   push();
-  $$payload.out += `<div class="container"><div class="page1-header svelte-az7lgn"><img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px" class="svelte-az7lgn"> <h1 class="svelte-az7lgn">MindAnchor</h1></div> <hr> <nav class="nav-container svelte-az7lgn"><div class="nav-item svelte-az7lgn"><button class="icon svelte-az7lgn" type="button">📅 Schedules</button></div> <div class="nav-item svelte-az7lgn"><button class="icon svelte-az7lgn" type="button">📊 User Progress</button></div> <div class="nav-item svelte-az7lgn"><button class="icon svelte-az7lgn" type="button">$ Subscription</button></div> <div class="nav-item-active svelte-az7lgn"><button class="icon svelte-az7lgn" type="button">⚙️ Settings</button></div></nav> <h1>This is Settings page</h1></div>`;
+  let timeOptions = ["10 seconds", "20 seconds", "30 seconds"];
+  let needMotivationalCues = false;
+  let backgroundColor = "#ffffff";
+  let textColor = "#000000";
+  const each_array = ensure_array_like(timeOptions);
+  const each_array_1 = ensure_array_like(timeOptions);
+  const each_array_2 = ensure_array_like(timeOptions);
+  $$payload.out += `<div class="container svelte-1g37nkh"><div class="page1-header svelte-1g37nkh"><img src="/icon.png" alt="MindAnchor Logo" width="25px" class="svelte-1g37nkh"> <h1 class="svelte-1g37nkh">MindAnchor</h1></div> <hr> <nav class="nav-container svelte-1g37nkh"><div class="nav-item svelte-1g37nkh"><button class="icon svelte-1g37nkh" type="button">📅 Schedules</button></div> <div class="nav-item svelte-1g37nkh"><button class="icon svelte-1g37nkh">📊 User Progress</button></div> <div class="nav-item-active svelte-1g37nkh"><button class="icon svelte-1g37nkh" type="button">$ Subscription</button></div> <div class="nav-item svelte-1g37nkh"><button class="icon svelte-1g37nkh" type="button">⚙️ Settings</button></div></nav> <br> <div class="settings-section svelte-1g37nkh"><label class="svelte-1g37nkh">Time allowed to access unlisted sites: <select class="svelte-1g37nkh"><!--[-->`;
+  for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
+    let option = each_array[$$index];
+    $$payload.out += `<option${attr("value", option)}>${escape_html(option)}</option>`;
+  }
+  $$payload.out += `<!--]--></select></label> <label class="svelte-1g37nkh">Time allowed to access the dashboard when active: <select class="svelte-1g37nkh"><!--[-->`;
+  for (let $$index_1 = 0, $$length = each_array_1.length; $$index_1 < $$length; $$index_1++) {
+    let option = each_array_1[$$index_1];
+    $$payload.out += `<option${attr("value", option)}>${escape_html(option)}</option>`;
+  }
+  $$payload.out += `<!--]--></select></label> <label class="svelte-1g37nkh">Maximum inactivity duration before showing cues: <select class="svelte-1g37nkh"><!--[-->`;
+  for (let $$index_2 = 0, $$length = each_array_2.length; $$index_2 < $$length; $$index_2++) {
+    let option = each_array_2[$$index_2];
+    $$payload.out += `<option${attr("value", option)}>${escape_html(option)}</option>`;
+  }
+  $$payload.out += `<!--]--></select></label> <label class="toggle-container svelte-1g37nkh">Need for motivational cues during inactivity: <input type="checkbox"${attr("checked", needMotivationalCues, true)} class="toggle-input svelte-1g37nkh"> <span class="toggle-slider svelte-1g37nkh"></span></label></div> <div class="settings-container svelte-1g37nkh"><div class="image-upload-section svelte-1g37nkh"><label class="svelte-1g37nkh">Upload Image: <input type="file" accept="image/*" class="svelte-1g37nkh"></label></div> <div class="preferences-section svelte-1g37nkh"><label class="svelte-1g37nkh">Image Alignment: <select class="svelte-1g37nkh"><option>Left</option><option>Center</option><option>Right</option></select></label> <label class="svelte-1g37nkh">Animation Type: <select class="svelte-1g37nkh"><option>Fade</option><option>Slide</option><option>Zoom</option></select></label> <label class="svelte-1g37nkh">Animation Duration: <select class="svelte-1g37nkh"><option>10s</option><option>20s</option><option>30s</option></select></label> <label class="svelte-1g37nkh">Background Colour: <input type="color"${attr("value", backgroundColor)} class="svelte-1g37nkh"></label> <label class="svelte-1g37nkh">Text Colour: <input type="color"${attr("value", textColor)} class="svelte-1g37nkh"></label></div></div> <button class="save-btn svelte-1g37nkh">Save Preferences</button></div>`;
   pop();
 }
 function _page($$payload) {

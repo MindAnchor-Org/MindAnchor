@@ -243,7 +243,7 @@
       </button>
     </div>
   </nav>
-
+  <br>
   <div class="settings-section">
       <label>Time allowed to access unlisted sites:
       <select bind:value={selectedUnlistedTime}>
@@ -308,11 +308,9 @@
           <option>30s</option>
           </select>
       </label>
-
       <label>Background Colour:
           <input type="color" bind:value={backgroundColor}>
       </label>
-
       <label>Text Colour:
           <input type="color" bind:value={textColor}>
       </label>
