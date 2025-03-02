@@ -258,12 +258,14 @@ const data = {
 };
 function Progress_Chart($$payload, $$props) {
   push();
-  Object.keys(data).forEach((date) => {
-    const key = date;
-    console.log(`Date: ${key}`);
-    console.log(`Values: ${data[key].join(", ")}`);
-    console.log("---------------------------");
+  const dates = Object.keys(data);
+  const summedArray = new Array(9).fill(0);
+  dates.forEach((date) => {
+    data[date].forEach((value, index) => {
+      summedArray[index] += value;
+    });
   });
+  console.log("Summed Array:", summedArray);
   $$payload.out += `<div class="container svelte-17y1myr"><div class="page1-header svelte-17y1myr"><img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px" class="svelte-17y1myr"> <h1 class="svelte-17y1myr">MindAnchor</h1></div> <hr> <nav class="nav-container svelte-17y1myr"><div class="nav-item svelte-17y1myr"><button class="icon svelte-17y1myr" type="button">📅 Schedules</button></div> <div class="nav-item-active svelte-17y1myr"><button class="icon svelte-17y1myr">📊 User Progress</button></div> <div class="nav-item svelte-17y1myr"><button class="icon svelte-17y1myr" type="button">$ Subscription</button></div> <div class="nav-item svelte-17y1myr"><button class="icon svelte-17y1myr" type="button">⚙️ Settings</button></div></nav> <div style="width: 300px; height: 300px;"><canvas></canvas></div></div>`;
   pop();
 }

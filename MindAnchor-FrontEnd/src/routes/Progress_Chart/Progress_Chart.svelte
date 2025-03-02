@@ -5,12 +5,20 @@
   import Chart from "chart.js/auto";
 
   import data from "./progress_data.json"; // Adjust the path based on your file structure
-  Object.keys(data).forEach((date) => {
-    const key = date as keyof typeof data; // Type assertion
-    console.log(`Date: ${key}`);
-    console.log(`Values: ${data[key].join(", ")}`); // Access data safely
-    console.log("---------------------------");
+
+  const dates = Object.keys(data) as (keyof typeof data)[];
+
+  // Initialize an array of size 9 with zeros
+  const summedArray: number[] = new Array(9).fill(0);
+
+  // Iterate over each date and sum up corresponding indices
+  dates.forEach((date) => {
+      data[date].forEach((value, index) => {
+          summedArray[index] += value; // Add value to the corresponding index
+      });
   });
+  console.log("Summed Array:", summedArray);
+
 
 
   let chartContainer: any;
