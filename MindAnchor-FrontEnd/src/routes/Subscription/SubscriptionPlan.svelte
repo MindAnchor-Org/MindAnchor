@@ -15,15 +15,15 @@
   }
   const features = [
   {
-    icon: "../../../static/pie-chart-icon.png",
+    icon: "/pie-chart-icon.png",
     text: "View your focus journey in an interactive pie chart with analysis on key improvements and distraction reductions."
   },
   {
-    icon: "../../../static/calendar-icon.png", // Replace with the actual path of your calendar image
+    icon: "/calendar-icon.png", // Replace with the actual path of your calendar image
     text: "Sort and track your progress over days, weeks, months, or years to identify trends."
   },
   {
-    icon: "../../../static/streak-icon.png", // Replace with the actual path of your trophy image
+    icon: "/streak-icon.png", // Replace with the actual pat
     text: "Earn streak badges and focus points to celebrate your productivity milestones."
   }
 ];
@@ -76,7 +76,7 @@
           
         </div>
       
-        <div class="bg-mindanchor-light rounded-lg p-6 text-center">
+        <div class="rounded-lg p-6 text-center border-2 border-[#0e0c0c] bg-[#CFD7FF]">
           <h3 class="text-2xl font-bold mb-2">Subscription Plan</h3>
           <div class="text-4xl font-bold mb-4">$0.99</div>
           <p class="text-gray-600 mb-6">
@@ -84,14 +84,14 @@
           </p>
           <button
             on:click={handlePayNow}
-            class="w-full bg-mindanchor-blue text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors"
+            class="w-full bg text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors bg-[#00157C]"
           >
             Pay Now
           </button>
         </div>
       
         <div class="text-right mt-4">
-          <a href="#rate" class="text-mindanchor-blue hover:underline">Rate MindAnchor</a>
+          <a href="#rate" class="text-[#00157C] underline">Rate MindAnchor</a>
         </div>
       </div>
 </div>
