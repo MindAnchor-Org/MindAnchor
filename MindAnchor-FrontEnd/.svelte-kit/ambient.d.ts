@@ -26,6 +26,7 @@
  * ```
  */
 declare module '$env/static/private' {
+<<<<<<< HEAD
 	export const ACLOCAL_PATH: string;
 	export const ALEXANDRIA_PORT_APP: string;
 	export const ALEXANDRIA_PORT_LOOKUP: string;
@@ -142,6 +143,86 @@ declare module '$env/static/private' {
 	export const WINDIR: string;
 	export const ZES_ENABLE_SYSMAN: string;
 	export const _: string;
+=======
+	export const SHELL: string;
+	export const npm_command: string;
+	export const SESSION_MANAGER: string;
+	export const npm_config_userconfig: string;
+	export const COLORTERM: string;
+	export const npm_config_cache: string;
+	export const HISTCONTROL: string;
+	export const XDG_MENU_PREFIX: string;
+	export const PTYXIS_PROFILE: string;
+	export const HOSTNAME: string;
+	export const HISTSIZE: string;
+	export const NODE: string;
+	export const SSH_AUTH_SOCK: string;
+	export const MEMORY_PRESSURE_WRITE: string;
+	export const COLOR: string;
+	export const npm_config_local_prefix: string;
+	export const XMODIFIERS: string;
+	export const DESKTOP_SESSION: string;
+	export const npm_config_globalconfig: string;
+	export const GPG_TTY: string;
+	export const EDITOR: string;
+	export const PWD: string;
+	export const XDG_SESSION_DESKTOP: string;
+	export const LOGNAME: string;
+	export const XDG_SESSION_TYPE: string;
+	export const npm_config_init_module: string;
+	export const SYSTEMD_EXEC_PID: string;
+	export const _: string;
+	export const XAUTHORITY: string;
+	export const GDM_LANG: string;
+	export const HOME: string;
+	export const USERNAME: string;
+	export const LANG: string;
+	export const LS_COLORS: string;
+	export const XDG_CURRENT_DESKTOP: string;
+	export const npm_package_version: string;
+	export const MEMORY_PRESSURE_WATCH: string;
+	export const VTE_VERSION: string;
+	export const WAYLAND_DISPLAY: string;
+	export const INVOCATION_ID: string;
+	export const MANAGERPID: string;
+	export const INIT_CWD: string;
+	export const npm_lifecycle_script: string;
+	export const MOZ_GMP_PATH: string;
+	export const GNOME_SETUP_DISPLAY: string;
+	export const npm_config_npm_version: string;
+	export const XDG_SESSION_CLASS: string;
+	export const TERM: string;
+	export const npm_package_name: string;
+	export const npm_config_prefix: string;
+	export const LESSOPEN: string;
+	export const USER: string;
+	export const DISPLAY: string;
+	export const npm_lifecycle_event: string;
+	export const SHLVL: string;
+	export const QT_IM_MODULE: string;
+	export const npm_config_user_agent: string;
+	export const npm_execpath: string;
+	export const XDG_RUNTIME_DIR: string;
+	export const DEBUGINFOD_URLS: string;
+	export const npm_package_json: string;
+	export const DEBUGINFOD_IMA_CERT_PATH: string;
+	export const JOURNAL_STREAM: string;
+	export const XDG_DATA_DIRS: string;
+	export const npm_config_noproxy: string;
+	export const PATH: string;
+	export const npm_config_node_gyp: string;
+	export const GDMSESSION: string;
+	export const DBUS_SESSION_BUS_ADDRESS: string;
+	export const npm_config_python: string;
+	export const npm_config_update_notifier: string;
+	export const npm_config_global_prefix: string;
+	export const MAIL: string;
+	export const PTYXIS_VERSION: string;
+	export const SYSTEMD_SLEEP_FREEZE_USER_SESSIONS: string;
+	export const npm_node_execpath: string;
+	export const OLDPWD: string;
+	export const NODE_ENV: string;
+>>>>>>> a606a9bd579d2c060a58e58878a9777a46b9b58f
 }
 
 /**
@@ -173,6 +254,7 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
+<<<<<<< HEAD
 		ACLOCAL_PATH: string;
 		ALEXANDRIA_PORT_APP: string;
 		ALEXANDRIA_PORT_LOOKUP: string;
@@ -289,6 +371,86 @@ declare module '$env/dynamic/private' {
 		WINDIR: string;
 		ZES_ENABLE_SYSMAN: string;
 		_: string;
+=======
+		SHELL: string;
+		npm_command: string;
+		SESSION_MANAGER: string;
+		npm_config_userconfig: string;
+		COLORTERM: string;
+		npm_config_cache: string;
+		HISTCONTROL: string;
+		XDG_MENU_PREFIX: string;
+		PTYXIS_PROFILE: string;
+		HOSTNAME: string;
+		HISTSIZE: string;
+		NODE: string;
+		SSH_AUTH_SOCK: string;
+		MEMORY_PRESSURE_WRITE: string;
+		COLOR: string;
+		npm_config_local_prefix: string;
+		XMODIFIERS: string;
+		DESKTOP_SESSION: string;
+		npm_config_globalconfig: string;
+		GPG_TTY: string;
+		EDITOR: string;
+		PWD: string;
+		XDG_SESSION_DESKTOP: string;
+		LOGNAME: string;
+		XDG_SESSION_TYPE: string;
+		npm_config_init_module: string;
+		SYSTEMD_EXEC_PID: string;
+		_: string;
+		XAUTHORITY: string;
+		GDM_LANG: string;
+		HOME: string;
+		USERNAME: string;
+		LANG: string;
+		LS_COLORS: string;
+		XDG_CURRENT_DESKTOP: string;
+		npm_package_version: string;
+		MEMORY_PRESSURE_WATCH: string;
+		VTE_VERSION: string;
+		WAYLAND_DISPLAY: string;
+		INVOCATION_ID: string;
+		MANAGERPID: string;
+		INIT_CWD: string;
+		npm_lifecycle_script: string;
+		MOZ_GMP_PATH: string;
+		GNOME_SETUP_DISPLAY: string;
+		npm_config_npm_version: string;
+		XDG_SESSION_CLASS: string;
+		TERM: string;
+		npm_package_name: string;
+		npm_config_prefix: string;
+		LESSOPEN: string;
+		USER: string;
+		DISPLAY: string;
+		npm_lifecycle_event: string;
+		SHLVL: string;
+		QT_IM_MODULE: string;
+		npm_config_user_agent: string;
+		npm_execpath: string;
+		XDG_RUNTIME_DIR: string;
+		DEBUGINFOD_URLS: string;
+		npm_package_json: string;
+		DEBUGINFOD_IMA_CERT_PATH: string;
+		JOURNAL_STREAM: string;
+		XDG_DATA_DIRS: string;
+		npm_config_noproxy: string;
+		PATH: string;
+		npm_config_node_gyp: string;
+		GDMSESSION: string;
+		DBUS_SESSION_BUS_ADDRESS: string;
+		npm_config_python: string;
+		npm_config_update_notifier: string;
+		npm_config_global_prefix: string;
+		MAIL: string;
+		PTYXIS_VERSION: string;
+		SYSTEMD_SLEEP_FREEZE_USER_SESSIONS: string;
+		npm_node_execpath: string;
+		OLDPWD: string;
+		NODE_ENV: string;
+>>>>>>> a606a9bd579d2c060a58e58878a9777a46b9b58f
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: `${string}`]: string | undefined;
 	}
