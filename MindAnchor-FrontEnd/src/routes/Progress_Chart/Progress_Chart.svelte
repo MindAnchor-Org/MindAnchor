@@ -28,12 +28,12 @@
       new Chart(chartContainer, {
         type: "pie",
         data: {
-          labels: ["Red", "Blue", "Yellow"],
+          labels: ["Red", "Blue", "Yellow", "Green", "Orange", "Purple", "Brown", "White", "Black"],
           datasets: [
             {
               label: "My Pie Chart",
-              data: [30, 40, 30],
-              backgroundColor: ["#ff6384", "#36a2eb", "#ffcd56"],
+              data: summedArray,
+              backgroundColor: ["#ff6384", "#36a2eb", "#ffcd56", "#ff6384", "#36a2eb", "#ffcd56", "#ff6384", "#36a2eb", "#ffcd56"],
               borderWidth: 1
             }
           ]
