@@ -4,6 +4,15 @@
   import { onMount } from "svelte";
   import Chart from "chart.js/auto";
 
+  import data from "./progress_data.json"; // Adjust the path based on your file structure
+  Object.keys(data).forEach((date) => {
+    const key = date as keyof typeof data; // Type assertion
+    console.log(`Date: ${key}`);
+    console.log(`Values: ${data[key].join(", ")}`); // Access data safely
+    console.log("---------------------------");
+  });
+
+
   let chartContainer: any;
 
   onMount(() => {

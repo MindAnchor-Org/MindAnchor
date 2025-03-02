@@ -53,8 +53,6 @@ const currentPage = writable(savedPage);
 if (typeof window !== "undefined") {
   currentPage.subscribe((value) => {
     localStorage.setItem("currentPage", value);
-    localStorage.setItem("scheduleIdCounter", "0");
-    localStorage.setItem("currentScheduleId", "0");
   });
 }
 const getStoredCounter = () => {
@@ -223,8 +221,49 @@ function Active_State_Page($$payload, $$props) {
   $$payload.out += `<div class="container svelte-1rhkqnl"><div class="page1-header svelte-1rhkqnl"><img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px" class="svelte-1rhkqnl"> <h1 class="svelte-1rhkqnl">MindAnchor</h1></div> <hr class="svelte-1rhkqnl"> <div class="description svelte-1rhkqnl"><p><strong class="svelte-1rhkqnl">Schedule Name:</strong> ${escape_html(schedule?.name)}</p> <p><strong class="svelte-1rhkqnl">Start Time Date:</strong> ${escape_html(schedule?.startDate + " : " + schedule?.startTime)} | <strong class="svelte-1rhkqnl">End Time Date:</strong> ${escape_html(schedule?.endDate + " : " + schedule?.endTime)}</p></div> <hr style="margin-top: 10px;" class="svelte-1rhkqnl"> <div class="buttons svelte-1rhkqnl"><button id="bionifyButton" class="btn btn-primary svelte-1rhkqnl"${attr("disabled", isBionicEnabled, true)}>Bionify webpage text</button> <button id="unbionifyButton" class="btn btn-secondary svelte-1rhkqnl"${attr("disabled", true, true)}>Unbionify webpage text</button></div> <div class="buttons svelte-1rhkqnl"><button class="btn btn-primary svelte-1rhkqnl">Activate motivational cues</button> <button class="btn btn-secondary svelte-1rhkqnl">Deactivate motivational cues</button></div> <h2 class="svelte-1rhkqnl">How have you been doing so far?</h2> <canvas id="chart"></canvas> <div class="actions svelte-1rhkqnl"><button class="btn stop-btn svelte-1rhkqnl">Stop current activity</button> <p class="countdown svelte-1rhkqnl">The dashboard will close in <strong class="svelte-1rhkqnl">${escape_html(countdown)}</strong> seconds!</p></div></div>`;
   pop();
 }
+const data = {
+  "2025-02-28": [
+    40,
+    30,
+    20,
+    10,
+    25,
+    35,
+    50,
+    15,
+    5
+  ],
+  "2025-02-27": [
+    20,
+    15,
+    30,
+    10,
+    45,
+    25,
+    40,
+    10,
+    5
+  ],
+  "2025-02-20": [
+    5,
+    10,
+    5,
+    20,
+    15,
+    30,
+    20,
+    25,
+    10
+  ]
+};
 function Progress_Chart($$payload, $$props) {
   push();
+  Object.keys(data).forEach((date) => {
+    const key = date;
+    console.log(`Date: ${key}`);
+    console.log(`Values: ${data[key].join(", ")}`);
+    console.log("---------------------------");
+  });
   $$payload.out += `<div class="container svelte-17y1myr"><div class="page1-header svelte-17y1myr"><img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px" class="svelte-17y1myr"> <h1 class="svelte-17y1myr">MindAnchor</h1></div> <hr> <nav class="nav-container svelte-17y1myr"><div class="nav-item svelte-17y1myr"><button class="icon svelte-17y1myr" type="button">📅 Schedules</button></div> <div class="nav-item-active svelte-17y1myr"><button class="icon svelte-17y1myr">📊 User Progress</button></div> <div class="nav-item svelte-17y1myr"><button class="icon svelte-17y1myr" type="button">$ Subscription</button></div> <div class="nav-item svelte-17y1myr"><button class="icon svelte-17y1myr" type="button">⚙️ Settings</button></div></nav> <div style="width: 300px; height: 300px;"><canvas></canvas></div></div>`;
   pop();
 }
@@ -232,17 +271,17 @@ function SubscriptionPlan($$payload, $$props) {
   push();
   const features = [
     {
-      icon: "../../../static/pie-chart-icon.png",
+      icon: "/pie-chart-icon.png",
       text: "View your focus journey in an interactive pie chart with analysis on key improvements and distraction reductions."
     },
     {
-      icon: "../../../static/calendar-icon.png",
+      icon: "/calendar-icon.png",
       // Replace with the actual path of your calendar image
       text: "Sort and track your progress over days, weeks, months, or years to identify trends."
     },
     {
-      icon: "../../../static/streak-icon.png",
-      // Replace with the actual path of your trophy image
+      icon: "/streak-icon.png",
+      // Replace with the actual pat
       text: "Earn streak badges and focus points to celebrate your productivity milestones."
     }
   ];
@@ -252,7 +291,7 @@ function SubscriptionPlan($$payload, $$props) {
     let feature = each_array[$$index];
     $$payload.out += `<div class="flex items-start gap-4"><img${attr("src", feature.icon)} alt="Feature Icon" class="w-8 h-8"> <p class="text-gray-700">${escape_html(feature.text)}</p></div>`;
   }
-  $$payload.out += `<!--]--></div> <div class="bg-mindanchor-light rounded-lg p-6 text-center"><h3 class="text-2xl font-bold mb-2">Subscription Plan</h3> <div class="text-4xl font-bold mb-4">$0.99</div> <p class="text-gray-600 mb-6">to experience the premium version for a month!</p> <button class="w-full bg-mindanchor-blue text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors">Pay Now</button></div> <div class="text-right mt-4"><a href="#rate" class="text-mindanchor-blue hover:underline">Rate MindAnchor</a></div></div></div>`;
+  $$payload.out += `<!--]--></div> <div class="rounded-lg p-6 text-center border-2 border-[#0e0c0c] bg-[#CFD7FF]"><h3 class="text-2xl font-bold mb-2">Subscription Plan</h3> <div class="text-4xl font-bold mb-4">$0.99</div> <p class="text-gray-600 mb-6">to experience the premium version for a month!</p> <button class="w-full bg text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors bg-[#00157C]">Pay Now</button></div> <div class="text-right mt-4"><a href="#rate" class="text-[#00157C] underline">Rate MindAnchor</a></div></div></div>`;
   pop();
 }
 function Settings($$payload, $$props) {
