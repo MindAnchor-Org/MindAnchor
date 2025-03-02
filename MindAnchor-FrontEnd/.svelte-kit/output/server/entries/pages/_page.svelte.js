@@ -18,7 +18,7 @@ function attr(name, value, is_boolean = false) {
 const whitespace = [..." 	\n\r\f \v\uFEFF"];
 function to_class(value, hash, directives) {
   var classname = value == null ? "" : "" + value;
-  {
+  if (hash) {
     classname = classname ? classname + " " + hash : hash;
   }
   if (directives) {
@@ -264,27 +264,27 @@ function Settings($$payload, $$props) {
   const each_array = ensure_array_like(timeOptions);
   const each_array_1 = ensure_array_like(timeOptions);
   const each_array_2 = ensure_array_like(timeOptions);
-  $$payload.out += `<div class="container svelte-kbl4lm"><div class="page1-header svelte-kbl4lm"><img src="/icon.png" alt="MindAnchor Logo" width="25px" class="svelte-kbl4lm"> <h1 class="svelte-kbl4lm">MindAnchor</h1></div> <hr> <nav class="nav-container svelte-kbl4lm"><div class="nav-item svelte-kbl4lm"><button class="icon svelte-kbl4lm" type="button">📅 Schedules</button></div> <div class="nav-item svelte-kbl4lm"><button class="icon svelte-kbl4lm">📊 User Progress</button></div> <div class="nav-item svelte-kbl4lm"><button class="icon svelte-kbl4lm" type="button">$ Subscription</button></div> <div class="nav-item-active svelte-kbl4lm"><button class="icon svelte-kbl4lm" type="button">⚙️ Settings</button></div></nav> <br> <div class="settings-section svelte-kbl4lm"><label class="svelte-kbl4lm">Time allowed to access unlisted sites: <select class="svelte-kbl4lm"><!--[-->`;
+  $$payload.out += `<div class="container svelte-1k60447"><div class="page1-header svelte-1k60447"><img src="/icon.png" alt="MindAnchor Logo" width="25px" class="svelte-1k60447"> <h1 class="svelte-1k60447">MindAnchor</h1></div> <hr> <nav class="nav-container svelte-1k60447"><div class="nav-item svelte-1k60447"><button class="icon svelte-1k60447" type="button">📅 Schedules</button></div> <div class="nav-item svelte-1k60447"><button class="icon svelte-1k60447">📊 User Progress</button></div> <div class="nav-item svelte-1k60447"><button class="icon svelte-1k60447" type="button">$ Subscription</button></div> <div class="nav-item-active svelte-1k60447"><button class="icon svelte-1k60447" type="button">⚙️ Settings</button></div></nav> <br> <div class="settings-section svelte-1k60447"><label class="svelte-1k60447">Time allowed to access unlisted sites: <select class="svelte-1k60447"><!--[-->`;
   for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
     let option = each_array[$$index];
-    $$payload.out += `<option${attr("value", option)} class="svelte-kbl4lm">${escape_html(option)}</option>`;
+    $$payload.out += `<option${attr("value", option)} class="svelte-1k60447">${escape_html(option)}</option>`;
   }
-  $$payload.out += `<!--]--></select></label> <label class="svelte-kbl4lm">Time allowed to access the dashboard when active: <select class="svelte-kbl4lm"><!--[-->`;
+  $$payload.out += `<!--]--></select></label> <label class="svelte-1k60447">Time allowed to access the dashboard when active: <select class="svelte-1k60447"><!--[-->`;
   for (let $$index_1 = 0, $$length = each_array_1.length; $$index_1 < $$length; $$index_1++) {
     let option = each_array_1[$$index_1];
-    $$payload.out += `<option${attr("value", option)} class="svelte-kbl4lm">${escape_html(option)}</option>`;
+    $$payload.out += `<option${attr("value", option)} class="svelte-1k60447">${escape_html(option)}</option>`;
   }
-  $$payload.out += `<!--]--></select></label> <label class="svelte-kbl4lm">Maximum inactivity duration before showing cues: <select class="svelte-kbl4lm"><!--[-->`;
+  $$payload.out += `<!--]--></select></label> <label class="svelte-1k60447">Maximum inactivity duration before showing cues: <select class="svelte-1k60447"><!--[-->`;
   for (let $$index_2 = 0, $$length = each_array_2.length; $$index_2 < $$length; $$index_2++) {
     let option = each_array_2[$$index_2];
-    $$payload.out += `<option${attr("value", option)} class="svelte-kbl4lm">${escape_html(option)}</option>`;
+    $$payload.out += `<option${attr("value", option)} class="svelte-1k60447">${escape_html(option)}</option>`;
   }
-  $$payload.out += `<!--]--></select></label> <label class="toggle-container svelte-kbl4lm">Need for motivational cues during inactivity: <input type="checkbox"${attr("checked", needMotivationalCues, true)} class="toggle-input svelte-kbl4lm"> <span class="toggle-slider svelte-kbl4lm"></span></label></div> <h2 class="svelte-kbl4lm">Set preferences for blacklisted site interference.</h2> <div class="settings-container svelte-kbl4lm"><div class="image-upload-section svelte-kbl4lm"><label for="imageUpload" class="upload-box svelte-kbl4lm">`;
+  $$payload.out += `<!--]--></select></label> <label class="toggle-container svelte-1k60447">Need for motivational cues during inactivity: <input type="checkbox"${attr("checked", needMotivationalCues, true)} class="toggle-input svelte-1k60447"> <span class="toggle-slider svelte-1k60447"></span></label></div> <h2 class="svelte-1k60447">Set preferences for blacklisted site interference.</h2> <div class="settings-container svelte-1k60447"><div${attr("class", to_class("image-upload-container ", "svelte-1k60447"))} role="button" tabindex="0" aria-label="Upload an image">`;
   {
     $$payload.out += "<!--[!-->";
-    $$payload.out += `<span>Click to upload an image</span>`;
+    $$payload.out += `<p class="upload-text svelte-1k60447">Drag &amp; Drop an image or <strong>Click to Upload</strong></p>`;
   }
-  $$payload.out += `<!--]--> <input type="file" id="imageUpload" accept="image/*" hidden></label></div> <div class="preferences-section svelte-kbl4lm"><label class="svelte-kbl4lm">Image Alignment: <select class="svelte-kbl4lm"><option class="svelte-kbl4lm">Left</option><option class="svelte-kbl4lm">Center</option><option class="svelte-kbl4lm">Right</option></select></label> <label class="svelte-kbl4lm">Animation Type: <select class="svelte-kbl4lm"><option class="svelte-kbl4lm">Fade</option><option class="svelte-kbl4lm">Slide</option><option class="svelte-kbl4lm">Zoom</option></select></label> <label class="svelte-kbl4lm">Animation Duration: <select class="svelte-kbl4lm"><option class="svelte-kbl4lm">10 seconds</option><option class="svelte-kbl4lm">20 seconds</option><option class="svelte-kbl4lm">30 seconds</option></select></label> <label class="svelte-kbl4lm">Background Colour: <input type="color"${attr("value", backgroundColor)} class="svelte-kbl4lm"></label> <label class="svelte-kbl4lm">Text Colour: <input type="color"${attr("value", textColor)} class="svelte-kbl4lm"></label></div></div> <button class="save-btn svelte-kbl4lm">Save Preferences</button></div>`;
+  $$payload.out += `<!--]--> <input type="file" id="fileInput" class="hidden-input svelte-1k60447" accept="image/*"></div> <div class="preferences-section svelte-1k60447"><label class="svelte-1k60447">Image Alignment: <select class="svelte-1k60447"><option class="svelte-1k60447">Left</option><option class="svelte-1k60447">Center</option><option class="svelte-1k60447">Right</option></select></label> <label class="svelte-1k60447">Animation Type: <select class="svelte-1k60447"><option class="svelte-1k60447">Fade</option><option class="svelte-1k60447">Slide</option><option class="svelte-1k60447">Zoom</option></select></label> <label class="svelte-1k60447">Animation Duration: <select class="svelte-1k60447"><option class="svelte-1k60447">10 seconds</option><option class="svelte-1k60447">20 seconds</option><option class="svelte-1k60447">30 seconds</option></select></label> <label class="svelte-1k60447">Background Colour: <input type="color"${attr("value", backgroundColor)} class="svelte-1k60447"></label> <label class="svelte-1k60447">Text Colour: <input type="color"${attr("value", textColor)} class="svelte-1k60447"></label></div></div> <button class="save-btn svelte-1k60447">Save Preferences</button></div>`;
   pop();
 }
 function _page($$payload) {

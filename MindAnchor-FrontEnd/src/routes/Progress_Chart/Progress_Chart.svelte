@@ -146,6 +146,4 @@
     <div style="width: 300px; height: 300px;">
       <canvas bind:this={chartContainer}></canvas>
     </div>
-    
-    
 </div>
