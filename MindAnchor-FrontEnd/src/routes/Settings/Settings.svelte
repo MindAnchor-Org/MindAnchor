@@ -1,10 +1,14 @@
 <script lang="ts">
-
+    import { onMount } from 'svelte';
     import { currentPage } from '../../lib/store';
+
+    onMount(() => {
+        loadSettings();
+    });
   
-    // Settings section
+    //Settings section
     let timeOptions = ['10 seconds', '20 seconds', '30 seconds'];
-    let selectedUnlistedTime = '10 seconds';
+    let selectedUnlistedTime = '20 seconds';
     let selectedDashboardTime = '10 seconds';
     let selectedInactivityTime = '10 seconds';
     let needMotivationalCues = 'No';
@@ -108,6 +112,23 @@
         errorMessage = "";
         if (fileInput && fileInput.value) { 
             fileInput.value = "";
+        }
+    }
+
+    function loadSettings() {
+        const savedSettings = localStorage.getItem("userSettings");
+        if (savedSettings) {
+            const settings = JSON.parse(savedSettings);
+            
+            selectedUnlistedTime = settings.selectedUnlistedTime || '10 seconds';
+            selectedDashboardTime = settings.selectedDashboardTime || '10 seconds';
+            selectedInactivityTime = settings.selectedInactivityTime || '10 seconds';
+            needMotivationalCues = settings.needMotivationalCues || 'No';
+            selectedImageAlignment = settings.selectedImageAlignment || 'Centre';
+            selectedAnimationType = settings.selectedAnimationType || 'Fade';
+            selectedAnimationDuration = settings.selectedAnimationDuration || '10 seconds';
+            backgroundColor = settings.backgroundColor || '#ffffff';
+            textColor = settings.textColor || '#000000';
         }
     }
 
@@ -399,7 +420,7 @@
     }
   
   
-    .save-btn {
+    /* .save-btn {
         background-color: rgb(1, 1, 124);
         color: white;
         border: none;
@@ -410,6 +431,33 @@
         width: 100%;
         text-align: center;
         margin-top: 20px;
+    } */
+
+    .save-btn {
+    background-color: rgb(1, 1, 124);
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    /* transition: background-color 0.3s ease, transform 0.2s ease; */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .save-btn:hover {
+        background-color: rgb(0, 0, 100);
+        /* transform: scale(1.05); */
+    }
+
+    .save-btn:active {
+        background-color: rgb(0, 0, 90);
+        /* transform: scale(0.98); */
     }
     .toggle-container {
         display: flex;
