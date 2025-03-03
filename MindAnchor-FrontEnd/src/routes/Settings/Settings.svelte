@@ -258,16 +258,8 @@
   
     .settings-section label {
     display: flex;
-    /* align-items: center;  */
     justify-content: space-between; 
     width: 100%;
-    }
-  
-    .settings-section select {
-    margin-left: 10px; 
-    height: 35px; 
-    padding: 5px;
-    font-size: 16px; 
     }
   
     h2{
@@ -278,6 +270,82 @@
   
     label{
         font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .settings-options {
+        display: flex;
+        justify-content: flex-start;
+        white-space: nowrap;
+        background-color: #d3d3d3;
+        color: black;
+        font-weight: 500;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+
+    .settings-options label{
+        justify-content: flex-end;
+        color: rgb(1, 1, 124);
+    }
+    .settings-dropdown {
+        display: flex;
+        gap: 10px;
+        background: white;
+        border-radius: 8px;
+        /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
+        margin-top: 5px;
+    }
+
+    .settings-dropdown label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+        background: #f5f5f5;
+        padding: 0.75rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .settings-dropdown label:hover {
+        background: #e0e0e0;
+    }
+
+    .settings-dropdown input[type='radio'] {
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #053161;
+        border-radius: 50%;
+        display: grid;
+        place-content: center;
+        transition: 0.3s;
+    }
+
+    .settings-dropdown input[type='radio']::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #053161;
+        transform: scale(0);
+        transition: 0.2s ease-in-out;
+    }
+
+    .settings-dropdown input[type='radio']:checked::before {
+        transform: scale(1);
     }
   
     .image-upload-container {
@@ -370,31 +438,6 @@
     max-width: 200px; 
     }
   
-    select {
-        display: block;
-        margin-left: auto;
-        width: 220px;
-        height: 40px;
-        padding: 8px;
-        font-size: 16px;
-        border: 2px solid #ccc;
-        border-radius: 8px;
-        background-color: #f9f9f9;
-        color: #333;
-        cursor: pointer;
-        outline: none;
-        transition: all 0.3s ease-in-out;
-    }
-  
-    select:hover {
-        border-color: #007bff;
-    }
-  
-    select:focus {
-        border-color: #0056b3;
-        box-shadow: 0 0 5px rgba(0, 91, 187, 0.5);
-    }
-  
     option {
         background: white;
         color: black;
@@ -433,14 +476,6 @@
         border: 2px solid #0056b3;
         box-shadow: 0 0 5px rgba(0, 91, 187, 0.5);
     }
-  
-    label {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 16px;
-        font-weight: 500;
-    }
 
     .save-btn {
     background-color: rgb(1, 1, 124);
@@ -468,119 +503,6 @@
         background-color: rgb(0, 0, 90);
         /* transform: scale(0.98); */
     }
-    .toggle-container {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 16px;
-        cursor: pointer;
-    }
-  
-    .toggle-input {
-        display: none;
-    }
-  
-    .toggle-slider {
-        position: relative;
-        width: 40px;
-        height: 20px;
-        background-color: #ccc;
-        border-radius: 20px;
-        transition: 0.3s;
-    }
-  
-    .toggle-slider::before {
-        content: "";
-        position: absolute;
-        width: 16px;
-        height: 16px;
-        background-color: white;
-        border-radius: 50%;
-        top: 2px;
-        left: 2px;
-        transition: 0.3s;
-    }
-  
-    .toggle-input:checked + .toggle-slider {
-        background-color: #007bff; 
-    }
-  
-    .toggle-input:checked + .toggle-slider::before {
-    transform: translateX(20px);
-    }
-
-    
-    .settings-options {
-        display: flex;
-        justify-content: flex-start;
-        white-space: nowrap;
-        background-color: #d3d3d3;
-        color: black;
-        font-weight: 500;
-        border: none;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        width: 100%;
-        margin-top: 10px;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-    }
-
-    .settings-options label{
-        justify-content: flex-end;
-        color: rgb(1, 1, 124);
-    }
-    .settings-dropdown {
-        display: flex;
-        gap: 10px;
-        background: white;
-        border-radius: 8px;
-        /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
-        margin-top: 5px;
-    }
-
-    .settings-dropdown label {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 16px;
-        background: #f5f5f5;
-        padding: 0.75rem;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .settings-dropdown label:hover {
-        background: #e0e0e0;
-    }
-
-    .settings-dropdown input[type='radio'] {
-        appearance: none;
-        width: 16px;
-        height: 16px;
-        border: 2px solid #053161;
-        border-radius: 50%;
-        display: grid;
-        place-content: center;
-        transition: 0.3s;
-    }
-
-    .settings-dropdown input[type='radio']::before {
-        content: "";
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #053161;
-        transform: scale(0);
-        transition: 0.2s ease-in-out;
-    }
-
-    .settings-dropdown input[type='radio']:checked::before {
-        transform: scale(1);
-    }
-
 
 </style>
   
