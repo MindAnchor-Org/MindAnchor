@@ -10,34 +10,7 @@
   let selectedBlacklistCategories: string[];
   let selectedWhitelistCategories: string[];
 
-  onMount(() => {
-    if (chartCanvas) {
-      new Chart(chartCanvas, {
-        type: "pie",
 
-        data: {
-          labels: ["8.34%", "12.5%", "16.67%", "20.83%", "41.66%"],
-          datasets: [
-            {
-              data: [8.34, 12.5, 16.67, 20.83, 41.66], // Percentage values
-              backgroundColor: [ "#e6effc", "#9ec1ff", "#aecbef", "#5a7ebb", "#2e1a78"],
-              borderWidth: 1
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              display: false
-          },
-          tooltip: {
-            enabled: true
-          }
-          }
-        }
-      });
-    }
 
     const interval = setInterval(() => {
       if (countdown > 0) countdown--;
