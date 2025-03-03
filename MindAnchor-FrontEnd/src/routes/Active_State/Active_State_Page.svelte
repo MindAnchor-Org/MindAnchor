@@ -92,6 +92,12 @@
 
     
   });
+  onDestroy(() => {
+    if (interval) {
+      clearInterval(interval);
+      console.log("Interval cleared to prevent auto-closing.");
+    }
+  });
     
 </script>
 
