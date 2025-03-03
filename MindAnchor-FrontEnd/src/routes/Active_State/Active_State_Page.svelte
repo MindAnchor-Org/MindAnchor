@@ -21,6 +21,7 @@
     if (chartCanvas) {
       new Chart(chartCanvas, {
         type: "pie",
+        
         data: {
           labels: ["8.34%", "12.5%", "16.67%", "20.83%", "41.66%"],
           datasets: [
