@@ -209,24 +209,43 @@
   }
 
 
-  .header {
+  h1 {
+    font-size: 1.8em;
+    margin: 0 0 10px;
+    font-weight: bold;
+  }
+
+  hr {
+    border: 0;
+    height: 2px;
+    background-color: rgb(1, 1, 124);
+    margin-bottom: 20px;
+  }
+
+  .page1-header {
     display: flex;
-    font-size:15px;
-    align-items: center;
-    gap: 5px;
-    margin-left: 20px;
-    
+    height: 25px;
+    margin-bottom: 10px;
   }
 
-  .header-hr{
-    width: 100%; 
-    border: 2px solid darkblue;
-    
-    
+  .page1-header h1 {
+    font-size: 1.5em;
+    margin-left: 10;
+    margin-right: 400px;
   }
 
-  .logo {
-    width: 50px;
+  .page1-header img {
+    display: block;
+  }
+
+  h2 {
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .description {
+    text-align: center;
   }
 
   .schedule{
