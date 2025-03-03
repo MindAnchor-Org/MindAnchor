@@ -31,6 +31,22 @@
       }
     });
 
+    if (selectedId && storedData) {
+      try {
+        const schedules = JSON.parse(storedData);
+        const selectedSchedule = schedules.find((entry: any) => {
+          return entry.schedule.id === parseInt(selectedId, 10);
+        });
+        if (selectedSchedule) {
+          schedule = selectedSchedule.schedule;
+          blacklisturls = selectedSchedule.blacklistWhitelist.blacklistUrls;
+          whitelisturls = selectedSchedule.blacklistWhitelist.whitelistUrls;
+          let blacklistCategories = selectedSchedule.blacklistWhitelist.blacklistCategories;
+          let whitelistCategories = selectedSchedule.blacklistWhitelist.whitelistCategories
+          selectedBlacklistCategories = blacklistCategories.filter((category: { selected: any; }) => category.selected).map((category: { name: any; }) => category.name);
+          selectedWhitelistCategories = whitelistCategories.filter((category: { selected: any; }) => category.selected).map((category: { name: any; }) => category.name);
+          chrome.storage.local.set({ BlacklistCategories: selectedBlacklistCategories},
+
   
 
 
