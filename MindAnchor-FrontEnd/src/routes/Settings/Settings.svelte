@@ -406,6 +406,7 @@
     </nav>
     <br>
     <div class="settings-section">
+
         <button on:click={() => toggleDropdown()}>
             Time allowed to access unlisted sites:
         </button>
@@ -418,29 +419,46 @@
             {/each}
         </div>
         {/if}
-        
-  
-        <label>Time allowed to access the dashboard when active:
-        <select bind:value={selectedDashboardTime}>
+
+        <button on:click={() => toggleDropdown()}>
+            Time allowed to access the dashboard when active:
+        </button>
+        {#if showDropdown}
+        <div>
             {#each timeOptions as option}
-            <option value={option}>{option}</option>
+            <label>
+            <input type='radio' bind:group={selectedDashboardTime} value={option}/>{option}
+            </label>
             {/each}
-        </select>
-        </label>
-  
-        <label>Maximum inactivity duration before showing cues:
-        <select bind:value={selectedInactivityTime}>
+        </div>
+        {/if}
+
+        <button on:click={() => toggleDropdown()}>
+            Maximum inactivity duration before showing cues:
+        </button>
+        {#if showDropdown}
+        <div>
             {#each timeOptions as option}
-            <option value={option}>{option}</option>
+            <label>
+            <input type='radio' bind:group={selectedInactivityTime} value={option}/>{option}
+            </label>
             {/each}
-        </select>
-        </label>
-  
-        <label class="toggle-container">
+        </div>
+        {/if}
+
+        <button on:click={() => toggleDropdown()}>
             Need for motivational cues during inactivity:
-            <input type="checkbox" bind:checked={needMotivationalCues} class="toggle-input">
-            <span class="toggle-slider"></span>
-        </label>
+        </button>
+        {#if showDropdown}
+        <div>
+            {#each ['Yes','No'] as option}
+            <label>
+            <input type='radio' bind:group={needMotivationalCues} value={option}/>{option}
+            </label>
+            {/each}
+        </div>
+        {/if}
+        
         
     </div>
   
