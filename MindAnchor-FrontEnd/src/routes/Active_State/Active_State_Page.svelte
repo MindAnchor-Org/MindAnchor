@@ -76,7 +76,18 @@
       console.error("No selected ID or schedules found in localStorage.");
     }
 
-
+    interval = setInterval(() => {
+      if (countdown > 0) {
+        countdown--;
+      } else {
+        clearInterval(interval!);
+        console.log("Dashboard closed!");
+        window.close();
+      }
+    }, 1000);
+    chrome.storage.local.get("bionicEnabled", (data: { bionicEnabled: boolean }) => {
+      isBionicEnabled = data.bionicEnabled || false;
+    });
   
 
     
