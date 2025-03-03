@@ -20,10 +20,7 @@
       } else {
         console.log("Data saved successfully from activestate page");
 
-    const interval = setInterval(() => {
-      if (countdown > 0) countdown--;
-        else clearInterval(interval);
-      }, 1000);
+
 
   
 
