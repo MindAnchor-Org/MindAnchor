@@ -107,6 +107,55 @@
     console.log("Motivational Cues Deactivated");
   }
 
+  function stopActivity() {
+    console.log("Activity Stopped");
+    currentScheduleId.set(0);
+    localStorage.setItem('ActivateClassification','false')
+    localStorage.setItem('BlacklistCategories','[]')
+    localStorage.setItem('WhitelistCategories','[]')
+    chrome.storage.local.set({ ActivateClassification: 'false' }, function() {
+      if (chrome.runtime.lastError) {
+        console.error("Error saving data:", chrome.runtime.lastError);
+      } else {
+        console.log("Data saved successfully discarded");
+      }
+    })
+    chrome.storage.local.set({ BlacklistCategories: []}, function() {
+      if (chrome.runtime.lastError) {
+        console.error("Error saving data:", chrome.runtime.lastError);
+      } else {
+        console.log("Data saved successfully from activestate page");
+      }
+    })
+    chrome.storage.local.set({ WhitelistCategories: []}, function() {
+      if (chrome.runtime.lastError) {
+        console.error("Error saving data:", chrome.runtime.lastError);
+      } else {
+        console.log("Data saved successfully from activestate page");
+      }
+    })
+    goToScheduleSummaryPage();
+  }
+11
+  function goToScheduleSummaryPage() {
+    currentPage.set('ScheduleSummaryPage');
+  }
+12
+  function bionify() {
+    console.log('bionic')
+    chrome.runtime.sendMessage({ action: "activateBionicReading" }, () => {
+      isBionicEnabled = true; // Update state locally
+    });
+    
+  }
+13
+  function unbionify() {
+    chrome.runtime.sendMessage({ action: "deactivateBionicReading" }, () => {
+      isBionicEnabled = false; // Update state locally
+    });
+  }
+
+
     
 </script>
 
