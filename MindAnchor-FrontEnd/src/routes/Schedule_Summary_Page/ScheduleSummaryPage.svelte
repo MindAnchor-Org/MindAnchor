@@ -5,10 +5,10 @@
   type Schedule = {
     id: number;
     name: string;
-    startDate: string;
-    endDate: string;
-    startTime: string;
-    endTime: string;
+    // startDate: string;
+    // endDate: string;
+    // startTime: string;
+    // endTime: string;
   };
 
   let schedules: Schedule[] = [];
@@ -193,6 +193,9 @@
   .icon {
     font-size: 18px;
   }
+  .scheduleName{
+    font-size: large;
+  }
 </style>
 
 <div class="container">
@@ -236,9 +239,9 @@
       {#each schedules as schedule (schedule.id)}
         <div class="activity-card">
           <div style="cursor: pointer;" on:click={() => navigateToActiveState(schedule.id)}>
-            <p><strong>Activity Name:</strong> {schedule.name}</p>
-            <p><strong>Start:</strong> {schedule.startDate} {schedule.startTime}</p>
-            <p><strong>End:</strong> {schedule.endDate} {schedule.endTime}</p>
+            <p class="scheduleName"><strong>Activity Name:</strong> {schedule.name}</p>
+            <!-- <p><strong>Start:</strong> {schedule.startDate} {schedule.startTime}</p>
+            <p><strong>End:</strong> {schedule.endDate} {schedule.endTime}</p> -->
           </div>
           <button class="delete-btn" on:click={() => deleteSchedule(schedule.id)}>🗑</button>
         </div>

@@ -21,11 +21,14 @@ if (typeof window !== 'undefined') {
 export type Schedule = {
   id: number;
   name : string
-  startDate: string;
-  endDate: string;
-  startTime: string;
-  endTime: string;
+  // startDate: string;
+  // endDate: string;
+  // startTime: string;
+  // endTime: string;
 };
+
+export const scheduleStore1 = writable<Schedule | null>(null);
+
 
 export const scheduleStore = writable<Schedule | null>(null);
 

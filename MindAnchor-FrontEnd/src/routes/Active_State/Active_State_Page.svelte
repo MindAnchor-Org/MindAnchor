@@ -159,8 +159,8 @@
   <hr />
 
   <div class="description">
-    <p><strong>Schedule Name:</strong> {schedule?.name}</p>
-    <p><strong>Start Time Date:</strong> {schedule?.startDate + " : " + schedule?.startTime} | <strong>End Time Date:</strong> {schedule?.endDate + " : " + schedule?.endTime}</p>
+    <p class="scheduleName"><strong>Schedule Name:</strong> {schedule?.name}</p>
+    <!-- <p><strong>Start Time Date:</strong> {schedule?.startDate + " : " + schedule?.startTime} | <strong>End Time Date:</strong> {schedule?.endDate + " : " + schedule?.endTime}</p> -->
   </div>
     
   <hr style="margin-top: 10px;">
@@ -285,5 +285,8 @@
 
   strong {
     font-weight: bold;
+  }
+  .scheduleName{
+    font-size: large;
   }
 </style>

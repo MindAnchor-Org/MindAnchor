@@ -5,36 +5,36 @@
   type Schedule = {
     id: number;
     name: string,
-    startDate: string;
-    endDate: string;
-    startTime: string;
-    endTime: string;
+    // startDate: string;
+    // endDate: string;
+    // startTime: string;
+    // endTime: string;
   };
 
-  let startDate: string = '';
-  let endDate: string = '';
-  let startTime: string = '';
-  let endTime: string = '';
+  // let startDate: string = '';
+  // let endDate: string = '';
+  // let startTime: string = '';
+  // let endTime: string = '';
 
   function confirmSchedule(): void {
     // Check if all fields are filled
-    if (!startDate || !endDate || !startTime || !endTime) {
-      alert("Please fill in all the date and time fields.");
-      return;
-    }
+    // if (!startDate || !endDate || !startTime || !endTime) {
+    //   alert("Please fill in all the date and time fields.");
+    //   return;
+    // }
 
-    // Combine date and time into Date objects for comparison
-    const start = new Date(`${startDate}T${startTime}`);
-    const end = new Date(`${endDate}T${endTime}`);
+    // // Combine date and time into Date objects for comparison
+    // const start = new Date(`${startDate}T${startTime}`);
+    // const end = new Date(`${endDate}T${endTime}`);
 
-    // Check if end date and time are before start date and time
-    if (end < start) {
-      alert("The end date and time cannot be before the start date and time. And the name is optional");
-      return;
-    }else if(start.getTime() === end.getTime() ){
-      alert("The time cannot be the same!");
-      return;
-    }
+    // // Check if end date and time are before start date and time
+    // if (end < start) {
+    //   alert("The end date and time cannot be before the start date and time. And the name is optional");
+    //   return;
+    // }else if(start.getTime() === end.getTime() ){
+    //   alert("The time cannot be the same!");
+    //   return;
+    // }
     if(name == null){
       name = "untitled-"+localStorage.getItem('scheduleIdCounter');
     }
@@ -51,10 +51,10 @@
       const schedule: Schedule = {
         id: currentId, // Use the updated ID here
         name,
-        startDate,
-        endDate,
-        startTime,
-        endTime,
+        // startDate,
+        // endDate,
+        // startTime,
+        // endTime,
       };
 
       scheduleStore.set(schedule);
@@ -65,10 +65,10 @@
 
   function discardSchedule(): void {
     name = '';
-    startDate = '';
-    endDate = '';
-    startTime = '';
-    endTime = '';
+    // startDate = '';
+    // endDate = '';
+    // startTime = '';
+    // endTime = '';
     goToScheduleSummaryPage();
   }
 
@@ -86,7 +86,7 @@
     <h1>MindAnchor</h1>
   </div>
   <hr />
-  <div class="page1-duration">
+  <!-- <div class="page1-duration">
     <label for="page1-duration" style="font-weight: bold;">Enter the duration of the activity:</label>
     <div id="page1-duration" class="page1-inputs">
       <input type="date" bind:value={startDate} placeholder="Start Date" name="Startdate" />
@@ -100,7 +100,7 @@
       <label for="Startdate" style="padding-right: 130px;font-weight:bold;">Start Time</label>
       <label for="Startdate" style="font-weight:bold;">End Time</label>
     </div>
-  </div>
+  </div> -->
 
   <div class="page1-tasks">
     <label for="page1-tasks" style="font-weight: bold;">Name this activity:</label>
@@ -116,7 +116,7 @@
   </div>
 
   <div class="page1-actions">
-    <button class="page1-confirm" on:click={confirmSchedule}>Confirm Activity Duration & To-Do List</button>
+    <button class="page1-confirm" on:click={confirmSchedule}>Confirm the name for this activity</button>
     <button class="page1-discard" on:click={discardSchedule}>Discard This Schedule</button>
   </div>
 </div>
@@ -161,15 +161,15 @@
       color: #333;
     }
   
-    .page1-duration,
+    /* .page1-duration,
     .page1-tasks {
       margin-bottom: 20px;
-    }
-    .page1-inputs {
+    } */
+    /* .page1-inputs {
       display: flex;
       justify-content: space-between;
       gap: 10px;
-    }
+    } */
   
     .page1-task-input {
       display: flex;
