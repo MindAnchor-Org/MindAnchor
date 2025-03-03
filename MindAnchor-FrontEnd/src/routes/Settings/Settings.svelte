@@ -4,6 +4,7 @@
 
     onMount(() => {
         loadSettings();
+        loadImageFromLocalStorage();
     });
   
     //Settings section
@@ -112,6 +113,13 @@
         errorMessage = "";
         if (fileInput && fileInput.value) { 
             fileInput.value = "";
+        }
+    }
+
+    function loadImageFromLocalStorage() {
+        const savedImage = localStorage.getItem("uploadedImage");
+        if (savedImage) {
+            previewImage = savedImage;
         }
     }
 
