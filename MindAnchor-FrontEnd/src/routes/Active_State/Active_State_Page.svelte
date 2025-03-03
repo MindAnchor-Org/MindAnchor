@@ -247,37 +247,45 @@
     
   }
 
-  .controls {
-    padding: 30px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-    margin-bottom: 20px;
-    
+  .buttons{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
   }
 
-  .controls button {
-    padding:20px;
-    font-family: 'Inria Sans', sans-serif;
+  .btn {
+    padding: 10px 20px;
     border: none;
-    border-radius: 20px;
-    cursor: pointer;
+    font-size: 16px;
     font-weight: bold;
-    
-
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.3s;
   }
 
-  .bionify , .unbionify , .activate , .deactivate{
-    font-size: 20px;
-    background: #73707E;
+  .btn-primary {
+    background: #19006f;
     color: white;
   }
 
-  .bionify:hover , .unbionify:hover , .activate:hover , .deactivate:hover{
-    background: #2e1a78;
+  .btn-secondary {
+    background: #666;
     color: white;
-    transform: scale(1.05);
   }
+
+  .btn-primary:hover, .btn-secondary:hover {
+    opacity: 0.8;
+  }
+
+  .stop-btn {
+    background: red;
+    color: white;
+    border-radius: 10px;
+    margin-top: 20px;
+    align-self: center;
+  }
+
  
   
   
