@@ -175,11 +175,15 @@
   </div>
 
   <!-- Buttons -->
-  <div class="controls">
-    <button on:click={setActive} class="bionify">Bionify webpage text</button>
-    <button on:click={setActive} class="unbionify">Unbionify webpage text</button>
-    <button on:click={setActive} class="activate">Activate motivational cues</button>
-    <button on:click={setActive} class="deactivate">Deactivate motivational cues</button>
+  <hr style="margin-top: 10px;">
+  <div class="buttons">
+    <button id="bionifyButton" class="btn btn-primary" on:click={bionify} disabled={isBionicEnabled}>Bionify webpage text</button>
+    <button id="unbionifyButton" class="btn btn-secondary" on:click={unbionify} disabled={!isBionicEnabled}>Unbionify webpage text</button>
+  </div>
+ 
+  <div class="buttons">
+    <button class="btn btn-primary" on:click={activateCues} >Activate motivational cues</button>
+    <button class="btn btn-secondary" on:click={deactivateCues}>Deactivate motivational cues</button>
   </div>
 
   <!-- Progress Section -->
