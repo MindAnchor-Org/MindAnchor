@@ -389,6 +389,42 @@
     .toggle-input:checked + .toggle-slider::before {
     transform: translateX(20px);
     }
+
+    .settings-options{
+    font-size: 16px;
+    text-align: left;
+    cursor: pointer;
+    padding: 0.75rem;
+    background: #f5f5f5;
+    border-radius: 8px;
+    transition: background 0.3s;
+  }
+  
+  .settings-option:hover {
+    background: #e0e0e0;
+  }
+
+  .settings-dropdown {
+    display: flex; 
+    justify-content: space-around;
+    margin-top: 0.5rem;
+    margin-left: 5 rem;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 0.75rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .settings-dropdown label {
+    display: block;
+    margin: 0.5rem;
+  }
+
+  input value{
+    padding: 0.75rem;
+  }
+
 </style>
   
   <div class="container">
@@ -424,11 +460,11 @@
     
     <div class="settings-section">
 
-        <button on:click={() => toggleDropdown(1)}>
+        <button class="settings-options" on:click={() => toggleDropdown(1)}>
             Time allowed to access unlisted sites:
         </button>
         {#if showDropdown1}
-        <div>
+        <div class="settings-dropdown">
             {#each timeOptions as option}
             <label>
             <input type='radio' bind:group={selectedUnlistedTime} value={option}/>{option}
