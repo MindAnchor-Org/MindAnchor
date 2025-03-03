@@ -115,6 +115,21 @@
         }
     }
 
+    function saveImageToLocalStorage() {
+        if (uploadedImage) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                if (event.target?.result) {
+                    localStorage.setItem("uploadedImage", event.target.result as string);
+                }
+            };
+            reader.readAsDataURL(uploadedImage);
+        }
+    }
+
+    
+
+
     function loadSettings() {
         const savedSettings = localStorage.getItem("userSettings");
         if (savedSettings) {
@@ -756,5 +771,5 @@
         </div>
     </div>
   
-    <button class="save-btn" on:click={() => saveSettings()}>Save Settings</button>
+    <button class="save-btn" on:click={() => {saveSettings(); saveImageToLocalStorage();}}>Save Settings</button>
   </div>
