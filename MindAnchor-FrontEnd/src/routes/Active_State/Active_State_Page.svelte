@@ -20,7 +20,16 @@
       } else {
         console.log("Data saved successfully from activestate page");
 
-
+        // Retrieving the value immediately after saving
+        chrome.storage.local.get(['ActivateClassification'], function(result) {
+          if (chrome.runtime.lastError) {
+            console.error("Error getting value:", chrome.runtime.lastError);
+          } else {
+            console.log("Value retrieved from active statepage:", result.ActivateClassification); 
+          }
+        });
+      }
+    });
 
   
 
