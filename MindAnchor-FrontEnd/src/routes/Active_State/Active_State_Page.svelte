@@ -98,6 +98,15 @@
       console.log("Interval cleared to prevent auto-closing.");
     }
   });
+
+  function activateCues() {
+    console.log("Motivational Cues Activated");
+  }
+
+  function deactivateCues() {
+    console.log("Motivational Cues Deactivated");
+  }
+
     
 </script>
 
