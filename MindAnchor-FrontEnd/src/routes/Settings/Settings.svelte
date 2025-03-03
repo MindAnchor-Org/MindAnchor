@@ -258,7 +258,7 @@
   
     .settings-section label {
     display: flex;
-    align-items: center; 
+    /* align-items: center;  */
     justify-content: space-between; 
     width: 100%;
     }
@@ -378,7 +378,7 @@
         padding: 8px;
         font-size: 16px;
         border: 2px solid #ccc;
-        border-radius: 8px; /* Curved edges */
+        border-radius: 8px;
         background-color: #f9f9f9;
         color: #333;
         cursor: pointer;
@@ -441,20 +441,6 @@
         font-size: 16px;
         font-weight: 500;
     }
-  
-  
-    /* .save-btn {
-        background-color: rgb(1, 1, 124);
-        color: white;
-        border: none;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        display: block;
-        width: 100%;
-        text-align: center;
-        margin-top: 20px;
-    } */
 
     .save-btn {
     background-color: rgb(1, 1, 124);
@@ -523,32 +509,32 @@
     transform: translateX(20px);
     }
 
+    
     .settings-options {
-        background-color: #f8f9fa;
+        display: flex;
+        justify-content: flex-start;
+        white-space: nowrap;
+        background-color: #d3d3d3;
         color: black;
         font-weight: 500;
         border: none;
         padding: 10px;
         border-radius: 5px;
         cursor: pointer;
-        display: block;
         width: 100%;
-        text-align: left;
         margin-top: 10px;
         font-size: 16px;
         transition: background-color 0.3s ease;
     }
 
-    .settings-options:hover {
-        background-color: #e3f2fd;
+    .settings-options label{
+        justify-content: flex-end;
+        color: rgb(1, 1, 124);
     }
-
     .settings-dropdown {
         display: flex;
         gap: 10px;
         background: white;
-        /* border: 1px solid #ccc; */
-        /* padding: 10px; */
         border-radius: 8px;
         /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
         margin-top: 5px;
@@ -633,7 +619,9 @@
 
         <button class="settings-options" on:click={() => toggleDropdown(1)}>
             Time allowed to access unlisted sites:
+            <label>{selectedUnlistedTime} </label>
         </button>
+        
         {#if showDropdown1}
         <div class="settings-dropdown">
             {#each timeOptions as option}
@@ -646,6 +634,7 @@
 
         <button class="settings-options" on:click={() => toggleDropdown(2)}>
             Time allowed to access the dashboard when active:
+            <label>{selectedDashboardTime}</label>
         </button>
         {#if showDropdown2}
         <div class="settings-dropdown">
@@ -659,6 +648,7 @@
 
         <button class="settings-options" on:click={() => toggleDropdown(3)}>
             Maximum inactivity duration before showing cues:
+            <label>{selectedInactivityTime}</label>
         </button>
         {#if showDropdown3}
         <div class="settings-dropdown">
@@ -672,6 +662,7 @@
 
         <button class="settings-options" on:click={() => toggleDropdown(4)}>
             Need for motivational cues during inactivity:
+            <label>{needMotivationalCues}</label>
         </button>
         {#if showDropdown4}
         <div class="settings-dropdown">
@@ -690,6 +681,7 @@
 
         <button class="settings-options" on:click={() => toggleDropdown(5)}>
             Image Alignment:
+            <label>{selectedImageAlignment}</label>
         </button>
         {#if showDropdown5}
         <div class="settings-dropdown">
@@ -704,6 +696,7 @@
         
         <button class="settings-options" on:click={() => toggleDropdown(6)}>
             Animation Type:
+            <label>{selectedAnimationType}</label>
         </button>
         {#if showDropdown6}
         <div class="settings-dropdown">
@@ -717,6 +710,7 @@
 
         <button class="settings-options" on:click={() => toggleDropdown(7)}>
             Animation Duration:
+            <label>{selectedAnimationDuration}</label>
         </button>
         {#if showDropdown7}
         <div class="settings-dropdown">
