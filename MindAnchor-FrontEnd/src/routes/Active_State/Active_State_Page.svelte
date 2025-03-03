@@ -169,14 +169,10 @@
   
 
   <!-- Schedule Details -->
-  <div class="schedule">
-    <p><strong>Schedule Name:</strong> &lt;name&gt;</p>
-    <div class="schedule-time">
-      <p><strong>Start Time Date:</strong> &lt;date&gt;&lt;time&gt;</p>
-      <p><strong>End Time Date:</strong> &lt;date&gt;&lt;time&gt;</p>
-    </div>
+  <div class="description">
+    <p><strong>Schedule Name:</strong> {schedule?.name}</p>
+    <p><strong>Start Time Date:</strong> {schedule?.startDate + " : " + schedule?.startTime} | <strong>End Time Date:</strong> {schedule?.endDate + " : " + schedule?.endTime}</p>
   </div>
-  <hr>
 
   <!-- Buttons -->
   <div class="controls">
