@@ -190,22 +190,7 @@
   <h2>How have you been doing so far?</h2>
   
   <canvas id="chart"></canvas>
-  
-    <div class="legend">
-      <div class="legend-item">
-        <span class="dot light"></span> 
-      </div>
 
-      <div class="legend-item">
-        <span class="dot medium"></span> 
-      </div>
-
-      <div class="legend-item">
-        <span class="dot dark"></span> 
-      </div>
-
-    </div>
-  </div>
   <button class="stop-button">Stop current activity</button>
   <p class="countdown">The dashboard will close in <strong>{countdown} seconds!</strong></p>
 </main>
