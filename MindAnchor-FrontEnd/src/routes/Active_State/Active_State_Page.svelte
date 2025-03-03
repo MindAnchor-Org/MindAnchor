@@ -92,17 +92,6 @@
 
     
   });
-
-  //onMount(() => {
-    /**const interval = setInterval(() =>{
-      countdown--;
-      if(countdown <= 0){
-        clearInterval(interval);
-        window.close();
-      }
-    }, 1000);**/
-  
-  //});
     
 </script>
 
