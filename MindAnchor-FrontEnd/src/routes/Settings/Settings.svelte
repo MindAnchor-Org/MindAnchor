@@ -18,6 +18,12 @@
     let previewImage: string | null = null;
     let isDragging = false;
   
+    let showDropdown = false;
+
+    function toggleDropdown(){
+        showDropdown = !showDropdown;
+    }
+
     function handleImageUpload(event: Event) {
         const target = event.target as HTMLInputElement;
         if (target.files && target.files.length > 0) {
@@ -400,13 +406,19 @@
     </nav>
     <br>
     <div class="settings-section">
-        <label>Time allowed to access unlisted sites:
-        <select bind:value={selectedUnlistedTime}>
+        <button on:click={() => toggleDropdown()}>
+            Time allowed to access unlisted sites:
+        </button>
+        {#if showDropdown}
+        <div>
             {#each timeOptions as option}
-            <option value={option}>{option}</option>
+            <label>
+            <input type='radio' bind:group={selectedUnlistedTime} value={option}/>{option}
+            </label>
             {/each}
-        </select>
-        </label>
+        </div>
+        {/if}
+        
   
         <label>Time allowed to access the dashboard when active:
         <select bind:value={selectedDashboardTime}>
