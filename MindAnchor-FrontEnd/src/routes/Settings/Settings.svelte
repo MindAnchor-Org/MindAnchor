@@ -173,7 +173,7 @@
   
     h2{
       font-size: 18px;
-      padding-bottom: 20px;
+      padding: 10px;
       text-align: center;
     }
   
@@ -391,77 +391,77 @@
     transform: translateX(20px);
     }
 
-.settings-options {
-    background-color: #f8f9fa;
-    color: black;
-    font-weight: 500;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: block;
-    width: 100%;
-    text-align: left;
-    margin-top: 10px;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
+    .settings-options {
+        background-color: #f8f9fa;
+        color: black;
+        font-weight: 500;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        text-align: left;
+        margin-top: 10px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
 
-.settings-options:hover {
-    background-color: #e3f2fd;
-}
+    .settings-options:hover {
+        background-color: #e3f2fd;
+    }
 
-.settings-dropdown {
-    display: flex;
-    gap: 10px;
-    background: white;
-    /* border: 1px solid #ccc; */
-    /* padding: 10px; */
-    border-radius: 8px;
-    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
-    margin-top: 5px;
-}
+    .settings-dropdown {
+        display: flex;
+        gap: 10px;
+        background: white;
+        /* border: 1px solid #ccc; */
+        /* padding: 10px; */
+        border-radius: 8px;
+        /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
+        margin-top: 5px;
+    }
 
-.settings-dropdown label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 16px;
-    background: #f5f5f5;
-    padding: 0.75rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    .settings-dropdown label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+        background: #f5f5f5;
+        padding: 0.75rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-.settings-dropdown label:hover {
-    background: #e0e0e0;
-}
+    .settings-dropdown label:hover {
+        background: #e0e0e0;
+    }
 
-.settings-dropdown input[type='radio'] {
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border: 2px solid #053161;
-    border-radius: 50%;
-    display: grid;
-    place-content: center;
-    transition: 0.3s;
-}
+    .settings-dropdown input[type='radio'] {
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #053161;
+        border-radius: 50%;
+        display: grid;
+        place-content: center;
+        transition: 0.3s;
+    }
 
-.settings-dropdown input[type='radio']::before {
-    content: "";
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #053161;
-    transform: scale(0);
-    transition: 0.2s ease-in-out;
-}
+    .settings-dropdown input[type='radio']::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #053161;
+        transform: scale(0);
+        transition: 0.2s ease-in-out;
+    }
 
-.settings-dropdown input[type='radio']:checked::before {
-    transform: scale(1);
-}
+    .settings-dropdown input[type='radio']:checked::before {
+        transform: scale(1);
+    }
 
 
 </style>
@@ -551,7 +551,6 @@
         </div>
         {/if}
 
-        <br>
 
         <h2>
             Set preferences for blacklisted site interference.
@@ -570,6 +569,7 @@
         </div>
         {/if}
 
+        
         <button class="settings-options" on:click={() => toggleDropdown(6)}>
             Animation Type:
         </button>
@@ -598,30 +598,10 @@
         
         
     </div>
-  
-    <h2>
-      Set preferences for blacklisted site interference.
-    </h2>
+
   
     <div class="settings-container">
-        <div 
-            class="image-upload-container {isDragging ? 'dragging' : ''}"
-            role="button"
-            tabindex="0"
-            aria-label="Upload an image"
-            on:dragover={handleDragOver}
-            on:dragleave={handleDragLeave}
-            on:drop={handleDrop}
-            on:click={() => document.getElementById('fileInput')?.click()}
-            on:keypress={(e) => e.key === 'Enter' && document.getElementById('fileInput')?.click()}>
-            {#if previewImage}
-                <img src={previewImage} alt="Preview" class="image-preview" />
-                <button type="button" class="reset-button" on:click={() => { uploadedImage = null; previewImage = null; }}>Remove</button>
-            {:else}
-                <p class="upload-text">Drag & Drop an image or <strong>Click to Upload</strong></p>
-            {/if}
-            <input type="file" id="fileInput" class="hidden-input" accept="image/*" on:change={handleImageUpload} />
-        </div>
+
   
 
         <div class="preferences-section">
@@ -632,6 +612,13 @@
             <label>Text Colour:
                 <input type="color" bind:value={textColor}>
             </label>
+
+            {#if previewImage}
+                <br>
+                <p class="upload-message">* The image you uploaded will be displayed for</p> 
+                <p>you when you are distracted :D.</p>
+            {/if}
+
         </div>
     </div>
   
