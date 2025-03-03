@@ -248,16 +248,13 @@
     text-align: center;
   }
 
-  .schedule{
-    font-size: 20px;
-    line-height: 10px;
-    
+  .actions {
+    text-align: center;
+    margin-top: 20px;
   }
-  .schedule-time{
-    display: flex;
-    justify-content: center;
-    gap:50px;
 
+  strong {
+    font-weight: bold;
   }
 
   hr {
