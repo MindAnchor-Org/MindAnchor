@@ -2,22 +2,18 @@
 
     import { currentPage } from '../../lib/store';
   
+    // Settings section
     let timeOptions = ['10 seconds', '20 seconds', '30 seconds'];
     let selectedUnlistedTime = '10 seconds';
     let selectedDashboardTime = '10 seconds';
     let selectedInactivityTime = '10 seconds';
     let needMotivationalCues = 'No';
-  
     let selectedImageAlignment = 'Centre';
     let selectedAnimationType = 'Fade';
     let selectedAnimationDuration = '10 seconds';
     let backgroundColor = '#ffffff';
     let textColor = '#000000';
-  
-    let uploadedImage: File | null = null;
-    let previewImage: string | null = null;
-    let isDragging = false;
-  
+    
     let showDropdown1 = false;
     let showDropdown2 = false;
     let showDropdown3 = false;
@@ -25,6 +21,14 @@
     let showDropdown5 = false;
     let showDropdown6 = false;
     let showDropdown7 = false;
+
+    // Upload image section
+    let uploadedImage: File | null = null;
+    let previewImage: string | null = null;
+    let isDragging = false;
+    let errorMessage = "";
+
+    const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
     function toggleDropdown(number: number){
         if(number === 1){
@@ -44,13 +48,29 @@
         }
     }
 
+    function isValidFileSize(file: File) {
+        return file.size <= MAX_FILE_SIZE;
+    }
+
     function handleImageUpload(event: Event) {
         const target = event.target as HTMLInputElement;
         if (target.files && target.files.length > 0) {
             uploadedImage = target.files[0];
-            previewImage = URL.createObjectURL(uploadedImage);
+            validateAndSetImage(uploadedImage);
         }
     }
+
+    function validateAndSetImage(file: File) {
+        if (!file) return;
+        if (!isValidFileSize(file)) {
+            errorMessage = "File is too large. Max allowed size: 2MB.";
+            return;
+        }
+        errorMessage = "";
+        uploadedImage = file;
+        previewImage = URL.createObjectURL(file);
+    }
+    
   
     function handleDragOver(event: DragEvent) {
         event.preventDefault();
@@ -69,6 +89,12 @@
             uploadedImage = event.dataTransfer.files[0];
             previewImage = URL.createObjectURL(uploadedImage);
         }
+    }
+
+    function resetImage() {
+        uploadedImage = null;
+        previewImage = null;
+        errorMessage = "";
     }
   
     function goToUserProgress() {
@@ -242,6 +268,12 @@
   
     .reset-button:hover {
         background-color: darkred;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
     }
   
   
@@ -601,8 +633,29 @@
 
   
     <div class="settings-container">
+        <label>Upload Image:</label>
+        <div 
+            class="image-upload-container {isDragging ? 'dragging' : ''}"
+            role="button"
+            tabindex="0"
+            aria-label="Upload an image"
+            on:dragover={handleDragOver}
+            on:dragleave={handleDragLeave}
+            on:drop={handleDrop}
+            on:click={() => document.getElementById('fileInput')?.click()}
+            on:keypress={(e) => e.key === 'Enter' && document.getElementById('fileInput')?.click()}>
 
+            {#if previewImage}
+                <img src={previewImage} alt="Preview" class="image-preview" />
+                <button type="button" class="reset-button" on:click={() => resetImage()}>Remove</button>
+            {:else}
+                <p class="upload-text">Drag & Drop an image or <strong>Click to Upload</strong></p>
+            {/if}
+
+            <input type="file" id="fileInput" class="hidden-input" accept="image/*" on:change={handleImageUpload} />
+        </div>
   
+        
 
         <div class="preferences-section">
         
@@ -617,6 +670,11 @@
                 <br>
                 <p class="upload-message">* The image you uploaded will be displayed for</p> 
                 <p>you when you are distracted :D.</p>
+            {/if}
+
+            {#if errorMessage}
+                <br>
+                <p class="error-message">{errorMessage}</p>
             {/if}
 
         </div>
