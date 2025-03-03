@@ -27,8 +27,10 @@
     let previewImage: string | null = null;
     let isDragging = false;
     let errorMessage = "";
+    let fileInput: HTMLInputElement | null = null;
 
     const MAX_FILE_SIZE = 2 * 1024 * 1024;
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
 
     function toggleDropdown(number: number){
         if(number === 1){
@@ -52,6 +54,11 @@
         return file.size <= MAX_FILE_SIZE;
     }
 
+    function isValidImageType(file: File) {
+        console.log("File type:", file.type);
+        return allowedTypes.includes(file.type);
+    }
+
     function handleImageUpload(event: Event) {
         const target = event.target as HTMLInputElement;
         if (target.files && target.files.length > 0) {
@@ -64,6 +71,10 @@
         if (!file) return;
         if (!isValidFileSize(file)) {
             errorMessage = "File is too large. Max allowed size: 2MB.";
+            return;
+        }
+        if (!isValidImageType(file)) {
+            errorMessage = "Invalid file type. Please upload a JPG, PNG, or GIF.";
             return;
         }
         errorMessage = "";
@@ -87,7 +98,7 @@
   
         if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
             uploadedImage = event.dataTransfer.files[0];
-            previewImage = URL.createObjectURL(uploadedImage);
+            validateAndSetImage(uploadedImage);
         }
     }
 
@@ -95,6 +106,9 @@
         uploadedImage = null;
         previewImage = null;
         errorMessage = "";
+        if (fileInput && fileInput.value) { 
+            fileInput.value = "";
+        }
     }
   
     function goToUserProgress() {
@@ -642,8 +656,7 @@
             on:dragover={handleDragOver}
             on:dragleave={handleDragLeave}
             on:drop={handleDrop}
-            on:click={() => document.getElementById('fileInput')?.click()}
-            on:keypress={(e) => e.key === 'Enter' && document.getElementById('fileInput')?.click()}>
+            on:click={() => document.getElementById('fileInput')?.click()}>
 
             {#if previewImage}
                 <img src={previewImage} alt="Preview" class="image-preview" />
@@ -652,7 +665,7 @@
                 <p class="upload-text">Drag & Drop an image or <strong>Click to Upload</strong></p>
             {/if}
 
-            <input type="file" id="fileInput" class="hidden-input" accept="image/*" on:change={handleImageUpload} />
+            <input type="file" id="fileInput" class="hidden-input" accept="image/jpeg, image/png, image/gif" bind:this={fileInput} on:change={handleImageUpload} />
         </div>
   
         
