@@ -390,40 +390,77 @@
     transform: translateX(20px);
     }
 
-    .settings-options{
-    font-size: 16px;
-    text-align: left;
+.settings-options {
+    background-color: rgb(1, 1, 124);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
     cursor: pointer;
-    padding: 0.75rem;
-    background: #f5f5f5;
-    border-radius: 8px;
-    transition: background 0.3s;
-  }
-  
-  .settings-option:hover {
-    background: #e0e0e0;
-  }
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
 
-  .settings-dropdown {
-    display: flex; 
-    justify-content: space-around;
-    margin-top: 0.5rem;
-    margin-left: 5 rem;
+.settings-options:hover {
+    background-color: #0056b3;
+}
+
+.settings-dropdown {
+    display: flex;
+    gap: 10px;
     background: white;
     border: 1px solid #ccc;
-    padding: 0.75rem;
+    padding: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
+    margin-top: 5px;
+}
 
-  .settings-dropdown label {
-    display: block;
-    margin: 0.5rem;
-  }
-
-  input value{
+.settings-dropdown label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    background: #f5f5f5;
     padding: 0.75rem;
-  }
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.settings-dropdown label:hover {
+    background: #e0e0e0;
+}
+
+.settings-dropdown input[type='radio'] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    display: grid;
+    place-content: center;
+    transition: 0.3s;
+}
+
+.settings-dropdown input[type='radio']::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #007bff;
+    transform: scale(0);
+    transition: 0.2s ease-in-out;
+}
+
+.settings-dropdown input[type='radio']:checked::before {
+    transform: scale(1);
+}
+
 
 </style>
   
