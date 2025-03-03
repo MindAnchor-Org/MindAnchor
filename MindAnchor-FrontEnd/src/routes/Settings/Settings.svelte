@@ -110,6 +110,21 @@
             fileInput.value = "";
         }
     }
+
+    function saveSettings() {
+        const settings = {
+            selectedUnlistedTime,
+            selectedDashboardTime,
+            selectedInactivityTime,
+            needMotivationalCues,
+            selectedImageAlignment,
+            selectedAnimationType,
+            selectedAnimationDuration,
+            backgroundColor,
+            textColor
+        };
+        localStorage.setItem("userSettings", JSON.stringify(settings));
+    }
   
     function goToUserProgress() {
       currentPage.set('ProgressChart');
@@ -693,5 +708,5 @@
         </div>
     </div>
   
-    <button class="save-btn">Save Preferences</button>
+    <button class="save-btn" on:click={() => saveSettings()}>Save Settings</button>
   </div>
