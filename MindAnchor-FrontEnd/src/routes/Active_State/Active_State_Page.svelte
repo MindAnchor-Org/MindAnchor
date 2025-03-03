@@ -159,14 +159,13 @@
     
 </script>
 
-<main>
-  <!-- Header Section -->
-  <div class="header">
-    <img src="src/MindAnchor-Logo.png" alt="MindAnchor Logo" class="logo">
+<div class="container">
+  <div class="page1-header">
+    <img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px">
     <h1>MindAnchor</h1>
-    
   </div>
-  <hr class="header-hr">
+  <hr />
+
   
 
   <!-- Schedule Details -->
