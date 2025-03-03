@@ -187,14 +187,10 @@
   </div>
 
   <!-- Progress Section -->
-  <div class="progress-heading">
-    How have you been doing so far?
-  </div>
-  <br>
-  <div class="progress">
-    <div class="pie-chart">
-      <canvas bind:this={chartCanvas}></canvas>
-    </div>
+  <h2>How have you been doing so far?</h2>
+  
+  <canvas id="chart"></canvas>
+  
     <div class="legend">
       <div class="legend-item">
         <span class="dot light"></span> 
