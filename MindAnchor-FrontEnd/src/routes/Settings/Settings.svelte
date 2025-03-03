@@ -174,6 +174,7 @@
     h2{
       font-size: 18px;
       padding-bottom: 20px;
+      text-align: center;
     }
   
     label{
@@ -391,32 +392,33 @@
     }
 
 .settings-options {
-    background-color: rgb(1, 1, 124);
-    color: white;
+    background-color: #f8f9fa;
+    color: black;
+    font-weight: 500;
     border: none;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
     display: block;
     width: 100%;
-    text-align: center;
+    text-align: left;
     margin-top: 10px;
     font-size: 16px;
-    transition: background 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .settings-options:hover {
-    background-color: #0056b3;
+    background-color: #e3f2fd;
 }
 
 .settings-dropdown {
     display: flex;
     gap: 10px;
     background: white;
-    border: 1px solid #ccc;
-    padding: 10px;
+    /* border: 1px solid #ccc; */
+    /* padding: 10px; */
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
     margin-top: 5px;
 }
 
@@ -429,7 +431,7 @@
     padding: 0.75rem;
     border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .settings-dropdown label:hover {
@@ -440,7 +442,7 @@
     appearance: none;
     width: 16px;
     height: 16px;
-    border: 2px solid #007bff;
+    border: 2px solid #053161;
     border-radius: 50%;
     display: grid;
     place-content: center;
@@ -452,7 +454,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: #007bff;
+    background: #053161;
     transform: scale(0);
     transition: 0.2s ease-in-out;
 }
@@ -510,11 +512,11 @@
         </div>
         {/if}
 
-        <button on:click={() => toggleDropdown(2)}>
+        <button class="settings-options" on:click={() => toggleDropdown(2)}>
             Time allowed to access the dashboard when active:
         </button>
         {#if showDropdown2}
-        <div>
+        <div class="settings-dropdown">
             {#each timeOptions as option}
             <label>
             <input type='radio' bind:group={selectedDashboardTime} value={option}/>{option}
@@ -523,11 +525,11 @@
         </div>
         {/if}
 
-        <button on:click={() => toggleDropdown(3)}>
+        <button class="settings-options" on:click={() => toggleDropdown(3)}>
             Maximum inactivity duration before showing cues:
         </button>
         {#if showDropdown3}
-        <div>
+        <div class="settings-dropdown">
             {#each timeOptions as option}
             <label>
             <input type='radio' bind:group={selectedInactivityTime} value={option}/>{option}
@@ -536,14 +538,59 @@
         </div>
         {/if}
 
-        <button on:click={() => toggleDropdown(4)}>
+        <button class="settings-options" on:click={() => toggleDropdown(4)}>
             Need for motivational cues during inactivity:
         </button>
         {#if showDropdown4}
-        <div>
+        <div class="settings-dropdown">
             {#each ['Yes','No'] as option}
             <label>
             <input type='radio' bind:group={needMotivationalCues} value={option}/>{option}
+            </label>
+            {/each}
+        </div>
+        {/if}
+
+        <br>
+
+        <h2>
+            Set preferences for blacklisted site interference.
+        </h2>
+
+        <button class="settings-options" on:click={() => toggleDropdown(5)}>
+            Image Alignment:
+        </button>
+        {#if showDropdown5}
+        <div class="settings-dropdown">
+            {#each ['Left','Centre','Right'] as option}
+            <label>
+            <input type='radio' bind:group={selectedImageAlignment} value={option}/>{option}
+            </label>
+            {/each}
+        </div>
+        {/if}
+
+        <button class="settings-options" on:click={() => toggleDropdown(6)}>
+            Animation Type:
+        </button>
+        {#if showDropdown6}
+        <div class="settings-dropdown">
+            {#each ['Fade','Slide','Zoom'] as option}
+            <label>
+            <input type='radio' bind:group={selectedAnimationType} value={option}/>{option}
+            </label>
+            {/each}
+        </div>
+        {/if}
+
+        <button class="settings-options" on:click={() => toggleDropdown(7)}>
+            Animation Duration:
+        </button>
+        {#if showDropdown7}
+        <div class="settings-dropdown">
+            {#each timeOptions as option}
+            <label>
+            <input type='radio' bind:group={selectedAnimationDuration} value={option}/>{option}
             </label>
             {/each}
         </div>
@@ -578,53 +625,13 @@
   
 
         <div class="preferences-section">
-
-            <button on:click={() => toggleDropdown(5)}>
-                Image Alignment:
-            </button>
-            {#if showDropdown5}
-            <div>
-                {#each ['Left','Centre','Right'] as option}
-                <label>
-                <input type='radio' bind:group={selectedImageAlignment} value={option}/>{option}
-                </label>
-                {/each}
-            </div>
-            {/if}
-
-            <button on:click={() => toggleDropdown(6)}>
-                Animation Type:
-            </button>
-            {#if showDropdown6}
-            <div>
-                {#each ['Fade','Slide','Zoom'] as option}
-                <label>
-                <input type='radio' bind:group={selectedAnimationType} value={option}/>{option}
-                </label>
-                {/each}
-            </div>
-            {/if}
-
-            <button on:click={() => toggleDropdown(7)}>
-                Animation Duration:
-            </button>
-            {#if showDropdown7}
-            <div>
-                {#each timeOptions as option}
-                <label>
-                <input type='radio' bind:group={selectedAnimationDuration} value={option}/>{option}
-                </label>
-                {/each}
-            </div>
-            {/if}
-
         
-        <label>Background Colour:
-            <input type="color" bind:value={backgroundColor}>
-        </label>
-        <label>Text Colour:
-            <input type="color" bind:value={textColor}>
-        </label>
+            <label>Background Colour:
+                <input type="color" bind:value={backgroundColor}>
+            </label>
+            <label>Text Colour:
+                <input type="color" bind:value={textColor}>
+            </label>
         </div>
     </div>
   
