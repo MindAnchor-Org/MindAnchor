@@ -6,9 +6,9 @@
     let selectedUnlistedTime = '10 seconds';
     let selectedDashboardTime = '10 seconds';
     let selectedInactivityTime = '10 seconds';
-    let needMotivationalCues = false;
+    let needMotivationalCues = 'No';
   
-    let selectedImageAlignment = 'Center';
+    let selectedImageAlignment = 'Centre';
     let selectedAnimationType = 'Fade';
     let selectedAnimationDuration = '10 seconds';
     let backgroundColor = '#ffffff';
@@ -18,10 +18,30 @@
     let previewImage: string | null = null;
     let isDragging = false;
   
-    let showDropdown = false;
+    let showDropdown1 = false;
+    let showDropdown2 = false;
+    let showDropdown3 = false;
+    let showDropdown4 = false;
+    let showDropdown5 = false;
+    let showDropdown6 = false;
+    let showDropdown7 = false;
 
-    function toggleDropdown(){
-        showDropdown = !showDropdown;
+    function toggleDropdown(number: number){
+        if(number === 1){
+            showDropdown1 = !showDropdown1;
+        }else if(number === 2){
+            showDropdown2 = !showDropdown2;
+        }else if(number === 3){
+            showDropdown3 = !showDropdown3;
+        }else if(number === 4){
+            showDropdown4 = !showDropdown4;
+        }else if(number === 5){
+            showDropdown5 = !showDropdown5;
+        }else if(number === 6){
+            showDropdown6 = !showDropdown6;
+        }else if(number === 7){
+            showDropdown7 = !showDropdown7;
+        }
     }
 
     function handleImageUpload(event: Event) {
@@ -57,15 +77,12 @@
     function goToScheduleSummaryPage() {
         currentPage.set('ScheduleSummaryPage');
     }
-    function goToSettings() {
-        currentPage.set('Settings');
-    }
     function goToSubscription() {
         currentPage.set('Subscription');
     }
-  </script>
+</script>
   
-  <style>
+<style>
   
     .container {
         width: 984px;
@@ -372,8 +389,7 @@
     .toggle-input:checked + .toggle-slider::before {
     transform: translateX(20px);
     }
-  
-  </style>
+</style>
   
   <div class="container">
     <div class="page1-header">
@@ -408,10 +424,10 @@
     
     <div class="settings-section">
 
-        <button on:click={() => toggleDropdown()}>
+        <button on:click={() => toggleDropdown(1)}>
             Time allowed to access unlisted sites:
         </button>
-        {#if showDropdown}
+        {#if showDropdown1}
         <div>
             {#each timeOptions as option}
             <label>
@@ -421,10 +437,10 @@
         </div>
         {/if}
 
-        <button on:click={() => toggleDropdown()}>
+        <button on:click={() => toggleDropdown(2)}>
             Time allowed to access the dashboard when active:
         </button>
-        {#if showDropdown}
+        {#if showDropdown2}
         <div>
             {#each timeOptions as option}
             <label>
@@ -434,10 +450,10 @@
         </div>
         {/if}
 
-        <button on:click={() => toggleDropdown()}>
+        <button on:click={() => toggleDropdown(3)}>
             Maximum inactivity duration before showing cues:
         </button>
-        {#if showDropdown}
+        {#if showDropdown3}
         <div>
             {#each timeOptions as option}
             <label>
@@ -447,10 +463,10 @@
         </div>
         {/if}
 
-        <button on:click={() => toggleDropdown()}>
+        <button on:click={() => toggleDropdown(4)}>
             Need for motivational cues during inactivity:
         </button>
-        {#if showDropdown}
+        {#if showDropdown4}
         <div>
             {#each ['Yes','No'] as option}
             <label>
@@ -490,40 +506,40 @@
 
         <div class="preferences-section">
 
-            <button on:click={() => toggleDropdown()}>
+            <button on:click={() => toggleDropdown(5)}>
                 Image Alignment:
             </button>
-            {#if showDropdown}
+            {#if showDropdown5}
             <div>
                 {#each ['Left','Centre','Right'] as option}
                 <label>
-                <input type='radio' bind:group={needMotivationalCues} value={option}/>{option}
+                <input type='radio' bind:group={selectedImageAlignment} value={option}/>{option}
                 </label>
                 {/each}
             </div>
             {/if}
 
-            <button on:click={() => toggleDropdown()}>
+            <button on:click={() => toggleDropdown(6)}>
                 Animation Type:
             </button>
-            {#if showDropdown}
+            {#if showDropdown6}
             <div>
                 {#each ['Fade','Slide','Zoom'] as option}
                 <label>
-                <input type='radio' bind:group={needMotivationalCues} value={option}/>{option}
+                <input type='radio' bind:group={selectedAnimationType} value={option}/>{option}
                 </label>
                 {/each}
             </div>
             {/if}
 
-            <button on:click={() => toggleDropdown()}>
+            <button on:click={() => toggleDropdown(7)}>
                 Animation Duration:
             </button>
-            {#if showDropdown}
+            {#if showDropdown7}
             <div>
                 {#each timeOptions as option}
                 <label>
-                <input type='radio' bind:group={needMotivationalCues} value={option}/>{option}
+                <input type='radio' bind:group={selectedAnimationDuration} value={option}/>{option}
                 </label>
                 {/each}
             </div>
