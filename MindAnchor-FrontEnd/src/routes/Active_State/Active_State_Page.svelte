@@ -1,27 +1,20 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import Chart from "chart.js/auto";
-  
-  let countdown = 6;
-
-  let chartCanvas: any;
-
-  let activeButton: HTMLButtonElement | null =null;
-
-  function setActive(event: Event) {
-    const clickedButton = event.target as HTMLButtonElement;
-    if (activeButton && activeButton !== clickedButton) {
-        activeButton.classList.remove("active");
-      } 
-      clickedButton.classList.add("active");
-      activeButton = clickedButton;
-  }
+  import { currentPage, currentScheduleId, isBionified, scheduleStore, type Schedule } from "../../lib/store";
+  import { onMount, onDestroy } from "svelte";
+  let countdown = 30; 
+  let interval: number | null = null;
+  let schedule: Schedule | null = null;
+  let isBionicEnabled = false;
+  let blacklisturls: string | null = null;
+  let whitelisturls : string[] | null = null; 
+  let selectedBlacklistCategories: string[];
+  let selectedWhitelistCategories: string[];
 
   onMount(() => {
     if (chartCanvas) {
       new Chart(chartCanvas, {
         type: "pie",
-        
+
         data: {
           labels: ["8.34%", "12.5%", "16.67%", "20.83%", "41.66%"],
           datasets: [
