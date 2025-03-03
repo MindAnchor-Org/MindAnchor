@@ -10,7 +10,15 @@
   let selectedBlacklistCategories: string[];
   let selectedWhitelistCategories: string[];
 
-
+  onMount(() => {
+    let selectedId = localStorage.getItem("currentScheduleId");
+    const storedData = localStorage.getItem("schedules");
+    // Storing the value
+    chrome.storage.local.set({ ActivateClassification: 'true' }, function() {
+      if (chrome.runtime.lastError) {
+        console.error("Error saving data:", chrome.runtime.lastError);
+      } else {
+        console.log("Data saved successfully from activestate page");
 
     const interval = setInterval(() => {
       if (countdown > 0) countdown--;
