@@ -379,9 +379,8 @@
   }
 
   .countdown {
-    font-size: 22px;
-    
-    line-height: 31.17px;
+    font-weight: bold;
+    font-size: 18px;
   }
 
 
