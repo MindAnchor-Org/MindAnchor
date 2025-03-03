@@ -47,7 +47,34 @@
           selectedWhitelistCategories = whitelistCategories.filter((category: { selected: any; }) => category.selected).map((category: { name: any; }) => category.name);
           chrome.storage.local.set({ BlacklistCategories: selectedBlacklistCategories},
 
-  
+          function() {
+            if (chrome.runtime.lastError) {
+              console.error("Error saving data:", chrome.runtime.lastError);
+            } else {
+              console.log("Data saved successfully from activestate page");
+
+            }
+          })
+          chrome.storage.local.set({ WhitelistCategories: selectedWhitelistCategories}, function() {
+            if (chrome.runtime.lastError) {
+              console.error("Error saving data:", chrome.runtime.lastError);
+            } else {
+              console.log("Data saved successfully from activestate page");
+
+            }
+          })
+          localStorage.setItem('BlacklistCategories', JSON.stringify(selectedBlacklistCategories));
+          localStorage.setItem('WhitelistCategories', JSON.stringify(selectedWhitelistCategories));
+
+        } else {
+          console.error("No schedule found with the ID:", selectedId);
+        }
+      } catch (error) {
+        console.error("Error parsing schedules:", error);
+      }
+    } else {
+      console.error("No selected ID or schedules found in localStorage.");
+    }
 
 
   
