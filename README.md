@@ -2,12 +2,12 @@
 
 Dear team,
 
-When installing the project, please run the following commands on your terminal/CMD before coding.
+When installing the project, please run the following commands on your terminal/CMD after directing the folder to /MindAnchor-FrontEnd
 
-```npm install -g npm```
+```npm install```
 
 ```npm install @sveltejs/kit```
 
-```npm run devext```
-
 ```npm install chart.js```
+
+```npm run devext```
