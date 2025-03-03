@@ -191,9 +191,11 @@
   
   <canvas id="chart"></canvas>
 
-  <button class="stop-button">Stop current activity</button>
-  <p class="countdown">The dashboard will close in <strong>{countdown} seconds!</strong></p>
-</main>
+  <div class="actions">
+    <button class="btn stop-btn" on:click={stopActivity}>Stop current activity</button>
+    <p class="countdown">The dashboard will close in <strong>{countdown}</strong> seconds!</p>
+  </div>
+</div>
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300;400;700&display=swap');
