@@ -198,15 +198,16 @@
 </div>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300;400;700&display=swap');
-
-  main {
-    
+  .container {
+    width: 984px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden; 
     font-family: 'Inria Sans', sans-serif;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
   }
+
 
   .header {
     display: flex;
