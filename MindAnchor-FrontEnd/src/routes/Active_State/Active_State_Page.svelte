@@ -171,8 +171,7 @@
   <!-- Schedule Details -->
   <div class="description">
     <p><strong>Schedule Name:</strong> {schedule?.name}</p>
-    <p><strong>Start Time Date:</strong> {schedule?.startDate + " : " + schedule?.startTime} | <strong>End Time Date:</strong> {schedule?.endDate + " : " + schedule?.endTime}</p>
-  </div>
+   </div>
 
   <!-- Buttons -->
   <hr style="margin-top: 10px;">
@@ -300,82 +299,6 @@
     border-radius: 10px;
     margin-top: 20px;
     align-self: center;
-  }
-
- 
-  
-  
-
-  .progress-heading{
-    font-size: 20px;
-    font-weight: 700;
-  }
-
-  .progress {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
-    margin-top: 15px;
-    margin-right: 250px;
-    
-    
-  }
-
-
-  .pie-chart{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 250px;
-    max-height: 250px;
-    
-    
-    
-  }
-  
-
-  .legend {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    
-    
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 30px;
-  }
-  
-
-  .dot {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    margin-right: 10px;
-    
-  }
-
-  .light { background: #aecbef; }
-  .medium { background: #5a7ebb; }
-  .dark { background: #2e1a78; }
-
-  .stop-button {
-    font-family: 'Inria Sans', sans-serif;
-    padding: 20px;
-    width:300px;
-    background: #C70000;
-    color: white;
-    font-size: 20px;
-    margin-top: 40px;
-    border-radius: 20px;
-    border: none;
-  }
-
-  .stop-button:hover{
-    transform: scale(1.05);
   }
 
   .countdown {
