@@ -405,6 +405,7 @@
       </div>
     </nav>
     <br>
+    
     <div class="settings-section">
 
         <button on:click={() => toggleDropdown()}>
@@ -486,30 +487,49 @@
             <input type="file" id="fileInput" class="hidden-input" accept="image/*" on:change={handleImageUpload} />
         </div>
   
+
         <div class="preferences-section">
-        <label>Image Alignment:
-            <select bind:value={selectedImageAlignment}>
-            <option>Left</option>
-            <option>Center</option>
-            <option>Right</option>
-            </select>
-        </label>
-  
-        <label>Animation Type:
-            <select bind:value={selectedAnimationType}>
-            <option>Fade</option>
-            <option>Slide</option>
-            <option>Zoom</option>
-            </select>
-        </label>
-  
-        <label>Animation Duration:
-            <select bind:value={selectedAnimationDuration}>
-            <option>10 seconds</option>
-            <option>20 seconds</option>
-            <option>30 seconds</option>
-            </select>
-        </label>
+
+            <button on:click={() => toggleDropdown()}>
+                Image Alignment:
+            </button>
+            {#if showDropdown}
+            <div>
+                {#each ['Left','Centre','Right'] as option}
+                <label>
+                <input type='radio' bind:group={needMotivationalCues} value={option}/>{option}
+                </label>
+                {/each}
+            </div>
+            {/if}
+
+            <button on:click={() => toggleDropdown()}>
+                Animation Type:
+            </button>
+            {#if showDropdown}
+            <div>
+                {#each ['Fade','Slide','Zoom'] as option}
+                <label>
+                <input type='radio' bind:group={needMotivationalCues} value={option}/>{option}
+                </label>
+                {/each}
+            </div>
+            {/if}
+
+            <button on:click={() => toggleDropdown()}>
+                Animation Duration:
+            </button>
+            {#if showDropdown}
+            <div>
+                {#each timeOptions as option}
+                <label>
+                <input type='radio' bind:group={needMotivationalCues} value={option}/>{option}
+                </label>
+                {/each}
+            </div>
+            {/if}
+
+        
         <label>Background Colour:
             <input type="color" bind:value={backgroundColor}>
         </label>
