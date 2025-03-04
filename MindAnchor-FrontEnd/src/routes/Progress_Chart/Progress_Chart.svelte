@@ -60,11 +60,11 @@
 
   // Function to update the progress bar
   function updateProgressBar(challengeIndex: number, progress: number): void {
-    // Get the progress bar element by challenge index
-    const progressBar: HTMLElement = document.querySelectorAll('.progress-bar')[challengeIndex] as HTMLElement;
+      const progressBar: HTMLElement | null = document.querySelectorAll('.progress-bar-complete')[challengeIndex] as HTMLElement | null;
 
-    // Update the width of the progress bar (0 to 100)
-    progressBar.style.width = `${progress}%`;
+      if (progressBar) {
+          progressBar.style.width = `${progress}%`;
+      }
   }
 
   // Example: Initialize progress for the challenges
@@ -186,18 +186,24 @@
       color: #666;
   }
 
-  .progress-bar {
-    width: 0%;
+  .progress-bar-complete {
+    width: 100%;
     height: 10px;
-    background-color: #e0e0e0;
+    background-color: #2e9221;
     border-radius: 5px;
     overflow: hidden;
   }
 
-  .progress-bar {
-    background-color: #4caf50;
-    transition: width 0.5s ease;
+  .progress-bar-total {
+    width: 100%;
+    height: 10px;
+    background-color: rgb(151, 151, 151);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: -1;
   }
+
+
 </style>
 
 <div class="container">
@@ -238,30 +244,38 @@
         <h1>Improvements and reductions so far</h1>
     </div>
     <div class="game-container">
-        <h1>Daily Missions</h1>
-
-        <div class="challenge">
+        <h1>Daily Missions</h1>          
+          <div class="challenge">
             <p class="challenge-title">"1-Hour Focus Sprint"</p>
             <p class="challenge-desc">Avoid distractions for an hour.</p>
-            <div class="progress-bar"></div>
-        </div>
-    
-        <div class="challenge">
+            <div class="progress-bar-total">
+              <div class="progress-bar-complete"></div>
+            </div>
+          </div>
+        
+          <div class="challenge">
             <p class="challenge-title">"Morning Warrior"</p>
             <p class="challenge-desc">No distractions before noon.</p>
-            <div class="progress-bar"></div>
-        </div>
-    
-        <div class="challenge">
+            <div class="progress-bar-total">
+              <div class="progress-bar-complete"></div>
+            </div>
+          </div>
+        
+          <div class="challenge">
             <p class="challenge-title">"Evening Productivity"</p>
             <p class="challenge-desc">Stay focused in the late hours.</p>
-            <div class="progress-bar"></div>
-        </div>
-    
-        <div class="challenge">
+            <div class="progress-bar-total">
+              <div class="progress-bar-complete"></div>
+            </div>
+          </div>
+        
+          <div class="challenge">
             <p class="challenge-title">"Distraction Reduction Challenge"</p>
             <p class="challenge-desc">Use 10% less distraction time than the previous day.</p>
-            <div class="progress-bar"></div>
-        </div>
+            <div class="progress-bar-total">
+              <div class="progress-bar-complete"></div>
+            </div>
+          </div>
+        
     </div>   
 </div>
