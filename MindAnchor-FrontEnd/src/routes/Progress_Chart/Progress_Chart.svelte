@@ -141,9 +141,10 @@
     text-align: center;
   }
 
-  .chart-container {
+  .chart-container, .summary-container, .game-container {
     margin-left: auto;
     margin-right: auto;
+    width: 300px; height: 300px;
   }
 </style>
 
@@ -176,16 +177,16 @@
         </div>
     </nav>
     <br>
-    <div style="width: 300px; height: 300px;" class="chart-container">
+    <div class="chart-container">
       <h1>The categories of sites you have visited</h1><br>
       <canvas bind:this={chartContainer}></canvas>
     </div>
     <br>
     <br>
-    <div style="width: 300px; height: 300px;">
+    <div class="summary-container">
       <h1>Improvements and reductions so far</h1>
     </div>
-    <div style="width: 300px; height: 300px;">
+    <div class="game-container">
       <h1>Streak points</h1>
     </div>   
 </div>
