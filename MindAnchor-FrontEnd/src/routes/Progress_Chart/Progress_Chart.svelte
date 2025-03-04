@@ -61,7 +61,17 @@
       currentPage.set('Subscription');
   }
 
-
+  // Function to update the progress bar
+  function updateProgressBar(challengeIndex: number, progress: number): void {
+    // Get the progress bar element by challenge index
+    const progressBar: HTMLElement = document.querySelectorAll('.progress-bar')[challengeIndex] as HTMLElement;
+    
+    // Update the width of the progress bar (0 to 100)
+    const progressBarAfter = progressBar.querySelector('::after') as HTMLElement;
+    if (progressBarAfter) {
+        progressBarAfter.style.width = `${progress}%`;
+    }
+}
 </script>
 
 <style>
