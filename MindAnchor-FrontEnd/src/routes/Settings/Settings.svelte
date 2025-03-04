@@ -66,11 +66,16 @@
 
     function handleImageUpload(event: Event) {
         const target = event.target as HTMLInputElement;
+        
         if (target.files && target.files.length > 0) {
             uploadedImage = target.files[0];
             validateAndSetImage(uploadedImage);
+        }else if (!target.files || target.files.length === 0) {
+            target.value = "";
+            return;
         }
     }
+
 
     function validateAndSetImage(file: File) {
         if (!file) return;
@@ -132,6 +137,8 @@
                 }
             };
             reader.readAsDataURL(uploadedImage);
+        }else {
+            localStorage.removeItem("uploadedImage");
         }
     }
 
