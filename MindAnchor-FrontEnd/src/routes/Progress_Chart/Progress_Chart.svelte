@@ -187,7 +187,9 @@
     </div>
     <div class="game-container">
       <h1>Daily Missions</h1>
-      <!----->
-
+      <!---1 hour focus sprint-->
+      <!---Morning Warrior-->
+      <!---Evening Productivity-->
+      <!---Distraction Reduction-->
     </div>   
 </div>
