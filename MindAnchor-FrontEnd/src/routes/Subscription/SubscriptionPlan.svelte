@@ -30,8 +30,7 @@
 
 
   const handlePayNow = () => {
-    // Handle payment logic here
-    console.log('Processing payment...');
+    window.open("http://127.0.0.1:5500/Checkout.html", "_blank");
   };
 </script>
 
