@@ -7,7 +7,7 @@
 
 const puppeteer = require('puppeteer');
 const { OpenAI } = require('openai');
-//Storing API keys in .env prevents security risks. Create a .env file in your project and add
+//Storing API keys in .env prevents security risks... is what I learned. Should learn more.
 require('dotenv').config(); // For storing API keys safely
 
 const openai = new OpenAI({
