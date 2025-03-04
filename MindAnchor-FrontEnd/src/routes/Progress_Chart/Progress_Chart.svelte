@@ -28,7 +28,7 @@
       new Chart(chartContainer, {
         type: "pie",
         data: {
-          labels: ["Red", "Blue", "Yellow", "Green", "Orange", "Purple", "Brown", "White", "Black"],
+          labels: ["Education", "Technology", "News", "Sports", "Entertainment", "Gaming", "Social Media", "Shopping", "Travel/Tourism"],
           datasets: [
             {
               label: "My Pie Chart",
