@@ -1,9 +1,7 @@
 <script lang="ts">
   import { currentPage } from "../../lib/store";
-
   import { onMount } from "svelte";
   import Chart from "chart.js/auto";
-
   import data from "./progress_data.json"; // Adjust the path based on your file structure
 
   const dates = Object.keys(data) as (keyof typeof data)[];
@@ -19,9 +17,7 @@
   });
   console.log("Summed Array:", summedArray);
 
-
-
-  let chartContainer: any;
+  let chartContainer: HTMLCanvasElement;
 
   onMount(() => {
     if (chartContainer) {
@@ -51,7 +47,8 @@
     }
   });
 
-  function goToScheduleSummaryPage(){
+  // Navigation functions
+  function goToScheduleSummaryPage() {
       currentPage.set('ScheduleSummaryPage');
   }
   function goToSettings() {
@@ -65,13 +62,19 @@
   function updateProgressBar(challengeIndex: number, progress: number): void {
     // Get the progress bar element by challenge index
     const progressBar: HTMLElement = document.querySelectorAll('.progress-bar')[challengeIndex] as HTMLElement;
-    
+
     // Update the width of the progress bar (0 to 100)
-    const progressBarAfter = progressBar.querySelector('::after') as HTMLElement;
-    if (progressBarAfter) {
-        progressBarAfter.style.width = `${progress}%`;
-    }
-}
+    progressBar.style.width = `${progress}%`;
+  }
+
+  // Example: Initialize progress for the challenges
+  onMount(() => {
+    // These can be dynamic values or from the progress data
+    updateProgressBar(0, 60); // "1-Hour Focus Sprint"
+    updateProgressBar(1, 80); // "Morning Warrior"
+    updateProgressBar(2, 50); // "Evening Productivity"
+    updateProgressBar(3, 30); // "Distraction Reduction Challenge"
+  });
 </script>
 
 <style>
@@ -100,19 +103,17 @@
       display: flex;
       height: 25px;
       margin-bottom: 10px;
-    }
+  }
+
   .page1-header h1 {
     font-size: 1.5em;
     margin-left: 10;
     margin-right: 400px;
     font-weight: bold;
   }
-  
-  .page1-header img {
-    display: block;
-  }
+
   .nav-container {
-    display:flex;
+    display: flex;
     justify-content: space-around;
     border-bottom: 2px solid #000080;
     padding: 10px 20px;
@@ -144,10 +145,6 @@
     text-decoration: none;
   }
 
-  .icon {
-    font-size: 18px;
-  }
-
   h1 {
     font-size: 15px;
     font-weight: bolder;
@@ -160,24 +157,29 @@
   }
 
   .chart-container {
-    width: 300px; height: 300px;
+    width: 300px;
+    height: 300px;
   }
 
   .summary-container {
-    width: 300px; height: 300px;
+    width: 300px;
+    height: 300px;
   }
 
   .game-container {
-    width: 600px; height: 300px;
+    width: 600px;
+    height: 300px;
   }
 
   .challenge {
       margin: 15px 0;
   }
+
   .challenge-title {
       font-weight: bold;
       font-size: 1.2em;
   }
+
   .challenge-desc {
       font-weight: lighter;
       font-size: 0.9em;
@@ -185,34 +187,17 @@
   }
 
   .progress-bar {
-    width: 100%;
+    width: 0%;
     height: 10px;
     background-color: #e0e0e0;
     border-radius: 5px;
     overflow: hidden;
   }
 
-  /* The ::after pseudo-element creates a content box inside the .progress-bar */
-  .progress-bar::after {
-    /* This is an empty content to ensure the pseudo-element is created */
-    content: "";
-    
-    /* Make the pseudo-element a block-level element, so it occupies the full width */
-    display: block;
-    
-    /* Set the height of the progress bar's filled part to be 100% of the parent container's height */
-    height: 100%;
-    
-    /* Set the background color to green to represent the progress */
+  .progress-bar {
     background-color: #4caf50;
-    
-    /* Start with a width of 0%, so the progress bar starts empty */
-    width: 0%; /* This will be dynamically updated to show progress */
-    
-    /* Apply a smooth transition effect when the width changes, lasting 0.5 seconds */
     transition: width 0.5s ease;
   }
-
 </style>
 
 <div class="container">
@@ -225,7 +210,7 @@
         <div class="nav-item">
             <button class="icon" on:click={goToScheduleSummaryPage} type="button">
                 📅 Schedules
-              </button>
+            </button>
         </div>
         <div class="nav-item-active">
             <button class="icon">
@@ -233,50 +218,50 @@
             </button>
         </div>    
         <div class="nav-item">
-          <button class="icon" on:click={goToSubscription} type="button">
-            $ Subscription
-          </button>
+            <button class="icon" on:click={goToSubscription} type="button">
+              $ Subscription
+            </button>
         </div>
         <div class="nav-item">
-          <button class="icon" on:click={goToSettings} type="button">
-            ⚙️ Settings
-          </button>
+            <button class="icon" on:click={goToSettings} type="button">
+              ⚙️ Settings
+            </button>
         </div>
     </nav>
     <br>
     <div class="chart-container">
-      <h1>The categories of sites you have visited</h1><br>
-      <canvas bind:this={chartContainer}></canvas>
+        <h1>The categories of sites you have visited</h1><br>
+        <canvas bind:this={chartContainer}></canvas>
     </div>
     <br><br><br>
     <div class="summary-container">
-      <h1>Improvements and reductions so far</h1>
+        <h1>Improvements and reductions so far</h1>
     </div>
     <div class="game-container">
-      <h1>Daily Missions</h1>
+        <h1>Daily Missions</h1>
 
-      <div class="challenge">
-        <p class="challenge-title">"1-Hour Focus Sprint"</p>
-        <p class="challenge-desc">Avoid distractions for an hour.</p>
-        <div class="progress-bar"></div>
-      </div>
+        <div class="challenge">
+            <p class="challenge-title">"1-Hour Focus Sprint"</p>
+            <p class="challenge-desc">Avoid distractions for an hour.</p>
+            <div class="progress-bar"></div>
+        </div>
     
-      <div class="challenge">
-        <p class="challenge-title">"Morning Warrior"</p>
-        <p class="challenge-desc">No distractions before noon.</p>
-        <div class="progress-bar"></div>
-      </div>
+        <div class="challenge">
+            <p class="challenge-title">"Morning Warrior"</p>
+            <p class="challenge-desc">No distractions before noon.</p>
+            <div class="progress-bar"></div>
+        </div>
     
-      <div class="challenge">
-        <p class="challenge-title">"Evening Productivity"</p>
-        <p class="challenge-desc">Stay focused in the late hours.</p>
-        <div class="progress-bar"></div>
-      </div>
+        <div class="challenge">
+            <p class="challenge-title">"Evening Productivity"</p>
+            <p class="challenge-desc">Stay focused in the late hours.</p>
+            <div class="progress-bar"></div>
+        </div>
     
-      <div class="challenge">
-        <p class="challenge-title">"Distraction Reduction Challenge"</p>
-        <p class="challenge-desc">Use 10% less distraction time than the previous day.</p>
-        <div class="progress-bar"></div>
-      </div>
+        <div class="challenge">
+            <p class="challenge-title">"Distraction Reduction Challenge"</p>
+            <p class="challenge-desc">Use 10% less distraction time than the previous day.</p>
+            <div class="progress-bar"></div>
+        </div>
     </div>   
 </div>
