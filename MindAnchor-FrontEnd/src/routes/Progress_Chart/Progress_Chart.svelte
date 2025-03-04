@@ -40,7 +40,12 @@
         },
         options: {
           responsive: true,
-          maintainAspectRatio: false
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "bottom" // Moves the labels below the chart
+            }
+          }
         }
       });
     }
@@ -130,6 +135,10 @@
   .icon {
     font-size: 18px;
   }
+
+  h1 {
+    font-size: 15px;
+  }
 </style>
 
 <div class="container">
@@ -160,7 +169,9 @@
           </button>
         </div>
     </nav>
+    <br>
     <div style="width: 300px; height: 300px;">
+      <h1>The categories of sites you have visited so far</h1> <br>
       <canvas bind:this={chartContainer}></canvas>
     </div>
 </div>
