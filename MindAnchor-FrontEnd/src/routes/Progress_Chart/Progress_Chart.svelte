@@ -138,15 +138,26 @@
 
   h1 {
     font-size: 15px;
+    font-weight: bolder;
     text-align: center;
   }
 
   .chart-container, .summary-container, .game-container {
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .chart-container {
     width: 300px; height: 300px;
   }
 
+  .summary-container {
+    width: 300px; height: 300px;
+  }
+
+  .game-container {
+    width: 900px; height: 300px;
+  }
   
 
   .challenge {
