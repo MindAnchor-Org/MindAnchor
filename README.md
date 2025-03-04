@@ -11,6 +11,6 @@ When installing the project, please run the following commands on your terminal/
 ```npm install chart.js```
 
 ```npm install puppeteer openai dotenv``` 
-(Puppeteer command is to run my ML model)
+(Puppeteer command is to run my ML model) (Testing the model now. Might have to remove this command later.)
 
 ```npm run devext```
