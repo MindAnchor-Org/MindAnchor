@@ -33,7 +33,7 @@
             {
               label: "My Pie Chart",
               data: summedArray,
-              backgroundColor: ["#ff6384", "#36a2eb", "#ffcd56", "#ff6384", "#36a2eb", "#ffcd56", "#ff6384", "#36a2eb", "#ffcd56"],
+              backgroundColor: ["#87CEEB", "#4169E1", "#000080", "#89CFF0", "#191970", "#40E0D0", "#4682B4", "#1E90FF", "#007BA7"],
               borderWidth: 1
             }
           ]
