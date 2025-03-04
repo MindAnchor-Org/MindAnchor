@@ -156,7 +156,7 @@
   }
 
   .game-container {
-    width: 900px; height: 300px;
+    width: 500px; height: 300px;
   }
   
 
@@ -213,22 +213,29 @@
     </div>
     <div class="game-container">
       <h1>Daily Missions</h1>
-        <div class="challenge">
-            <p class="challenge-title">"1-Hour Focus Sprint"</p>
-            <p class="challenge-desc">Avoid distractions for an hour.</p>
-        </div>
-        <div class="challenge">
-            <p class="challenge-title">"Morning Warrior"</p>
-            <p class="challenge-desc">No distractions before noon.</p>
-        </div>
-        <div class="challenge">
-            <p class="challenge-title">"Evening Productivity"</p>
-            <p class="challenge-desc">Stay focused in the late hours.</p>
-        </div>
-        <div class="challenge">
-            <p class="challenge-title">"Distraction Reduction Challenge"</p>
-            <p class="challenge-desc">Use 10% less distraction time than the previous day.</p>
-        
-    </div>
+      
+      <div class="challenge">
+        <p class="challenge-title">"1-Hour Focus Sprint"</p>
+        <p class="challenge-desc">Avoid distractions for an hour.</p>
+        <div class="progress-bar"></div>
+      </div>
+    
+      <div class="challenge">
+        <p class="challenge-title">"Morning Warrior"</p>
+        <p class="challenge-desc">No distractions before noon.</p>
+        <div class="progress-bar"></div>
+      </div>
+    
+      <div class="challenge">
+        <p class="challenge-title">"Evening Productivity"</p>
+        <p class="challenge-desc">Stay focused in the late hours.</p>
+        <div class="progress-bar"></div>
+      </div>
+    
+      <div class="challenge">
+        <p class="challenge-title">"Distraction Reduction Challenge"</p>
+        <p class="challenge-desc">Use 10% less distraction time than the previous day.</p>
+        <div class="progress-bar"></div>
+      </div>
     </div>   
 </div>
