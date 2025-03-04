@@ -4,3 +4,12 @@
 // The program logs the category to the console.
 
 
+
+const puppeteer = require('puppeteer');
+const { OpenAI } = require('openai');
+require('dotenv').config(); // For storing API keys safely
+
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY, // Store API key in .env file
+});
+  
