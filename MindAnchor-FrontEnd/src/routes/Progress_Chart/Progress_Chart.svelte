@@ -156,9 +156,8 @@
   }
 
   .game-container {
-    width: 500px; height: 300px;
+    width: 600px; height: 300px;
   }
-  
 
   .challenge {
       margin: 15px 0;
@@ -171,6 +170,14 @@
       font-weight: lighter;
       font-size: 0.9em;
       color: #666;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
   }
 </style>
 
@@ -213,7 +220,7 @@
     </div>
     <div class="game-container">
       <h1>Daily Missions</h1>
-      
+
       <div class="challenge">
         <p class="challenge-title">"1-Hour Focus Sprint"</p>
         <p class="challenge-desc">Avoid distractions for an hour.</p>
