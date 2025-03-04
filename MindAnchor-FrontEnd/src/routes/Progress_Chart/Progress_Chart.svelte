@@ -182,5 +182,10 @@
     </div>
     <br>
     <br>
-    
+    <div style="width: 300px; height: 300px;">
+      <h1>Improvements and reductions so far</h1>
+    </div>
+    <div style="width: 300px; height: 300px;">
+      <h1>Streak points</h1>
+    </div>   
 </div>
