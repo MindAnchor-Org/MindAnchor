@@ -8,8 +8,7 @@
   let blacklisturls: string | null = null;
   let whitelisturls : string[] | null = null; 
   let selectedBlacklistCategories: string[];
-  let selectedWhitelistCategories: string[];
-
+//
   onMount(() => {
     let selectedId = localStorage.getItem("currentScheduleId");
     const storedData = localStorage.getItem("schedules");
