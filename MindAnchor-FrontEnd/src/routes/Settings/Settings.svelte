@@ -168,6 +168,7 @@
             textColor
         };
         localStorage.setItem("userSettings", JSON.stringify(settings));
+        alert("Settings saved successfully!");
     }
   
     function goToUserProgress() {
@@ -324,17 +325,20 @@
     }
 
     .settings-dropdown input[type='radio'] {
-        appearance: none;
+        opacity: 0;
+        position: absolute; 
+        /* appearance: none;
         width: 16px;
         height: 16px;
         border: 2px solid #053161;
         border-radius: 50%;
         display: grid;
         place-content: center;
-        transition: 0.3s;
+        transition: 0.3s; */
     }
 
     .settings-dropdown input[type='radio']::before {
+        appearance: none;
         content: "";
         width: 10px;
         height: 10px;
@@ -345,7 +349,9 @@
     }
 
     .settings-dropdown input[type='radio']:checked::before {
+        appearance: none;
         transform: scale(1);
+        background: #053161;
     }
   
     .image-upload-container {
@@ -490,18 +496,15 @@
     margin-top: 20px;
     font-size: 16px;
     font-weight: bold;
-    /* transition: background-color 0.3s ease, transform 0.2s ease; */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .save-btn:hover {
         background-color: rgb(0, 0, 100);
-        /* transform: scale(1.05); */
     }
 
     .save-btn:active {
         background-color: rgb(0, 0, 90);
-        /* transform: scale(0.98); */
     }
 
 </style>
