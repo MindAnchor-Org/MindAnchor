@@ -146,6 +146,21 @@
     margin-right: auto;
     width: 300px; height: 300px;
   }
+
+  
+
+  .challenge {
+      margin: 15px 0;
+  }
+  .challenge-title {
+      font-weight: bold;
+      font-size: 1.2em;
+  }
+  .challenge-desc {
+      font-weight: lighter;
+      font-size: 0.9em;
+      color: #666;
+  }
 </style>
 
 <div class="container">
