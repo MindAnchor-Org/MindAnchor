@@ -51,15 +51,17 @@
     }
   });
 
-    function goToScheduleSummaryPage(){
-        currentPage.set('ScheduleSummaryPage');
-    }
-    function goToSettings() {
-        currentPage.set('Settings');
-    }
-    function goToSubscription() {
-        currentPage.set('Subscription');
-    }
+  function goToScheduleSummaryPage(){
+      currentPage.set('ScheduleSummaryPage');
+  }
+  function goToSettings() {
+      currentPage.set('Settings');
+  }
+  function goToSubscription() {
+      currentPage.set('Subscription');
+  }
+
+
 </script>
 
 <style>
@@ -179,6 +181,28 @@
     border-radius: 5px;
     overflow: hidden;
   }
+
+  /* The ::after pseudo-element creates a content box inside the .progress-bar */
+  .progress-bar::after {
+    /* This is an empty content to ensure the pseudo-element is created */
+    content: "";
+    
+    /* Make the pseudo-element a block-level element, so it occupies the full width */
+    display: block;
+    
+    /* Set the height of the progress bar's filled part to be 100% of the parent container's height */
+    height: 100%;
+    
+    /* Set the background color to green to represent the progress */
+    background-color: #4caf50;
+    
+    /* Start with a width of 0%, so the progress bar starts empty */
+    width: 0%; /* This will be dynamically updated to show progress */
+    
+    /* Apply a smooth transition effect when the width changes, lasting 0.5 seconds */
+    transition: width 0.5s ease;
+  }
+
 </style>
 
 <div class="container">
