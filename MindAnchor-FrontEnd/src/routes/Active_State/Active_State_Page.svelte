@@ -1,14 +1,14 @@
 <script lang="ts">
   import { currentPage, isBionified } from "../../lib/store";
   import { onMount, onDestroy } from "svelte";
-
-  let countdown = 30;
+  let countdown = 30; 
   let interval: number | null = null;
   let isBionicEnabled = false;
-  let blacklisturls: string[] = [];
-  let whitelisturls: string[] = [];
-  let selectedBlacklistCategories: string[] = [];
-  let selectedWhitelistCategories: string[] = [];
+  let blacklisturls: string | null = null;
+  let whitelisturls : string[] | null = null; 
+  let selectedBlacklistCategories: string[];
+  let selectedWhitelistCategories: string[];
+
 
   onMount(() => {
     // Storing the value
@@ -138,14 +138,47 @@
     if (interval) {
       clearInterval(interval);
     }
+    if (motivationalInterval) {
+      clearInterval(motivationalInterval);
+    }
   });
 
+  async function showMotivationalCue() {
+    const quote = await QuoteService.fetchQuote();
+    currentQuote = quote;
+    showQuote = true;
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+      showQuote = false;
+    }, 5000);
+  }
+
   function activateCues() {
-    console.log("Motivational Cues Activated");
+    if (!isMotivationalActive) {
+      isMotivationalActive = true;
+      console.log("Motivational Cues Activated");
+      
+      // Show first quote immediately
+      showMotivationalCue();
+      
+      // Set interval for subsequent quotes (8 minutes = 480000 milliseconds)
+      motivationalInterval = setInterval(showMotivationalCue, 480000);
+      
+      // Prefetch quotes for later use
+      QuoteService.prefetchQuotes();
+    }
   }
 
   function deactivateCues() {
-    console.log("Motivational Cues Deactivated");
+    if (isMotivationalActive) {
+      isMotivationalActive = false;
+      if (motivationalInterval) {
+        clearInterval(motivationalInterval);
+        motivationalInterval = null;
+      }
+      showQuote = false;
+      console.log("Motivational Cues Deactivated");
+    }
   }
 
   function stopActivity() {
@@ -198,6 +231,8 @@
 
     
 </script>
+
+<MotivationalQuote bind:isVisible={showQuote} quote={currentQuote} />
 
 <div class="container">
   <div class="page1-header">
