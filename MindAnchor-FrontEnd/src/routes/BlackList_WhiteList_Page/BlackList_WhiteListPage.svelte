@@ -1,11 +1,13 @@
 <script lang="ts">
-  import { get } from "svelte/store";
-  import { currentPage, scheduleStore } from "../../lib/store";
+  import { currentPage } from "../../lib/store";
   import sites from "../../lib/data/top-sites.json";
+
+  // Check for browser environment
+  const browser = typeof window !== 'undefined';
 
   type Category = { name: string; selected: boolean; disabled: boolean };
 
-  // Blacklist and Whitelist categories
+  // Initialize categories and URLs with default values
   let blacklistCategories: Category[] = [
     { name: "Education", selected: false, disabled: false },
     { name: "Technology", selected: false, disabled: false },
@@ -56,6 +58,7 @@
     filteredWhitelistSuggestions = filterSuggestions(whitelistUrl, sites);
   }
 
+  // Toggle category selection and update reactivity
   function toggleCategory(index: number, type: "blacklist" | "whitelist"): void {
     let categories = type === "blacklist" ? blacklistCategories : whitelistCategories;
     let otherCategories = type === "blacklist" ? whitelistCategories : blacklistCategories;
@@ -76,6 +79,7 @@
     }
   }
 
+  // Add URL to the appropriate list
   function addUrl(type: "blacklist" | "whitelist"): void {
     if (type === "blacklist" && blacklistUrl.trim()) {
       blacklistUrls = [...blacklistUrls, blacklistUrl];
@@ -88,6 +92,7 @@
     }
   }
 
+  // Remove URL from the appropriate list
   function removeUrl(type: "blacklist" | "whitelist", index: number): void {
     if (type === "blacklist") {
       blacklistUrls = blacklistUrls.filter((_, i) => i !== index);
@@ -96,80 +101,178 @@
     }
   }
 
-  function confirm(): void {
-    const schedule = get(scheduleStore);
-    if (!schedule) {
-      alert("No scheduling data found. Please go back and confirm the schedule first.");
-      return;
-    }
+  // Reset data to default values
+  function resetToDefaults(): void {
+    const defaultSchedules = [
+      {
+        blacklistWhitelist: {
+          blacklistUrls: [],
+          whitelistUrls: [],
+          blacklistCategories: [
+            { name: "Education", selected: false, disabled: false },
+            { name: "Technology", selected: false, disabled: false },
+            { name: "News", selected: false, disabled: false },
+            { name: "Sports", selected: false, disabled: false },
+            { name: "Entertainment", selected: false, disabled: false },
+            { name: "Gaming", selected: false, disabled: false },
+            { name: "Social Media", selected: false, disabled: false },
+            { name: "Shopping", selected: false, disabled: false },
+            { name: "Travel/Tourism", selected: false, disabled: false },
+          ],
+          whitelistCategories: [
+            { name: "Education", selected: false, disabled: false },
+            { name: "Technology", selected: false, disabled: false },
+            { name: "News", selected: false, disabled: false },
+            { name: "Sports", selected: false, disabled: false },
+            { name: "Entertainment", selected: false, disabled: false },
+            { name: "Gaming", selected: false, disabled: false },
+            { name: "Social Media", selected: false, disabled: false },
+            { name: "Shopping", selected: false, disabled: false },
+            { name: "Travel/Tourism", selected: false, disabled: false },
+          ],
+        },
+      },
+    ];
 
-    // Try to retrieve and parse schedules from localStorage
-    let existingSchedules;
-    try {
-      existingSchedules = JSON.parse(localStorage.getItem('schedules') || '[]');
-        
-        // If it's not an array, reset it
-      if (!Array.isArray(existingSchedules)) {
-        console.error("Invalid schedules data in localStorage. Resetting.");
-        existingSchedules = [];
+    localStorage.setItem("schedules", JSON.stringify(defaultSchedules));
+    loadScheduleData(); // Reload the data after resetting
+  }
+
+  // Load existing schedule data from localStorage
+  function loadScheduleData(): void {
+    if (browser) {
+      try {
+        const storedData = localStorage.getItem("schedules");
+        if (storedData) {
+          const schedules = JSON.parse(storedData);
+
+          // Validate the structure of the data
+          if (
+            Array.isArray(schedules) &&
+            schedules.length > 0 &&
+            schedules[0].blacklistWhitelist &&
+            Array.isArray(schedules[0].blacklistWhitelist.blacklistUrls) &&
+            Array.isArray(schedules[0].blacklistWhitelist.whitelistUrls) &&
+            Array.isArray(schedules[0].blacklistWhitelist.blacklistCategories) &&
+            Array.isArray(schedules[0].blacklistWhitelist.whitelistCategories)
+          ) {
+            // Data is valid, proceed
+            const schedule = schedules[0];
+            blacklistUrls = schedule.blacklistWhitelist.blacklistUrls;
+            whitelistUrls = schedule.blacklistWhitelist.whitelistUrls;
+            blacklistCategories = schedule.blacklistWhitelist.blacklistCategories;
+            whitelistCategories = schedule.blacklistWhitelist.whitelistCategories;
+
+            console.log("Loaded blacklistCategories:", blacklistCategories);
+
+            // Filter selected categories
+            const selectedBlacklistCategories = blacklistCategories
+              .filter((category) => category.selected)
+              .map((category) => category.name);
+
+            const selectedWhitelistCategories = whitelistCategories
+              .filter((category) => category.selected)
+              .map((category) => category.name);
+
+            console.log("Selected Blacklist Categories:", selectedBlacklistCategories);
+
+            // Save to chrome.storage.local
+            chrome.storage.local.set(
+              { BlacklistCategories: selectedBlacklistCategories },
+              function () {
+                if (chrome.runtime.lastError) {
+                  console.error("Error saving data:", chrome.runtime.lastError);
+                } else {
+                  console.log("Data saved successfully from activestate page");
+                }
+              }
+            );
+
+            chrome.storage.local.set(
+              { WhitelistCategories: selectedWhitelistCategories },
+              function () {
+                if (chrome.runtime.lastError) {
+                  console.error("Error saving data:", chrome.runtime.lastError);
+                } else {
+                  console.log("Data saved successfully from activestate page");
+                }
+              }
+            );
+
+            // Save to localStorage
+            localStorage.setItem("BlacklistCategories", JSON.stringify(selectedBlacklistCategories));
+            localStorage.setItem("WhitelistCategories", JSON.stringify(selectedWhitelistCategories));
+          } else {
+            console.error("Invalid data structure in schedules. Resetting to defaults.");
+            resetToDefaults();
+          }
+        } else {
+          console.log("No schedules found in localStorage. Using defaults.");
+          resetToDefaults();
+        }
+      } catch (error) {
+        console.error("Error parsing schedules:", error);
+        resetToDefaults();
       }
-    } catch (error) {
-      console.error("Error parsing schedules from localStorage:", error);
-      existingSchedules = []; // Reset to empty array if parsing fails
     }
+  }
 
-    // Create new schedule data
-    const newSchedule = {
-      schedule,
-      blacklistWhitelist: {
+  // Save updated data to localStorage
+  function confirm(): void {
+    if (browser) {
+      const newSchedule = {
+        blacklistWhitelist: {
           blacklistCategories,
           whitelistCategories,
           blacklistUrls,
-          whitelistUrls
-      }
-    };
-    // Append new schedule
-    existingSchedules.push(newSchedule);
-    // Save updated list back to localStorage
-    localStorage.setItem('schedules', JSON.stringify(existingSchedules));
-    goToScheduleSummaryPage();
+          whitelistUrls,
+        },
+      };
+
+      // Save the updated schedule data to localStorage
+      localStorage.setItem("schedules", JSON.stringify([newSchedule]));
+
+      // Navigate to the active state page
+      goToActiveStatePage();
+    }
   }
 
-
+  // Reset data to default state
   function discard(): void {
-    // Reset blacklist categories
-    blacklistCategories = blacklistCategories.map((category) => ({
-      ...category,
-      selected: false,
-      disabled: false,
-    }));
-
-    // Reset whitelist categories
-    whitelistCategories = whitelistCategories.map((category) => ({
-      ...category,
-      selected: false,
-      disabled: false,
-    }));
-
-    // Clear URLs and input fields
-    blacklistUrls = [];
-    whitelistUrls = [];
-    blacklistUrl = "";
-    whitelistUrl = "";
-    goToScheduleSummaryPage();
+    if (browser) {
+      resetToDefaults();
+    }
   }
 
+  // Load existing data when the page initializes (only in the browser)
+  if (browser) {
+    loadScheduleData();
+  }
+  // Switch between blacklist and whitelist tabs
   function switchTab(tab: "blacklist" | "whitelist"): void {
     activeTab = tab;
   }
 
-  // Function to toggle the help popup
+  // Toggle the help popup
   function toggleHelpPopup(): void {
     showHelpPopup = !showHelpPopup;
   }
 
-  function goToScheduleSummaryPage() {
-    currentPage.set('ScheduleSummaryPage');
+  // Navigation functions
+  function goToUserProgress() {
+    currentPage.set('ProgressChart');
+  }
+
+  function goToSettings() {
+    currentPage.set('Settings');
+  }
+
+  function goToSubscription() {
+    currentPage.set('Subscription');
+  }
+
+  function goToActiveStatePage() {
+    currentPage.set('Active_State_Page');
   }
 </script>
 
@@ -179,7 +282,28 @@
     <h1>MindAnchor</h1>
     <button class="page2-help" on:click={toggleHelpPopup}>?</button>
   </div>
-  <hr />
+  <hr>
+  <nav class="nav-container">
+    <div class="nav-item-active">
+      <span class="icon">📅</span> Schedules
+    </div>
+    <div class="nav-item">
+      <button class="icon" on:click={goToUserProgress} type="button">
+        📊 User Progress
+      </button>
+    </div>    
+    <div class="nav-item">
+      <button class="icon" on:click={goToSubscription} type="button">
+        $ Subscription
+      </button>
+    </div>
+    <div class="nav-item">
+      <button class="icon" on:click={goToSettings} type="button">
+        ⚙️ Settings
+      </button>
+    </div>
+  </nav>
+  
   <div class="page2-tabs">
     <button
       class="page2-tab {activeTab === 'blacklist' ? 'page2-active' : ''}"
@@ -371,13 +495,6 @@
     margin-top: 10px;
   }
 
-  hr {
-    border: none;
-    height: 2px;
-    background-color: rgb(1, 1, 124);
-    margin: 10px 0;
-  }
-
   .page2-tabs {
     display: flex;
     justify-content: center;
@@ -497,5 +614,57 @@
     border-radius: 5px;
     padding: 10px 20px;
     cursor: pointer;
+  }
+  .page1-header {
+      display: flex;
+      height: 25px;
+      margin-bottom: 10px;
+    }
+  .page1-header h1 {
+    font-size: 1.5em;
+    margin-left: 10;
+    margin-right: 400px;
+    font-weight: bold;
+  }
+  
+  .page1-header img {
+    display: block;
+  }
+  .nav-container {
+    display:flex;
+    justify-content: space-around;
+    border-bottom: 2px solid #000080;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+  }
+
+  .nav-item:hover {
+    background-color: #e0e7ff;
+  }
+
+  .nav-item-active {
+    background-color: #c7d2fe;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .icon {
+    font-size: 18px;
   }
 </style>

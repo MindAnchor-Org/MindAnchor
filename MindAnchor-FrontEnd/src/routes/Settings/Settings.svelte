@@ -181,8 +181,8 @@
     function goToUserProgress() {
       currentPage.set('ProgressChart');
     }
-    function goToScheduleSummaryPage() {
-        currentPage.set('ScheduleSummaryPage');
+    function goToBlackList_WhiteListPage() {
+        currentPage.set('BlackList_WhiteListPage');
     }
     function goToSubscription() {
         currentPage.set('Subscription');
@@ -525,7 +525,7 @@
   
     <nav class="nav-container">
       <div class="nav-item">
-          <button class="icon" on:click={goToScheduleSummaryPage} type="button">
+          <button class="icon" on:click={goToBlackList_WhiteListPage} type="button">
               📅 Schedules
             </button>
       </div>

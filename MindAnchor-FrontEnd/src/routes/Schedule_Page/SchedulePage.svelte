@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { currentPage, scheduleIdCounter, scheduleStore } from '../../lib/store';
+  import { currentPage} from '../../lib/store';
 
   let name : string;
   type Schedule = {
@@ -35,42 +35,42 @@
     //   alert("The time cannot be the same!");
     //   return;
     // }
-    if(name == null){
-      name = "untitled-"+localStorage.getItem('scheduleIdCounter');
-    }
-    scheduleIdCounter.update((currentId) => {
-      const id = currentId; // Use current ID for the schedule
-      const newId = currentId + 1; // Increment for the next schedule
+    // if(name == null){
+    //   name = "untitled-"+localStorage.getItem('scheduleIdCounter');
+    // }
+    // scheduleIdCounter.update((currentId) => {
+    //   const id = currentId; // Use current ID for the schedule
+    //   const newId = currentId + 1; // Increment for the next schedule
 
-      localStorage.setItem('scheduleIdCounter', newId.toString()); // Store updated ID
-      return newId; // Update store value
-    });
+    //   localStorage.setItem('scheduleIdCounter', newId.toString()); // Store updated ID
+    //   return newId; // Update store value
+    // });
 
     // Use the current ID value to create the schedule
-    scheduleIdCounter.subscribe((currentId) => {
-      const schedule: Schedule = {
-        id: currentId, // Use the updated ID here
-        name,
+    // scheduleIdCounter.subscribe((currentId) => {
+    //   const schedule: Schedule = {
+    //     id: currentId, // Use the updated ID here
+    //     name,
         // startDate,
         // endDate,
         // startTime,
         // endTime,
       };
 
-      scheduleStore.set(schedule);
-      goToBackList_WhiteListPage();
-      console.log("Activity Duration & To-Do List Confirmed:", schedule);
-    });
-  }
+  //     scheduleStore.set(schedule);
+  //     goToBackList_WhiteListPage();
+  //     console.log("Activity Duration & To-Do List Confirmed:", schedule);
+  //   });
+  // }
 
-  function discardSchedule(): void {
-    name = '';
-    // startDate = '';
-    // endDate = '';
-    // startTime = '';
-    // endTime = '';
-    goToScheduleSummaryPage();
-  }
+  // function discardSchedule(): void {
+  //   name = '';
+  //   // startDate = '';
+  //   // endDate = '';
+  //   // startTime = '';
+  //   // endTime = '';
+  //   goToScheduleSummaryPage();
+  // }
 
   function goToBackList_WhiteListPage() {
     currentPage.set('BlackList_WhiteListPage');
@@ -117,7 +117,7 @@
 
   <div class="page1-actions">
     <button class="page1-confirm" on:click={confirmSchedule}>Confirm the name for this activity</button>
-    <button class="page1-discard" on:click={discardSchedule}>Discard This Schedule</button>
+    <!-- <button class="page1-discard" on:click={discardSchedule}>Discard This Schedule</button> -->
   </div>
 </div>
 <style>

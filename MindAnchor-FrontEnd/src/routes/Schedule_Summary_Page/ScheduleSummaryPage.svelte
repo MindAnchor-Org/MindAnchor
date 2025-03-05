@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { currentPage, currentScheduleId } from '../../lib/store.js';
+  import { currentPage } from '../../lib/store.js';
 
   type Schedule = {
     id: number;
@@ -47,7 +47,7 @@
     }
   }
   function navigateToActiveState(id: number): void {
-    currentScheduleId.set(id); // Set the current schedule ID
+    // currentScheduleId.set(id); // Set the current schedule ID
     currentPage.set('Active_State_Page'); // Navigate to the detail page
   }
   function goToUserProgress() {
