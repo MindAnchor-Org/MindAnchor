@@ -1,82 +1,125 @@
 <script lang="ts">
-  import { currentPage, currentScheduleId, isBionified, scheduleStore, type Schedule } from "../../lib/store";
+  import { currentPage, isBionified } from "../../lib/store";
   import { onMount, onDestroy } from "svelte";
-  let countdown = 30; 
+
+  let countdown = 30;
   let interval: number | null = null;
-  let schedule: Schedule | null = null;
   let isBionicEnabled = false;
-  let blacklisturls: string | null = null;
-  let whitelisturls : string[] | null = null; 
-  let selectedBlacklistCategories: string[];
-  let selectedWhitelistCategories: string[];
+  let blacklisturls: string[] = [];
+  let whitelisturls: string[] = [];
+  let selectedBlacklistCategories: string[] = [];
+  let selectedWhitelistCategories: string[] = [];
 
   onMount(() => {
-    let selectedId = localStorage.getItem("currentScheduleId");
-    const storedData = localStorage.getItem("schedules");
     // Storing the value
-    chrome.storage.local.set({ ActivateClassification: 'true' }, function() {
+    chrome.storage.local.set({ ActivateClassification: 'true' }, function () {
       if (chrome.runtime.lastError) {
         console.error("Error saving data:", chrome.runtime.lastError);
       } else {
         console.log("Data saved successfully from activestate page");
 
         // Retrieving the value immediately after saving
-        chrome.storage.local.get(['ActivateClassification'], function(result) {
+        chrome.storage.local.get(['ActivateClassification'], function (result) {
           if (chrome.runtime.lastError) {
             console.error("Error getting value:", chrome.runtime.lastError);
           } else {
-            console.log("Value retrieved from active statepage:", result.ActivateClassification); 
+            console.log("Value retrieved from active statepage:", result.ActivateClassification);
           }
         });
       }
     });
 
-    if (selectedId && storedData) {
+    // Retrieve and process data from localStorage
+    const storedData = localStorage.getItem("schedules");
+    if (storedData) {
       try {
         const schedules = JSON.parse(storedData);
-        const selectedSchedule = schedules.find((entry: any) => {
-          return entry.schedule.id === parseInt(selectedId, 10);
-        });
-        if (selectedSchedule) {
-          schedule = selectedSchedule.schedule;
-          blacklisturls = selectedSchedule.blacklistWhitelist.blacklistUrls;
-          whitelisturls = selectedSchedule.blacklistWhitelist.whitelistUrls;
-          let blacklistCategories = selectedSchedule.blacklistWhitelist.blacklistCategories;
-          let whitelistCategories = selectedSchedule.blacklistWhitelist.whitelistCategories
-          selectedBlacklistCategories = blacklistCategories.filter((category: { selected: any; }) => category.selected).map((category: { name: any; }) => category.name);
-          selectedWhitelistCategories = whitelistCategories.filter((category: { selected: any; }) => category.selected).map((category: { name: any; }) => category.name);
-          chrome.storage.local.set({ BlacklistCategories: selectedBlacklistCategories},
 
-          function() {
-            if (chrome.runtime.lastError) {
-              console.error("Error saving data:", chrome.runtime.lastError);
-            } else {
-              console.log("Data saved successfully from activestate page");
+        // Validate the structure of the data
+        if (
+          Array.isArray(schedules) &&
+          schedules.length > 0 &&
+          schedules[0].blacklistWhitelist &&
+          Array.isArray(schedules[0].blacklistWhitelist.blacklistUrls) &&
+          Array.isArray(schedules[0].blacklistWhitelist.whitelistUrls) &&
+          Array.isArray(schedules[0].blacklistWhitelist.blacklistCategories) &&
+          Array.isArray(schedules[0].blacklistWhitelist.whitelistCategories)
+        ) {
+          // Data is valid, proceed
+          const schedule = schedules[0];
+          blacklisturls = schedule.blacklistWhitelist.blacklistUrls;
+          whitelisturls = schedule.blacklistWhitelist.whitelistUrls;
+          const blacklistCategories = schedule.blacklistWhitelist.blacklistCategories;
+          const whitelistCategories = schedule.blacklistWhitelist.whitelistCategories;
 
+          // Filter selected categories
+          selectedBlacklistCategories = blacklistCategories
+            .filter((category: { selected: any; }) => category.selected)
+            .map((category: { name: any; }) => category.name);
+
+          selectedWhitelistCategories = whitelistCategories
+            .filter((category: { selected: any; }) => category.selected)
+            .map((category: { name: any; }) => category.name);
+
+          console.log("Selected Blacklist Categories:", selectedBlacklistCategories);
+
+          // Save to chrome.storage.local
+          chrome.storage.local.set(
+            { BlacklistCategories: selectedBlacklistCategories },
+            function () {
+              if (chrome.runtime.lastError) {
+                console.error("Error saving data:", chrome.runtime.lastError);
+              } else {
+                console.log("Data saved successfully from activestate page");
+              }
             }
-          })
-          chrome.storage.local.set({ WhitelistCategories: selectedWhitelistCategories}, function() {
-            if (chrome.runtime.lastError) {
-              console.error("Error saving data:", chrome.runtime.lastError);
-            } else {
-              console.log("Data saved successfully from activestate page");
+          );
 
+          chrome.storage.local.set(
+            { WhitelistCategories: selectedWhitelistCategories },
+            function () {
+              if (chrome.runtime.lastError) {
+                console.error("Error saving data:", chrome.runtime.lastError);
+              } else {
+                console.log("Data saved successfully from activestate page");
+              }
             }
-          })
-          localStorage.setItem('BlacklistCategories', JSON.stringify(selectedBlacklistCategories));
-          localStorage.setItem('WhitelistCategories', JSON.stringify(selectedWhitelistCategories));
+          );
 
+          chrome.storage.local.set(
+            { BlacklistUrls: blacklisturls },
+            function () {
+              if (chrome.runtime.lastError) {
+                console.error("Error saving data:", chrome.runtime.lastError);
+              } else {
+                console.log("Data saved successfully from activestate page");
+              }
+            }
+          );
+          chrome.storage.local.set(
+            { WhitelistUrls: whitelisturls },
+            function () {
+              if (chrome.runtime.lastError) {
+                console.error("Error saving data:", chrome.runtime.lastError);
+              } else {
+                console.log("Data saved successfully from activestate page");
+              }
+            }
+          );
+          // Save to localStorage
+          localStorage.setItem("BlacklistCategories", JSON.stringify(selectedBlacklistCategories));
+          localStorage.setItem("WhitelistCategories", JSON.stringify(selectedWhitelistCategories));
         } else {
-          console.error("No schedule found with the ID:", selectedId);
+          console.error("Invalid data structure in schedules.");
         }
       } catch (error) {
         console.error("Error parsing schedules:", error);
       }
     } else {
-      console.error("No selected ID or schedules found in localStorage.");
+      console.error("No schedules found in localStorage.");
     }
 
-    interval = setInterval(() => {
+    interval = window.setInterval(() => {
       if (countdown > 0) {
         countdown--;
       } else {
@@ -85,17 +128,15 @@
         window.close();
       }
     }, 1000);
+
     chrome.storage.local.get("bionicEnabled", (data: { bionicEnabled: boolean }) => {
       isBionicEnabled = data.bionicEnabled || false;
     });
-  
-
-    
   });
+
   onDestroy(() => {
     if (interval) {
       clearInterval(interval);
-      console.log("Interval cleared to prevent auto-closing.");
     }
   });
 
@@ -109,7 +150,6 @@
 
   function stopActivity() {
     console.log("Activity Stopped");
-    currentScheduleId.set(0);
     localStorage.setItem('ActivateClassification','false')
     localStorage.setItem('BlacklistCategories','[]')
     localStorage.setItem('WhitelistCategories','[]')
@@ -134,11 +174,11 @@
         console.log("Data saved successfully from activestate page");
       }
     })
-    goToScheduleSummaryPage();
+    goToBlackList_WhiteListPage();
   }
 11
-  function goToScheduleSummaryPage() {
-    currentPage.set('ScheduleSummaryPage');
+  function goToBlackList_WhiteListPage() {
+    currentPage.set('BlackList_WhiteListPage');
   }
 12
   function bionify() {
@@ -165,16 +205,8 @@
     <h1>MindAnchor</h1>
   </div>
   <hr />
-
   
-
-  <!-- Schedule Details -->
-  <div class="description">
-    <p><strong>Schedule Name:</strong> {schedule?.name}</p>
-   </div>
-
   <!-- Buttons -->
-  <hr style="margin-top: 10px;">
   <div class="buttons">
     <button id="bionifyButton" class="btn btn-primary" on:click={bionify} disabled={isBionicEnabled}>Bionify webpage text</button>
     <button id="unbionifyButton" class="btn btn-secondary" on:click={unbionify} disabled={!isBionicEnabled}>Unbionify webpage text</button>

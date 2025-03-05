@@ -48,8 +48,8 @@
   });
 
   // Navigation functions
-  function goToScheduleSummaryPage() {
-      currentPage.set('ScheduleSummaryPage');
+  function goToBlackList_WhiteListPage() {
+      currentPage.set('BlackList_WhiteListPage');
   }
   function goToSettings() {
       currentPage.set('Settings');
@@ -214,7 +214,7 @@
     <hr>
     <nav class="nav-container">
         <div class="nav-item">
-            <button class="icon" on:click={goToScheduleSummaryPage} type="button">
+            <button class="icon" on:click={goToBlackList_WhiteListPage} type="button">
                 📅 Schedules
             </button>
         </div>
