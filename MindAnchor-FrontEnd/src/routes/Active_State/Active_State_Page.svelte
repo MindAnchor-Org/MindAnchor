@@ -1,6 +1,7 @@
 <script lang="ts">
   import { currentPage, isBionified } from "../../lib/store";
   import { onMount, onDestroy } from "svelte";
+  import QuoteService from '$lib/services/quoteService';
   let countdown = 30; 
   let interval: number | null = null;
   let isBionicEnabled = false;
@@ -8,6 +9,10 @@
   let whitelisturls : string[] | null = null; 
   let selectedBlacklistCategories: string[];
   let selectedWhitelistCategories: string[];
+  let showQuote = false;
+  let currentQuote = '';
+  let isMotivationalActive = false;
+  let motivationalInterval: number | null = null;
 
 
   onMount(() => {
@@ -209,11 +214,11 @@
     })
     goToBlackList_WhiteListPage();
   }
-11
+
   function goToBlackList_WhiteListPage() {
     currentPage.set('BlackList_WhiteListPage');
   }
-12
+
   function bionify() {
     console.log('bionic')
     chrome.runtime.sendMessage({ action: "activateBionicReading" }, () => {
@@ -221,7 +226,7 @@
     });
     
   }
-13
+
   function unbionify() {
     chrome.runtime.sendMessage({ action: "deactivateBionicReading" }, () => {
       isBionicEnabled = false; // Update state locally
