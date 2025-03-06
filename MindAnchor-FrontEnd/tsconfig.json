@@ -14,7 +14,10 @@
 		"target": "esnext", // Target the latest ECMAScript version
 		"isolatedModules": true, // Ensure each file can be transpiled independently
 		"outDir": "./dist", // Redirect output structure to the 'dist' directory
-		"rootDir": "./src" // Specify the root directory of input files
+		"rootDir": "./src", // Specify the root directory of input files
+		"paths": {
+			"$lib/*": ["./src/lib/*"]
+		}
 	},
 	"include": ["src/**/*"], // Include all files in the src directory
 	"exclude": ["node_modules", "**/*.spec.ts", "static/content.js", "static/global.d.js","./.svelte-kit/tsconfig.json"] // Exclude node_modules, test files, and specific files to prevent overwriting

@@ -238,7 +238,13 @@
     <div class="activity-box">
       {#each schedules as schedule (schedule.id)}
         <div class="activity-card">
-          <div style="cursor: pointer;" on:click={() => navigateToActiveState(schedule.id)}>
+          <div 
+            style="cursor: pointer;" 
+            on:click={() => navigateToActiveState(schedule.id)}
+            on:keydown={e => e.key === 'Enter' && navigateToActiveState(schedule.id)}
+            role="button"
+            tabindex="0"
+          >
             <p class="scheduleName"><strong>Activity Name:</strong> {schedule.name}</p>
             <!-- <p><strong>Start:</strong> {schedule.startDate} {schedule.startTime}</p>
             <p><strong>End:</strong> {schedule.endDate} {schedule.endTime}</p> -->
