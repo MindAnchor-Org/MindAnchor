@@ -1,7 +1,8 @@
 <script lang="ts">
   import { currentPage, isBionified } from "../../lib/store";
   import { onMount, onDestroy } from "svelte";
-  import QuoteService from '$lib/services/quoteService';
+  import QuoteService from '../../lib/services/quoteService';
+  import MotivationalQuote from '../../lib/components/MotivationalQuote.svelte';
   let countdown = 30; 
   let interval: number | null = null;
   let isBionicEnabled = false;
@@ -12,7 +13,7 @@
   let showQuote = false;
   let currentQuote = '';
   let isMotivationalActive = false;
-  let motivationalInterval: number | null = null;
+  let motivationalInterval: NodeJS.Timeout | null = null;
 
 
   onMount(() => {

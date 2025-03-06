@@ -8,6 +8,7 @@ export class QuoteService {
   private static readonly API_URL = 'https://zenquotes.io/api/random';
   private static cache: string[] = [];
   private static readonly CACHE_SIZE = 10;
+  private static quotes: string[] = [];
 
   static async fetchQuote(): Promise<string> {
     try {
@@ -35,7 +36,6 @@ export class QuoteService {
     }
   }
 
-  // Optional: Method to prefetch quotes
   static async prefetchQuotes(): Promise<void> {
     try {
       while (this.cache.length < this.CACHE_SIZE) {
@@ -48,5 +48,9 @@ export class QuoteService {
     } catch (error) {
       console.error('Error prefetching quotes:', error);
     }
+
+    this.quotes = ["Sample quote 1", "Sample quote 2"];
   }
-} 
+}
+
+export default QuoteService; 
