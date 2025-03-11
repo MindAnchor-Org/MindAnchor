@@ -13,11 +13,13 @@
     { name: "Technology", selected: false, disabled: false },
     { name: "News", selected: false, disabled: false },
     { name: "Sports", selected: false, disabled: false },
-    { name: "Entertainment", selected: false, disabled: false },
+    { name: "Streaming Platforms", selected: false, disabled: false },
     { name: "Gaming", selected: false, disabled: false },
-    { name: "Social Media", selected: false, disabled: false },
+    { name: "Forums", selected: false, disabled: false },
     { name: "Shopping", selected: false, disabled: false },
     { name: "Travel/Tourism", selected: false, disabled: false },
+    { name: "Blogs/Article", selected: false, disabled: false },
+    { name: "Encyclopedia", selected: false, disabled: false },
   ];
 
   let whitelistCategories: Category[] = [
@@ -25,11 +27,14 @@
     { name: "Technology", selected: false, disabled: false },
     { name: "News", selected: false, disabled: false },
     { name: "Sports", selected: false, disabled: false },
-    { name: "Entertainment", selected: false, disabled: false },
+    { name: "Streaming Platforms", selected: false, disabled: false },
     { name: "Gaming", selected: false, disabled: false },
-    { name: "Social Media", selected: false, disabled: false },
+    { name: "Forums", selected: false, disabled: false },
     { name: "Shopping", selected: false, disabled: false },
     { name: "Travel/Tourism", selected: false, disabled: false },
+    { name: "Blogs/Article", selected: false, disabled: false },
+    { name: "Encyclopedia", selected: false, disabled: false },
+
   ];
 
   let blacklistUrl: string = ""; // Temp store for blacklist URL
@@ -113,22 +118,26 @@
             { name: "Technology", selected: false, disabled: false },
             { name: "News", selected: false, disabled: false },
             { name: "Sports", selected: false, disabled: false },
-            { name: "Entertainment", selected: false, disabled: false },
+            { name: "Streaming Platforms", selected: false, disabled: false },
             { name: "Gaming", selected: false, disabled: false },
-            { name: "Social Media", selected: false, disabled: false },
+            { name: "Forums", selected: false, disabled: false },
             { name: "Shopping", selected: false, disabled: false },
             { name: "Travel/Tourism", selected: false, disabled: false },
+            { name: "Blogs/Article", selected: false, disabled: false },
+            { name: "Encyclopedia", selected: false, disabled: false },
           ],
           whitelistCategories: [
             { name: "Education", selected: false, disabled: false },
             { name: "Technology", selected: false, disabled: false },
             { name: "News", selected: false, disabled: false },
             { name: "Sports", selected: false, disabled: false },
-            { name: "Entertainment", selected: false, disabled: false },
+            { name: "Streaming Platforms", selected: false, disabled: false },
             { name: "Gaming", selected: false, disabled: false },
-            { name: "Social Media", selected: false, disabled: false },
+            { name: "Forums", selected: false, disabled: false },
             { name: "Shopping", selected: false, disabled: false },
             { name: "Travel/Tourism", selected: false, disabled: false },
+            { name: "Blogs/Article", selected: false, disabled: false },
+            { name: "Encyclopedia", selected: false, disabled: false },
           ],
         },
       },
@@ -433,6 +442,7 @@
 
   .page2-container {
     width: 984px;
+    height: 570px;
     border: 1px solid #ccc;
     background-color: #fff;
     padding: 20px;
@@ -526,7 +536,7 @@
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 20px;
-    margin-left: 150px;
+    margin-left: 100px;
     margin-right: 60px;
   }
 
@@ -571,8 +581,8 @@
   }
 
   .page2-url-list {
-    height: 140px;
-    max-height: 140px;
+    height: 100px;
+    max-height: 100px;
     overflow-y: auto;
   }
 
@@ -595,7 +605,7 @@
   .page2-actions {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: 1px;
   }
 
   .page2-confirm {
