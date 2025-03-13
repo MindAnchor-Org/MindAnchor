@@ -6,8 +6,8 @@
 
   const dates = Object.keys(data) as (keyof typeof data)[];
 
-  // Initialize an array of size 9 with zeros
-  const summedArray: number[] = new Array(9).fill(0);
+  // Initialize an array of size 11 with zeros
+  const summedArray: number[] = new Array(11).fill(0);
 
   // Iterate over each date and sum up corresponding indices
   dates.forEach((date) => {
@@ -24,12 +24,12 @@
       new Chart(chartContainer, {
         type: "pie",
         data: {
-          labels: ["Education", "Technology", "News", "Sports", "Entertainment", "Gaming", "Social Media", "Shopping", "Travel/Tourism"],
+          labels: ["Education", "Technology", "News", "Sports", "Streaming Platforms", "Gaming", "Forums", "Shopping", "Travel/Tourism", "Blogs/Article", "Encyclopedia"],
           datasets: [
             {
               label: "My Pie Chart",
               data: summedArray,
-              backgroundColor: ["#87CEEB", "#4169E1", "#000080", "#89CFF0", "#191970", "#40E0D0", "#4682B4", "#1E90FF", "#007BA7"],
+              backgroundColor: ["#87CEEB", "#4169E1", "#000080", "#89CFF0", "#191970", "#40E0D0", "#4682B4", "#1E90FF", "#007BA7", "#5F9EA0", "#00BFFF"],
               borderWidth: 1
             }
           ]
@@ -157,7 +157,7 @@
   }
 
   .chart-container {
-    width: 300px;
+    width: 600px;
     height: 300px;
   }
 
