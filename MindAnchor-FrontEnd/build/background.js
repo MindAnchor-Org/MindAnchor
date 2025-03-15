@@ -24,36 +24,39 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 chrome.runtime.onInstalled.addListener(() => {
-console.log("MindAnchor Extension is installed!");
+  console.log("MindAnchor Extension is installed!");
 });
-// Listener for when a tab is activated
+
+// Listen for tab updates (when a user visits a new URL)
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.url) {  // Ensure the URL is available
+  if (changeInfo.url) {
     handleClassification(tabId, changeInfo.url);
   }
 });
+
+// Listen for tab activation (when a user switches tabs)
 chrome.tabs.onActivated.addListener((activeInfo) => {
   chrome.tabs.get(activeInfo.tabId, (tab) => {
-    if (tab && tab.url) {  // Ensure the tab has a URL
+    if (tab && tab.url) {
       handleClassification(tab.id, tab.url);
     }
   });
 });
 
 function handleClassification(tabId, url) {
-  chrome.storage.local.get(['ActivateClassification'], function(result) {
+  chrome.storage.local.get(['ActivateClassification'], function (result) {
     if (chrome.runtime.lastError) {
       console.error("Error getting value:", chrome.runtime.lastError);
       return;
     }
 
-    const activateState = result.ActivateClassification === 'true'; // Ensure boolean
+    const activateState = result.ActivateClassification === 'true';
     console.log("Value retrieved in background.js:", activateState);
 
     if (!activateState) return;
 
     // Retrieve blacklist and whitelist
-    chrome.storage.local.get(['BlacklistCategories', 'WhitelistCategories','BlacklistUrls','WhitelistUrls'], function(result) {
+    chrome.storage.local.get(['BlacklistCategories', 'WhitelistCategories', 'BlacklistUrls', 'WhitelistUrls'], function (result) {
       if (chrome.runtime.lastError) {
         console.error("Error retrieving categories:", chrome.runtime.lastError);
         return;
@@ -61,12 +64,12 @@ function handleClassification(tabId, url) {
 
       const blacklist = result.BlacklistCategories || [];
       const whitelist = result.WhitelistCategories || [];
-      const blacklistUrls =  result.BlacklistUrls || [];
+      const blacklistUrls = result.BlacklistUrls || [];
       const whitelistUrls = result.WhitelistUrls || [];
 
       console.log("Blacklist:", blacklist);
       console.log("Whitelist:", whitelist);
-      console.log("BlacklistUrls", blacklistUrls)
+      console.log("BlacklistUrls:", blacklistUrls);
 
       // Send URL to Flask API
       fetch("http://127.0.0.1:5001/classify", {
@@ -77,44 +80,48 @@ function handleClassification(tabId, url) {
           blacklist: blacklist,
           whitelist: whitelist,
           blacklistUrls: blacklistUrls,
-          whitelistUrls: whitelistUrls 
-          // blacklist: ["Entertainment", "Gaming", "Social Media", "Shopping", "Travel/Tourism"],
-          // whitelist: ["Education", "Technology", "News"]
+          whitelistUrls: whitelistUrls
         })
       })
-      .then(response => {
-        // if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-        return response.json();
-      })
-      .then(data => {
-        console.log("Classification Result:", data);
-        let message = `This website (${data.url}) is categorized as "${data.predicted_category}".`;
+        .then(response => response.json())
+        .then(data => {
+          console.log("Classification Result:", data);
+          let message = `This website (${data.url}) is categorized as "${data.predicted_category}".`;
 
-        if (data.category_type === "blacklist") {
-          message = `Warning: This website is categorized as "${data.predicted_category}" and is on your blacklist.`;
-        
-          // Check if tab still exists before injecting script
-          chrome.tabs.get(tabId, function(tabInfo) {
-            if (!chrome.runtime.lastError) {
-              chrome.scripting.executeScript({
-                target: { tabId: tabId },
-                func: injectBanner,
-                args: [message]
-              });
-            }
-          });
-        } else if (data.category_type === "whitelist") {
-          message = `This website (${data.url}) is categorized as "${data.predicted_category}" and is on your whitelist.`;
-        }
-        console.log(message);
-      })
-      // .catch(error => console.error("Fetch Error:", error));
+          if (data.category_type === "blacklist") {
+            message = `Warning: This website is categorized as "${data.predicted_category}" and is on your blacklist.`;
+
+            chrome.tabs.get(tabId, function (tabInfo) {
+              if (!chrome.runtime.lastError) {
+                chrome.scripting.executeScript({
+                  target: { tabId: tabId },
+                  func: injectBanner,
+                  args: [message, tabId]
+                });
+              }
+            });
+          } else if (data.category_type === "whitelist") {
+            message = `This website (${data.url}) is categorized as "${data.predicted_category}" and is on your whitelist.`;
+          } else if (data.category_type === "undefined") {
+            message = 'Failed to classify this website. What do you want to do?';
+            chrome.tabs.get(tabId, function (tabInfo) {
+              if (!chrome.runtime.lastError) {
+                chrome.scripting.executeScript({
+                  target: { tabId: tabId },
+                  func:  injectNotification,
+                  args: [message, tabId]
+                });
+              }
+            });
+          }
+          console.log(message);
+        })
+        .catch(error => console.error("Fetch Error:", error));
     });
   });
 }
 
-
-
+// Function to inject banner on blacklisted sites
 function injectBanner(message, tabId) {
   const banner = document.createElement("div");
   banner.style.position = "fixed";
@@ -131,13 +138,13 @@ function injectBanner(message, tabId) {
   banner.style.flexDirection = "column";
   banner.style.justifyContent = "center";
   banner.style.alignItems = "center";
-  banner.style.fontSize = "24px"; // Increase text size
+  banner.style.fontSize = "24px";
   banner.innerText = message;
 
   // Create close button
   const closeButton = document.createElement("button");
   closeButton.innerText = "Close";
-  closeButton.style.marginTop = "20px"; // Add space between text and button
+  closeButton.style.marginTop = "20px";
   closeButton.style.padding = "10px 20px";
   closeButton.style.backgroundColor = "white";
   closeButton.style.color = "red";
@@ -153,7 +160,7 @@ function injectBanner(message, tabId) {
   // Create incorrect classification button
   const incorrectButton = document.createElement("button");
   incorrectButton.innerText = "Incorrect Classification";
-  incorrectButton.style.marginTop = "10px"; // Add space between buttons
+  incorrectButton.style.marginTop = "10px";
   incorrectButton.style.padding = "10px 20px";
   incorrectButton.style.backgroundColor = "yellow";
   incorrectButton.style.color = "black";
@@ -170,17 +177,109 @@ function injectBanner(message, tabId) {
   banner.appendChild(incorrectButton);
   document.body.prepend(banner);
 }
-
+// Close tab listener
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "closeTab") {
-    // Close the current active tab
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const activeTab = tabs[0];
-      if (activeTab && activeTab.id) {
-        chrome.tabs.remove(activeTab.id, () => {
+      if (tabs[0] && tabs[0].id) {
+        chrome.tabs.remove(tabs[0].id, () => {
           console.log("Tab closed successfully.");
         });
       }
     });
+  }
+});
+
+
+function injectNotification(message, tabId) {
+  const notification = document.createElement("div");
+  notification.style.position = "fixed";
+  notification.style.top = "10px";
+  notification.style.right = "10px";
+  notification.style.width = "350px";
+  notification.style.background = "#fff";
+  notification.style.color = "#333";
+  notification.style.padding = "15px";
+  notification.style.border = "1px solid #ddd";
+  notification.style.borderRadius = "8px";
+  notification.style.boxShadow = "0px 4px 6px rgba(0, 0, 0, 0.1)";
+  notification.style.zIndex = "10000";
+  notification.style.fontFamily = "Arial, sans-serif";
+
+  // MindAnchor Heading
+  const heading = document.createElement("h3");
+  heading.innerText = "MindAnchor";
+  heading.style.margin = "0 0 10px 0";
+  heading.style.fontSize = "18px";
+  heading.style.color = "#007bff";
+
+  // Message
+  const messageSpan = document.createElement("span");
+  messageSpan.innerText = message;
+  messageSpan.style.display = "block";
+  messageSpan.style.marginBottom = "10px";
+  messageSpan.style.fontSize = "14px";
+
+  // Buttons Container
+  const buttonsContainer = document.createElement("div");
+  buttonsContainer.style.display = "flex";
+  buttonsContainer.style.justifyContent = "space-between";
+
+  // Close Tab Button
+  const closeButton = document.createElement("button");
+  closeButton.innerText = "Close Tab";
+  closeButton.style.background = "#dc3545";
+  closeButton.style.color = "white";
+  closeButton.style.border = "none";
+  closeButton.style.padding = "8px 12px";
+  closeButton.style.borderRadius = "5px";
+  closeButton.style.cursor = "pointer";
+  closeButton.style.fontSize = "14px";
+  closeButton.style.transition = "0.3s";
+  closeButton.onmouseover = () => closeButton.style.background = "#c82333";
+  closeButton.onmouseout = () => closeButton.style.background = "#dc3545";
+  closeButton.onclick = () => {
+    chrome.runtime.sendMessage({ action: "closeTab", tabId: tabId });
+  };
+
+  // Continue Browsing Button
+  const continueButton = document.createElement("button");
+  continueButton.innerText = "Continue Browsing";
+  continueButton.style.background = "#28a745";
+  continueButton.style.color = "white";
+  continueButton.style.border = "none";
+  continueButton.style.padding = "8px 12px";
+  continueButton.style.borderRadius = "5px";
+  continueButton.style.cursor = "pointer";
+  continueButton.style.fontSize = "14px";
+  continueButton.style.transition = "0.3s";
+  continueButton.onmouseover = () => continueButton.style.background = "#218838";
+  continueButton.onmouseout = () => continueButton.style.background = "#28a745";
+  continueButton.onclick = () => {
+    document.body.removeChild(notification);
+  };
+
+  // Append elements
+  buttonsContainer.appendChild(closeButton);
+  buttonsContainer.appendChild(continueButton);
+  notification.appendChild(heading);
+  notification.appendChild(messageSpan);
+  notification.appendChild(buttonsContainer);
+  document.body.appendChild(notification);
+}
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "closeTab") {
+    const tabId = request.tabId || (sender.tab ? sender.tab.id : null);
+
+    if (tabId) {
+      chrome.tabs.remove(tabId, () => {
+        if (chrome.runtime.lastError) {
+          console.error("Failed to close tab:", chrome.runtime.lastError);
+        } else {
+          console.log(`Tab ${tabId} closed successfully.`);
+        }
+      });
+    }
   }
 });
