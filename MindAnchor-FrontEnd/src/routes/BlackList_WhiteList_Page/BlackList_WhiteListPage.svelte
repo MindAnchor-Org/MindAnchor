@@ -287,7 +287,7 @@
 
 <div class="page2-container">
   <div class="page2-header">
-    <img src="/icon.png" alt="MindAnchor Logo" width="25px" height="1px"/>
+    <img src="/cover.png" alt="MindAnchor Logo" width="25px" height="1px"/>
     <h1>MindAnchor</h1>
     <button class="page2-help" on:click={toggleHelpPopup}>?</button>
   </div>

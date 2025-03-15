@@ -208,7 +208,7 @@
 
 <div class="container">
     <div class="page1-header">
-        <img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px">
+        <img src="/cover.png" alt="MindAnchor Logo" width="25px" height="2px">
         <h1>MindAnchor</h1>
     </div>
     <hr>

@@ -78,7 +78,7 @@
   
   <div class="container">
     <div class="header">
-      <img src="/icon.png" alt="MindAnchor Logo">
+      <img src="/cover.png" alt="MindAnchor Logo">
       <h2>MindAnchor</h2>
     </div>
   
