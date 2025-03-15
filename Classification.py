@@ -16,6 +16,7 @@ classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnl
 # Confidence threshold for classification
 CONFIDENCE_THRESHOLD = 0.5
 
+
 def extract_website_content(url):
     """Extracts title, headings, and first 3 paragraphs from a website."""
     try:
@@ -31,15 +32,22 @@ def extract_website_content(url):
         headings = [h.get_text(strip=True) for h in soup.find_all(["h1", "h2"])]
         paragraphs = [p.get_text(strip=True) for p in soup.find_all("p")[:3]]  # Extract first 3 paragraphs
 
-        content = title + " " + " ".join(headings) + " " + " ".join(paragraphs)
+        # Handle cases where extracted content is None
+        content_parts = [title] + headings + paragraphs
+        content = " ".join(filter(None, content_parts))  # Remove None values
+
+        if not content.strip():
+            raise ValueError("No valid content extracted")
+
         print(f"Extracted content: {content[:500]}...")  # Limit log output
         return content
     except requests.exceptions.RequestException as e:
         print(f"Error fetching URL {url}: {e}")
-        return ""
     except Exception as e:
         print(f"Error parsing content from URL {url}: {e}")
-        return ""
+
+    return "undefined"
+
 
 def check_lists(domain, blacklist_urls, whitelist_urls):
     """Checks if the domain exists in blacklist or whitelist in parallel."""
@@ -47,6 +55,7 @@ def check_lists(domain, blacklist_urls, whitelist_urls):
         future_blacklist = executor.submit(lambda: domain in blacklist_urls)
         future_whitelist = executor.submit(lambda: domain in whitelist_urls)
         return future_blacklist.result(), future_whitelist.result()
+
 
 @app.route('/classify', methods=['POST'])
 def classify_page():
@@ -99,8 +108,14 @@ def classify_page():
             future_content = executor.submit(extract_website_content, url)
             website_content = future_content.result()
 
-        if not website_content:
-            return jsonify({"error": "Could not extract content"}), 500
+        if website_content == "undefined":
+            return jsonify({
+                "url": url,
+                "predicted_category": "undefined",
+                "category_type": "undefined",
+                "score": 0,
+                "message": f"Classification failed: Could not extract valid content from {url}."
+            })
 
         categories = blacklist + whitelist
         result = classifier(website_content, candidate_labels=categories, multi_label=True)
@@ -114,8 +129,8 @@ def classify_page():
         if not predictions:
             return jsonify({
                 "url": url,
-                "predicted_category": "unknown",
-                "category_type": "unknown",
+                "predicted_category": "undefined",
+                "category_type": "undefined",
                 "score": 0,
                 "message": f"Classification uncertain for {url}. No strong match found."
             })
@@ -125,7 +140,7 @@ def classify_page():
         category_type = (
             "blacklist" if any(cat in blacklist for cat in predicted_categories)
             else "whitelist" if any(cat in whitelist for cat in predicted_categories)
-            else "unknown"
+            else "undefined"
         )
 
         # If blacklisted, block it
@@ -148,12 +163,14 @@ def classify_page():
 
     except Exception as e:
         print(f"[ERROR] Internal server error: {e}")
-        return jsonify({"error": "Internal server error"}), 500
+        return jsonify({
+            "url": url if 'url' in locals() else "unknown",
+            "predicted_category": "undefined",
+            "category_type": "undefined",
+            "score": 0,
+            "message": "Internal server error occurred."
+        }), 500
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5001, debug=True)
-
-
-# if __name__ == '__main__':
-#     port = int(os.getenv("PORT", 5001))  # Render provides a dynamic port
-#     app.run(host="0.0.0.0", port=port, debug=False)
