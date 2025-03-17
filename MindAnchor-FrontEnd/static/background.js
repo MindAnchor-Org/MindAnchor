@@ -283,3 +283,78 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
   }
 });
+
+
+chrome.tabs.onActivated.addListener(activeInfo => {
+  chrome.tabs.get(activeInfo.tabId, tab => {
+      if (tab && tab.url) {
+          handleDomainTracking(tab.url);
+      }
+  });
+});
+
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.url) {
+      handleDomainTracking(changeInfo.url);
+  }
+});
+
+let activeDomain = null;
+let startTime = null;
+
+function handleDomainTracking(url) {
+  const domain = extractDomain(url);
+  if (!domain) return;
+
+  // If switching domains, update time spent on the previous one
+  if (activeDomain && activeDomain !== domain) {
+      updateDuration(activeDomain);
+  }
+
+  // Set new active domain
+  activeDomain = domain;
+  startTime = Date.now();
+
+  // Ensure domain is in storage
+  chrome.storage.local.get({ domainDurations: {} }, data => {
+      let domainDurations = data.domainDurations;
+      if (!domainDurations[domain]) {
+          domainDurations[domain] = 0; // Initialize if not present
+          chrome.storage.local.set({ domainDurations });
+      }
+  });
+}
+
+function updateDuration(domain) {
+  if (!domain || !startTime) return;
+  let endTime = Date.now();
+  let duration = (endTime - startTime) / 1000; // Convert ms to seconds
+
+  chrome.storage.local.get({ domainDurations: {} }, data => {
+      let domainDurations = data.domainDurations;
+      domainDurations[domain] = (domainDurations[domain] || 0) + duration;
+      chrome.storage.local.set({ domainDurations });
+  });
+}
+
+function extractDomain(url) {
+  try {
+      let hostname = new URL(url).hostname;
+      return hostname.replace(/^www\./, '');
+  } catch (e) {
+      return null;
+  }
+}
+
+// Ensure duration is updated when the tab is changed or closed
+chrome.windows.onFocusChanged.addListener(windowId => {
+  if (windowId === chrome.windows.WINDOW_ID_NONE) {
+      updateDuration(activeDomain);
+      activeDomain = null;
+  }
+});
+
+chrome.tabs.onRemoved.addListener(() => {
+  updateDuration(activeDomain);
+  activeDomain = null;
+});
