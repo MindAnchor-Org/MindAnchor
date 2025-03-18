@@ -283,3 +283,87 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
   }
 });
+
+// RAFAN'S CODES
+// Listens for tab activation changes (when a user switches to a different tab)
+chrome.tabs.onActivated.addListener(activeInfo => {
+  chrome.tabs.get(activeInfo.tabId, tab => {
+      if (tab && tab.url) {
+          handleDomainTracking(tab.url); // Calls the function to track the domain
+      }
+  });
+});
+
+// Listens for tab updates (when the URL changes on a tab)
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  if (changeInfo.url) {
+      handleDomainTracking(changeInfo.url); // Calls the function to track the domain
+  }
+});
+
+// Global variables to store active domain and the start time
+let activeDomain = null;
+let startTime = null;
+
+// Handles the domain tracking logic (extracts domain and stores time spent)
+function handleDomainTracking(url) {
+  const domain = extractDomain(url); // Extracts the domain from the URL
+  if (!domain) return;
+
+  // If switching domains, update the time spent on the previous one
+  if (activeDomain && activeDomain !== domain) {
+      updateDuration(activeDomain); // Update the duration of the old domain
+  }
+
+  // Set new active domain and start time
+  activeDomain = domain;
+  startTime = Date.now();
+
+  // Ensure the domain is in the local storage and initialize its duration if not already present
+  chrome.storage.local.get({ domainDurations: {} }, data => {
+      let domainDurations = data.domainDurations;
+      if (!domainDurations[domain]) {
+          domainDurations[domain] = 0; // Initialize if not present
+          chrome.storage.local.set({ domainDurations });
+      }
+  });
+}
+
+// Updates the duration of the time spent on a particular domain
+function updateDuration(domain) {
+  if (!domain || !startTime) return;
+  let endTime = Date.now();
+  let duration = (endTime - startTime) / 1000; // Convert milliseconds to seconds
+
+  // Retrieve stored durations and update the duration for the current domain
+  chrome.storage.local.get({ domainDurations: {} }, data => {
+      let domainDurations = data.domainDurations;
+      domainDurations[domain] = (domainDurations[domain] || 0) + duration; // Add to the existing time spent on the domain
+      chrome.storage.local.set({ domainDurations });
+  });
+}
+
+// Extracts the domain from the given URL
+function extractDomain(url) {
+  try {
+      let hostname = new URL(url).hostname; // Get the hostname from the URL
+      return hostname.replace(/^www\./, ''); // Remove "www" prefix if it exists
+  } catch (e) {
+      return null; // Return null if there's an error in extracting the domain
+  }
+}
+
+// Listens for changes in the window focus (when the user switches windows)
+chrome.windows.onFocusChanged.addListener(windowId => {
+  if (windowId === chrome.windows.WINDOW_ID_NONE) {
+      updateDuration(activeDomain); // Update the duration when the window is minimized or closed
+      activeDomain = null; // Reset active domain
+  }
+});
+
+// Listens for the removal of a tab (when the user closes a tab)
+chrome.tabs.onRemoved.addListener(() => {
+  updateDuration(activeDomain); // Update the duration when a tab is closed
+  activeDomain = null; // Reset active domain
+});
+

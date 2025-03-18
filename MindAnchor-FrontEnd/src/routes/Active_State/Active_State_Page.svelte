@@ -149,43 +149,40 @@
     }
   });
 
-  async function showMotivationalCue() {
-    const quote = await QuoteService.fetchQuote();
-    currentQuote = quote;
+// Function to fetch and display a quote
+async function showMotivationalCue() {
+    currentQuote = await QuoteService.fetchQuote();
     showQuote = true;
-    // Auto-hide after 5 seconds
+
+    // Auto-hide the quote after 5 seconds
     setTimeout(() => {
       showQuote = false;
-    }, 5000);
+    }, 10000);
   }
 
+  // Start the motivational cues when the session begins
   function activateCues() {
-    if (!isMotivationalActive) {
-      isMotivationalActive = true;
-      console.log("Motivational Cues Activated");
-      
-      // Show first quote immediately
-      showMotivationalCue();
-      
-      // Set interval for subsequent quotes (8 minutes = 480000 milliseconds)
-      motivationalInterval = setInterval(showMotivationalCue, 480000);
-      
-      // Prefetch quotes for later use
-      QuoteService.prefetchQuotes();
+    if (!motivationalInterval) {
+      showMotivationalCue(); // Show the first quote immediately
     }
   }
 
+  // Stop the motivational cues
   function deactivateCues() {
-    if (isMotivationalActive) {
-      isMotivationalActive = false;
-      if (motivationalInterval) {
-        clearInterval(motivationalInterval);
-        motivationalInterval = null;
-      }
-      showQuote = false;
-      console.log("Motivational Cues Deactivated");
+    if (motivationalInterval) {
+      clearInterval(motivationalInterval);
+      motivationalInterval = null;
     }
+    showQuote = false;
   }
+
+  onMount(() => {
+    activateCues(); // Automatically start cues when the session begins
+  });
+
+  onDestroy(() => {
+    deactivateCues(); // Clean up intervals when the component is destroyed
+  });
 
   function stopActivity() {
     console.log("Activity Stopped");
@@ -271,7 +268,6 @@
  
   <div class="buttons">
     <button class="btn btn-primary" on:click={activateCues} >Activate motivational cues</button>
-    <button class="btn btn-secondary" on:click={deactivateCues}>Deactivate motivational cues</button>
   </div>
 
   <!-- Progress Section -->
