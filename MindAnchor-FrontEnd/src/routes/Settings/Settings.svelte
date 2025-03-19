@@ -8,24 +8,8 @@
     });
   
     //Settings section
-    let timeOptions = ['10 seconds', '20 seconds', '30 seconds'];
-    let selectedUnlistedTime = '20 seconds';
-    let selectedDashboardTime = '10 seconds';
-    let selectedInactivityTime = '10 seconds';
-    let needMotivationalCues = 'No';
-    let selectedImageAlignment = 'Centre';
-    let selectedAnimationType = 'Fade';
-    let selectedAnimationDuration = '10 seconds';
     let backgroundColor = '#ffffff';
     let textColor = '#000000';
-    
-    let showDropdown1 = false;
-    let showDropdown2 = false;
-    let showDropdown3 = false;
-    let showDropdown4 = false;
-    let showDropdown5 = false;
-    let showDropdown6 = false;
-    let showDropdown7 = false;
 
     // Upload image section
     let uploadedImage: File | null = null;
@@ -37,23 +21,6 @@
     const MAX_FILE_SIZE = 2 * 1024 * 1024;
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
 
-    function toggleDropdown(number: number){
-        if(number === 1){
-            showDropdown1 = !showDropdown1;
-        }else if(number === 2){
-            showDropdown2 = !showDropdown2;
-        }else if(number === 3){
-            showDropdown3 = !showDropdown3;
-        }else if(number === 4){
-            showDropdown4 = !showDropdown4;
-        }else if(number === 5){
-            showDropdown5 = !showDropdown5;
-        }else if(number === 6){
-            showDropdown6 = !showDropdown6;
-        }else if(number === 7){
-            showDropdown7 = !showDropdown7;
-        }
-    }
 
     function isValidFileSize(file: File) {
         return file.size <= MAX_FILE_SIZE;
@@ -150,13 +117,6 @@
         if (savedSettings) {
             const settings = JSON.parse(savedSettings);
             
-            selectedUnlistedTime = settings.selectedUnlistedTime || '10 seconds';
-            selectedDashboardTime = settings.selectedDashboardTime || '10 seconds';
-            selectedInactivityTime = settings.selectedInactivityTime || '10 seconds';
-            needMotivationalCues = settings.needMotivationalCues || 'No';
-            selectedImageAlignment = settings.selectedImageAlignment || 'Centre';
-            selectedAnimationType = settings.selectedAnimationType || 'Fade';
-            selectedAnimationDuration = settings.selectedAnimationDuration || '10 seconds';
             backgroundColor = settings.backgroundColor || '#ffffff';
             textColor = settings.textColor || '#000000';
         }
@@ -164,13 +124,6 @@
 
     function saveSettings() {
         const settings = {
-            selectedUnlistedTime,
-            selectedDashboardTime,
-            selectedInactivityTime,
-            needMotivationalCues,
-            selectedImageAlignment,
-            selectedAnimationType,
-            selectedAnimationDuration,
             backgroundColor,
             textColor
         };
@@ -264,12 +217,6 @@
         justify-content: space-between;
     }
   
-    .settings-section label {
-    display: flex;
-    justify-content: space-between; 
-    width: 100%;
-    }
-  
     h2{
       font-size: 18px;
       padding: 10px;
@@ -285,81 +232,6 @@
         font-weight: 500;
     }
 
-    .settings-options {
-        display: flex;
-        justify-content: flex-start;
-        white-space: nowrap;
-        background-color: #d3d3d3;
-        color: black;
-        font-weight: 500;
-        border: none;
-        padding: 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        width: 100%;
-        margin-top: 10px;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-    }
-
-    .settings-options label{
-        justify-content: flex-end;
-        color: rgb(1, 1, 124);
-    }
-    .settings-dropdown {
-        display: flex;
-        gap: 10px;
-        background: white;
-        border-radius: 8px;
-        /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
-        margin-top: 5px;
-    }
-
-    .settings-dropdown label {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 16px;
-        background: #f5f5f5;
-        padding: 0.75rem;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .settings-dropdown label:hover {
-        background: #e0e0e0;
-    }
-
-    .settings-dropdown input[type='radio'] {
-        opacity: 0;
-        position: absolute; 
-        /* appearance: none;
-        width: 16px;
-        height: 16px;
-        border: 2px solid #053161;
-        border-radius: 50%;
-        display: grid;
-        place-content: center;
-        transition: 0.3s; */
-    }
-
-    .settings-dropdown input[type='radio']::before {
-        appearance: none;
-        content: "";
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #053161;
-        transform: scale(0);
-        transition: 0.2s ease-in-out;
-    }
-
-    .settings-dropdown input[type='radio']:checked::before {
-        appearance: none;
-        transform: scale(1);
-        background: #053161;
-    }
   
     .image-upload-container {
         display: flex;
@@ -548,113 +420,10 @@
     <br>
     
     <div class="settings-section">
-
-        <button class="settings-options" on:click={() => toggleDropdown(1)}>
-            Time allowed to access unlisted sites:
-            <label>{selectedUnlistedTime} </label>
-        </button>
-        
-        {#if showDropdown1}
-        <div class="settings-dropdown">
-            {#each timeOptions as option}
-            <label>
-            <input type='radio' bind:group={selectedUnlistedTime} value={option}/>{option}
-            </label>
-            {/each}
-        </div>
-        {/if}
-
-        <button class="settings-options" on:click={() => toggleDropdown(2)}>
-            Time allowed to access the dashboard when active:
-            <label>{selectedDashboardTime}</label>
-        </button>
-        {#if showDropdown2}
-        <div class="settings-dropdown">
-            {#each timeOptions as option}
-            <label>
-            <input type='radio' bind:group={selectedDashboardTime} value={option}/>{option}
-            </label>
-            {/each}
-        </div>
-        {/if}
-
-        <button class="settings-options" on:click={() => toggleDropdown(3)}>
-            Maximum inactivity duration before showing cues:
-            <label>{selectedInactivityTime}</label>
-        </button>
-        {#if showDropdown3}
-        <div class="settings-dropdown">
-            {#each timeOptions as option}
-            <label>
-            <input type='radio' bind:group={selectedInactivityTime} value={option}/>{option}
-            </label>
-            {/each}
-        </div>
-        {/if}
-
-        <button class="settings-options" on:click={() => toggleDropdown(4)}>
-            Need for motivational cues during inactivity:
-            <label>{needMotivationalCues}</label>
-        </button>
-        {#if showDropdown4}
-        <div class="settings-dropdown">
-            {#each ['Yes','No'] as option}
-            <label>
-            <input type='radio' bind:group={needMotivationalCues} value={option}/>{option}
-            </label>
-            {/each}
-        </div>
-        {/if}
-
-
         <h2>
             Set preferences for blacklisted site interference.
         </h2>
-
-        <button class="settings-options" on:click={() => toggleDropdown(5)}>
-            Image Alignment:
-            <label>{selectedImageAlignment}</label>
-        </button>
-        {#if showDropdown5}
-        <div class="settings-dropdown">
-            {#each ['Left','Centre','Right'] as option}
-            <label>
-            <input type='radio' bind:group={selectedImageAlignment} value={option}/>{option}
-            </label>
-            {/each}
-        </div>
-        {/if}
-
-        
-        <button class="settings-options" on:click={() => toggleDropdown(6)}>
-            Animation Type:
-            <label>{selectedAnimationType}</label>
-        </button>
-        {#if showDropdown6}
-        <div class="settings-dropdown">
-            {#each ['Fade','Slide','Zoom'] as option}
-            <label>
-            <input type='radio' bind:group={selectedAnimationType} value={option}/>{option}
-            </label>
-            {/each}
-        </div>
-        {/if}
-
-        <button class="settings-options" on:click={() => toggleDropdown(7)}>
-            Animation Duration:
-            <label>{selectedAnimationDuration}</label>
-        </button>
-        {#if showDropdown7}
-        <div class="settings-dropdown">
-            {#each timeOptions as option}
-            <label>
-            <input type='radio' bind:group={selectedAnimationDuration} value={option}/>{option}
-            </label>
-            {/each}
-        </div>
-        {/if}
-        
-        
+    
     </div>
 
   
