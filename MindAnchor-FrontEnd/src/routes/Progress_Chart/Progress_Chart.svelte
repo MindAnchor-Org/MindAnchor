@@ -2,34 +2,47 @@
   import { currentPage } from "../../lib/store";
   import { onMount } from "svelte";
   import Chart from "chart.js/auto";
-  import data from "./progress_data.json"; // Adjust the path based on your file structure
-
-  const dates = Object.keys(data) as (keyof typeof data)[];
-
-  // Initialize an array of size 11 with zeros
-  const summedArray: number[] = new Array(11).fill(0);
-
-  // Iterate over each date and sum up corresponding indices
-  dates.forEach((date) => {
-      data[date].forEach((value, index) => {
-          summedArray[index] += value; // Add value to the corresponding index
-      });
-  });
-  console.log("Summed Array:", summedArray);
 
   let chartContainer: HTMLCanvasElement;
 
+  // Fetch domain durations from chrome storage and update the chart
   onMount(() => {
+  chrome.storage.local.get({ domainDurations: {} }, (data) => {
+    
+    const domainDurations = data.domainDurations || {};
+
+    // Convert object into an array of [domain, duration] pairs
+    const domainArray: [string, number][] = Object.entries(domainDurations) as [string, number][];
+
+    // Sort array in descending order based on duration
+    domainArray.sort((a, b) => b[1] - a[1]);
+
+    // Get top 11 domains
+    const topDomains = domainArray.slice(0, 11);
+
+    // Extract labels (domain names) and data (durations)
+    const domainLabels = topDomains.map(([domain]) => domain);
+    const domainData = topDomains.map(([, duration]) => duration);
+
+    // Log for debugging
+    console.log("Sorted Top Domains:", topDomains);
+    console.log("Domain Labels:", domainLabels);
+    console.log("Domain Data:", domainData);
+
+    // Initialize the chart
     if (chartContainer) {
       new Chart(chartContainer, {
         type: "pie",
         data: {
-          labels: ["Education", "Technology", "News", "Sports", "Streaming Platforms", "Gaming", "Forums", "Shopping", "Travel/Tourism", "Blogs/Article", "Encyclopedia"],
+          labels: domainLabels,
           datasets: [
             {
-              label: "My Pie Chart",
-              data: summedArray,
-              backgroundColor: ["#87CEEB", "#4169E1", "#000080", "#89CFF0", "#191970", "#40E0D0", "#4682B4", "#1E90FF", "#007BA7", "#5F9EA0", "#00BFFF"],
+              label: "Domain Usage Time",
+              data: domainData,
+              backgroundColor: [
+                "#87CEEB", "#4169E1", "#000080", "#89CFF0", "#191970", 
+                "#40E0D0", "#4682B4", "#1E90FF", "#007BA7", "#5F9EA0", "#00BFFF"
+              ],
               borderWidth: 1
             }
           ]
@@ -39,13 +52,15 @@
           maintainAspectRatio: false,
           plugins: {
             legend: {
-              position: "bottom" // Moves the labels below the chart
+              position: "bottom"
             }
           }
         }
       });
     }
   });
+});
+
 
   // Navigation functions
   function goToBlackList_WhiteListPage() {
@@ -76,6 +91,7 @@
     updateProgressBar(3, 30); // "Distraction Reduction Challenge"
   });
 </script>
+
 
 <style>
   :global(html, body) {
