@@ -2,49 +2,52 @@
   import { currentPage } from "../../lib/store";
   import { onMount } from "svelte";
   import Chart from "chart.js/auto";
-  import data from "./progress_data.json"; // Adjust the path based on your file structure
-
-  const dates = Object.keys(data) as (keyof typeof data)[];
-
-  // Initialize an array of size 11 with zeros
-  const summedArray: number[] = new Array(11).fill(0);
-
-  // Iterate over each date and sum up corresponding indices
-  dates.forEach((date) => {
-      data[date].forEach((value, index) => {
-          summedArray[index] += value; // Add value to the corresponding index
-      });
-  });
-  console.log("Summed Array:", summedArray);
 
   let chartContainer: HTMLCanvasElement;
 
+  // Fetch domain durations from chrome storage and update the chart
   onMount(() => {
-    if (chartContainer) {
-      new Chart(chartContainer, {
-        type: "pie",
-        data: {
-          labels: ["Education", "Technology", "News", "Sports", "Streaming Platforms", "Gaming", "Forums", "Shopping", "Travel/Tourism", "Blogs/Article", "Encyclopedia"],
-          datasets: [
-            {
-              label: "My Pie Chart",
-              data: summedArray,
-              backgroundColor: ["#87CEEB", "#4169E1", "#000080", "#89CFF0", "#191970", "#40E0D0", "#4682B4", "#1E90FF", "#007BA7", "#5F9EA0", "#00BFFF"],
-              borderWidth: 1
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: "bottom" // Moves the labels below the chart
+    chrome.storage.local.get({ domainDurations: {} }, data => {
+      const domainDurations = data.domainDurations || {};
+      
+      // Take the first 11 domains and their respective durations
+      const domainLabels = Object.keys(domainDurations).slice(0, 11); // Get first 11 domains
+      const domainData = domainLabels.map(domain => domainDurations[domain]); // Get respective durations for each domain
+
+      // Log the domain labels and data for debugging
+      console.log("Domain Labels:", domainLabels);
+      console.log("Domain Data:", domainData);
+
+      // Initialize the chart
+      if (chartContainer) {
+        new Chart(chartContainer, {
+          type: "pie",
+          data: {
+            labels: domainLabels, // Set dynamic labels from the domains
+            datasets: [
+              {
+                label: "Domain Usage Time",
+                data: domainData, // Use the respective durations for the pie chart
+                backgroundColor: [
+                  "#87CEEB", "#4169E1", "#000080", "#89CFF0", "#191970", 
+                  "#40E0D0", "#4682B4", "#1E90FF", "#007BA7", "#5F9EA0", "#00BFFF"
+                ],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "bottom" // Moves the labels below the chart
+              }
             }
           }
-        }
-      });
-    }
+        });
+      }
+    });
   });
 
   // Navigation functions
@@ -76,6 +79,7 @@
     updateProgressBar(3, 30); // "Distraction Reduction Challenge"
   });
 </script>
+
 
 <style>
   :global(html, body) {
@@ -208,7 +212,7 @@
 
 <div class="container">
     <div class="page1-header">
-        <img src="/icon.png" alt="MindAnchor Logo" width="25px" height="2px">
+        <img src="/cover.png" alt="MindAnchor Logo" width="25px" height="2px">
         <h1>MindAnchor</h1>
     </div>
     <hr>
