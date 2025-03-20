@@ -89,9 +89,9 @@
     }
 
     function loadImageFromLocalStorage() {
-        const savedImage = localStorage.getItem("uploadedImage");
+        const savedImage = localStorage.getItem("uploadedImage"); // Retrieve the saved image
         if (savedImage) {
-            previewImage = savedImage;
+            previewImage = savedImage; // Assign the saved image to the previewImage variable
         }
     }
 
@@ -105,11 +105,14 @@
             };
             reader.readAsDataURL(uploadedImage);
         }else {
-            localStorage.removeItem("uploadedImage");
+            clearImageFromLocalStorage(); // Clear the saved image if no image is uploaded
         }
     }
 
-    
+    function clearImageFromLocalStorage() {
+    localStorage.removeItem("uploadedImage");  // Remove the saved image from localStorage
+}
+
 
 
     function loadSettings() {
