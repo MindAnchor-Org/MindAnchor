@@ -8,7 +8,7 @@
   // Fetch domain durations from chrome storage and update the chart
   onMount(() => {
   chrome.storage.local.get({ domainDurations: {} }, (data) => {
-    
+
     const domainDurations = data.domainDurations || {};
 
     // Convert object into an array of [domain, duration] pairs
@@ -252,7 +252,7 @@
     </nav>
     <br>
     <div class="chart-container">
-        <h1>The categories of sites you have visited</h1><br>
+        <h1>Top 11 domains you have accessed the most</h1><br>
         <canvas bind:this={chartContainer}></canvas>
     </div>
     <br><br><br>
