@@ -26,13 +26,13 @@ export class QuoteService {
       const data: Quote[] = await response.json();
       
       // Cache the quote
-      const quote = data[0].q;
-      this.cache.push(quote);
+      const quote = data[0].q; // Extract the quote text
+      this.cache.push(quote); // Cache the quote for future use
 
       return quote;
     } catch (error) {
       console.error('Error fetching quote:', error);
-      return "Stay focused and motivated!";
+      return "Stay focused and motivated!"; // Default message in case of error
     }
   }
 
@@ -49,6 +49,7 @@ export class QuoteService {
       console.error('Error prefetching quotes:', error);
     }
 
+    // Default list for testing
     this.quotes = ["Sample quote 1", "Sample quote 2"];
   }
 }
