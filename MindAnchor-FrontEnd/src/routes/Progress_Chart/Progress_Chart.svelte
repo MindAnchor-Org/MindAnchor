@@ -36,13 +36,13 @@
       ];
 
       const shoppingDomains = [
-        'www.amazon.com', 'www.ebay.com', 'www.walmart.com', 
-        'www.etsy.com', 'www.bestbuy.com'
+        'amazon.com', 'ebay.com', 'walmart.com', 
+        'etsy.com', 'bestbuy.com'
       ];
 
       const socialMediaDomains = [
-        'www.facebook.com', 'www.instagram.com', 'www.twitter.com', 
-        'www.linkedin.com', 'www.tiktok.com'
+        'facebook.com', 'instagram.com', 'twitter.com', 
+        'linkedin.com', 'tiktok.com'
       ];
 
       // Calculate durations for each category
@@ -201,7 +201,7 @@
     text-align: center;
   }
 
-  .chart-container, .summary-container, .game-container {
+  .chart-container, .statements-container, .game-container {
     margin-left: auto;
     margin-right: auto;
   }
@@ -211,7 +211,7 @@
     height: 300px;
   }
 
-  .summary-container {
+  .statements-container {
     width: 300px;
     height: 300px;
   }
@@ -288,8 +288,8 @@
         <canvas bind:this={chartContainer}></canvas>
     </div>
     <br><br><br>
-    <div class="summary-container">
-        <h1>Improvements and reductions so far</h1>
+    <div class="statements-container">
+        <h1>How long have you accessed popular website categories?</h1>
         <p>Entertainment: {entertainmentPercentage.toFixed(2)}% of your browsing experience was spent on Entertainment (Netflix, YouTube, Spotify, Hulu, Disney+)</p>
         <p>Shopping: {shoppingPercentage.toFixed(2)}% of your browsing experience was spent on Shopping (Amazon, eBay, Walmart, Etsy, Best Buy)</p>
         <p>Social Media: {socialMediaPercentage.toFixed(2)}% of your browsing experience was spent on Social Media (Facebook, Instagram, Twitter, LinkedIn, TikTok)</p>
