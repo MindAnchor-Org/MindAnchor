@@ -208,12 +208,19 @@
 
   .chart-container {
     width: 600px;
-    height: 300px;
+    height: 200px;
   }
 
   .statements-container {
-    width: 300px;
+    width: 600px;
     height: 300px;
+    ul li {
+      font-size: 14px;
+      text-align: justify;
+      list-style: square;
+      line-height: 20px;
+
+    }
   }
 
   .game-container {
@@ -290,9 +297,12 @@
     <br><br><br>
     <div class="statements-container">
         <h1>How long have you accessed popular website categories?</h1>
-        <p>Entertainment: {entertainmentPercentage.toFixed(2)}% of your browsing experience was spent on Entertainment (Netflix, YouTube, Spotify, Hulu, Disney+)</p>
-        <p>Shopping: {shoppingPercentage.toFixed(2)}% of your browsing experience was spent on Shopping (Amazon, eBay, Walmart, Etsy, Best Buy)</p>
-        <p>Social Media: {socialMediaPercentage.toFixed(2)}% of your browsing experience was spent on Social Media (Facebook, Instagram, Twitter, LinkedIn, TikTok)</p>
+        <br>
+      <ul>
+        <li>Entertainment: {entertainmentPercentage.toFixed(2)}% of your browsing experience was spent on Entertainment (Netflix, YouTube, Spotify, Hulu, Disney+)</li>
+        <li>Shopping: {shoppingPercentage.toFixed(2)}% of your browsing experience was spent on Shopping (Amazon, eBay, Walmart, Etsy, Best Buy)</li>
+        <li>Social Media: {socialMediaPercentage.toFixed(2)}% of your browsing experience was spent on Social Media (Facebook, Instagram, Twitter, LinkedIn, TikTok)</li>
+      </ul>
     </div>
     <div class="game-container">
         <h1>Daily Missions</h1>          
