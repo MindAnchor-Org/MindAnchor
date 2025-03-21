@@ -4,63 +4,98 @@
   import Chart from "chart.js/auto";
 
   let chartContainer: HTMLCanvasElement;
+  let entertainmentPercentage: number = 0;
+  let shoppingPercentage: number = 0;
+  let socialMediaPercentage: number = 0;
 
   // Fetch domain durations from chrome storage and update the chart
   onMount(() => {
-  chrome.storage.local.get({ domainDurations: {} }, (data) => {
+    chrome.storage.local.get({ domainDurations: {} }, (data) => {
+      const domainDurations = data.domainDurations || {};
 
-    const domainDurations = data.domainDurations || {};
+      // Convert object into an array of [domain, duration] pairs
+      const domainArray: [string, number][] = Object.entries(domainDurations) as [string, number][];
 
-    // Convert object into an array of [domain, duration] pairs
-    const domainArray: [string, number][] = Object.entries(domainDurations) as [string, number][];
+      // Sort array in descending order based on duration
+      domainArray.sort((a, b) => b[1] - a[1]);
 
-    // Sort array in descending order based on duration
-    domainArray.sort((a, b) => b[1] - a[1]);
+      // Get top 11 domains
+      const topDomains = domainArray.slice(0, 11);
 
-    // Get top 11 domains
-    const topDomains = domainArray.slice(0, 11);
+      // Extract labels (domain names) and data (durations)
+      const domainLabels = topDomains.map(([domain]) => domain);
+      const domainData = topDomains.map(([, duration]) => duration);
 
-    // Extract labels (domain names) and data (durations)
-    const domainLabels = topDomains.map(([domain]) => domain);
-    const domainData = topDomains.map(([, duration]) => duration);
+      // Calculate total duration
+      const totalDuration = domainData.reduce((acc, duration) => acc + duration, 0);
 
-    // Log for debugging
-    console.log("Sorted Top Domains:", topDomains);
-    console.log("Domain Labels:", domainLabels);
-    console.log("Domain Data:", domainData);
+      // Category-specific domain lists
+      const entertainmentDomains = [
+        'netflix.com', 'youtube.com', 'spotify.com', 
+        'hulu.com', 'disneyplus.com'
+      ];
 
-    // Initialize the chart
-    if (chartContainer) {
-      new Chart(chartContainer, {
-        type: "pie",
-        data: {
-          labels: domainLabels,
-          datasets: [
-            {
-              label: "Domain Usage Time",
-              data: domainData,
-              backgroundColor: [
-                "#87CEEB", "#4169E1", "#000080", "#89CFF0", "#191970", 
-                "#40E0D0", "#4682B4", "#1E90FF", "#007BA7", "#5F9EA0", "#00BFFF"
-              ],
-              borderWidth: 1
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: "bottom"
-            }
-          }
+      const shoppingDomains = [
+        'www.amazon.com', 'www.ebay.com', 'www.walmart.com', 
+        'www.etsy.com', 'www.bestbuy.com'
+      ];
+
+      const socialMediaDomains = [
+        'www.facebook.com', 'www.instagram.com', 'www.twitter.com', 
+        'www.linkedin.com', 'www.tiktok.com'
+      ];
+
+      // Calculate durations for each category
+      let entertainmentDuration = 0;
+      let shoppingDuration = 0;
+      let socialMediaDuration = 0;
+
+      topDomains.forEach(([domain, duration]) => {
+        if (entertainmentDomains.includes(domain)) {
+          entertainmentDuration += duration;
+        } else if (shoppingDomains.includes(domain)) {
+          shoppingDuration += duration;
+        } else if (socialMediaDomains.includes(domain)) {
+          socialMediaDuration += duration;
         }
       });
-    }
-  });
-});
 
+      // Calculate the percentages
+      entertainmentPercentage = (entertainmentDuration / totalDuration) * 100;
+      shoppingPercentage = (shoppingDuration / totalDuration) * 100;
+      socialMediaPercentage = (socialMediaDuration / totalDuration) * 100;
+
+      // Update the chart
+      if (chartContainer) {
+        new Chart(chartContainer, {
+          type: "pie",
+          data: {
+            labels: domainLabels,
+            datasets: [
+              {
+                label: "Domain Usage Time",
+                data: domainData,
+                backgroundColor: [
+                  "#87CEEB", "#4169E1", "#000080", "#89CFF0", "#191970", 
+                  "#40E0D0", "#4682B4", "#1E90FF", "#007BA7", "#5F9EA0", "#00BFFF"
+                ],
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "bottom"
+              }
+            }
+          }
+        });
+      }
+    });
+  });
 
   // Navigation functions
   function goToBlackList_WhiteListPage() {
@@ -91,7 +126,6 @@
     updateProgressBar(3, 30); // "Distraction Reduction Challenge"
   });
 </script>
-
 
 <style>
   :global(html, body) {
@@ -218,8 +252,6 @@
     overflow: hidden;
     z-index: -1;
   }
-
-
 </style>
 
 <div class="container">
@@ -258,6 +290,9 @@
     <br><br><br>
     <div class="summary-container">
         <h1>Improvements and reductions so far</h1>
+        <p>Entertainment: {entertainmentPercentage.toFixed(2)}% of your browsing experience was spent on Entertainment (Netflix, YouTube, Spotify, Hulu, Disney+)</p>
+        <p>Shopping: {shoppingPercentage.toFixed(2)}% of your browsing experience was spent on Shopping (Amazon, eBay, Walmart, Etsy, Best Buy)</p>
+        <p>Social Media: {socialMediaPercentage.toFixed(2)}% of your browsing experience was spent on Social Media (Facebook, Instagram, Twitter, LinkedIn, TikTok)</p>
     </div>
     <div class="game-container">
         <h1>Daily Missions</h1>          
@@ -279,7 +314,7 @@
         
           <div class="challenge">
             <p class="challenge-title">"Evening Productivity"</p>
-            <p class="challenge-desc">Stay focused in the late hours.</p>
+            <p class="challenge-desc">Focus before winding down.</p>
             <div class="progress-bar-total">
               <div class="progress-bar-complete"></div>
             </div>
@@ -287,11 +322,10 @@
         
           <div class="challenge">
             <p class="challenge-title">"Distraction Reduction Challenge"</p>
-            <p class="challenge-desc">Use 10% less distraction time than the previous day.</p>
+            <p class="challenge-desc">Take breaks when necessary.</p>
             <div class="progress-bar-total">
               <div class="progress-bar-complete"></div>
             </div>
           </div>
-        
-    </div>   
+    </div>
 </div>
