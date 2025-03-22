@@ -7,6 +7,7 @@
     import Progress_Chart from './Progress_Chart/Progress_Chart.svelte';
   import SubscriptionPlan from './Subscription/SubscriptionPlan.svelte';
   import Settings from './Settings/Settings.svelte';
+  import PaymentsPage from './Payments_page/Payments_page.svelte';
 </script>
   
 {#if $currentPage === 'WelcomePage'}
@@ -23,4 +24,6 @@
     <SubscriptionPlan/> 
 {:else if $currentPage === 'Settings'}
     <Settings/> 
+{:else if $currentPage === 'Payments_page'}
+    <PaymentsPage/>
 {/if}

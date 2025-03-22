@@ -1,4 +1,5 @@
 <script lang="ts">
+
     let email: string = '';
     let cardNumber: string = '';
     let expiry: string = '';
@@ -22,7 +23,7 @@
   
   <div class="container">
     <header>
-      <img src="/mindanchor-logo.png" alt="MindAnchor Logo" class="logo">
+      <img src="/cover.png" alt="MindAnchor Logo" class="logo">
       <h1>MindAnchor</h1>
     </header>
   

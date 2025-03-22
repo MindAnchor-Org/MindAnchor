@@ -13,6 +13,9 @@
   function goToUserProgress() {
     currentPage.set('ProgressChart');
   }
+  function goToPaymentsPage() {
+    currentPage.set('Payments_page');
+  }
   const features = [
   {
     icon: "/pie-chart-icon.png",
@@ -84,6 +87,7 @@
           </p>
           <button
             on:click={handlePayNow}
+            on:click={goToPaymentsPage}
             class="w-full bg text-white py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors bg-[#00157C]"
           >
             Pay Now
