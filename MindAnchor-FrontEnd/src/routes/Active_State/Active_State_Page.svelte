@@ -1,9 +1,11 @@
 <script lang="ts">
   import { currentPage, isBionified } from "../../lib/store";
   import { onMount, onDestroy } from "svelte";
+  import Chart from "chart.js/auto";
   import QuoteService from '../../lib/services/quoteService';
   import MotivationalQuote from '../../lib/components/MotivationalQuote.svelte';
-  let countdown = 30; 
+  let countdown = 30;
+  let chartCanvas: any;
   let interval: number | null = null;
   let isBionicEnabled = false;
   let blacklisturls: string | null = null;
@@ -12,6 +14,7 @@
   let selectedWhitelistCategories: string[];
   let showQuote = false;
   let currentQuote = '';
+  let isCuesActive = false;
   let isMotivationalActive = false;
   let motivationalInterval: NodeJS.Timeout | null = null;
 
@@ -125,6 +128,33 @@
       console.error("No schedules found in localStorage.");
     }
 
+    if (chartCanvas) {
+      new Chart(chartCanvas, {
+        type: "pie",
+        data: {
+          labels: ["8.34%", "12.5%", "16.67%", "20.83%", "41.66%"],
+          datasets: [
+            {
+              data: [8.34, 12.5, 16.67, 20.83, 41.66], // Percentage values
+              backgroundColor: [ "#e6effc", "#9ec1ff", "#aecbef", "#5a7ebb", "#2e1a78"],
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              display: false
+          },
+          tooltip: {
+            enabled: true
+          }
+          }
+        }
+      });
+    }
+
     interval = window.setInterval(() => {
       if (countdown > 0) {
         countdown--;
@@ -174,6 +204,26 @@ async function showMotivationalCue() {
       motivationalInterval = null;
     }
     showQuote = false;
+  }
+
+  function toggleBionify() {
+  // Toggle the bionic enabled state
+  isBionicEnabled = !isBionicEnabled;
+  }
+
+  function toggleUnbionify() {
+  // Toggle the unbionify state
+  isBionicEnabled = !isBionicEnabled;
+  }
+
+  function toggleActivateCues() {
+  // Toggle the motivational cues active state
+  isCuesActive = !isCuesActive;
+  }
+
+  function toggleDeactivateCues() {
+  // Toggle the deactivate cues active state
+  isCuesActive = !isCuesActive;
   }
 
   onMount(() => {
@@ -254,30 +304,49 @@ async function showMotivationalCue() {
 <MotivationalQuote bind:isVisible={showQuote} quote={currentQuote} />
 
 <div class="container">
-  <div class="page1-header">
+  <div class="header">
     <img src="/cover.png" alt="MindAnchor Logo" width="25px" height="2px">
-    <h1>MindAnchor</h1>
+    <h1> MindAnchor</h1>
   </div>
-  <hr />
+  <hr class="header-hr">
+
+  <!-- Schedule Details -->
+  <div class="schedule">
+    <div class ="schedule-name">
+      <p><strong>Schedule Name:</strong> &lt;name&gt;</p>
+    </div>
+  
+    <div class="schedule-time">
+      <p><strong>Start Time Date:</strong> &lt;date&gt;&lt;time&gt;</p>
+      <p><strong>End Time Date:</strong> &lt;date&gt;&lt;time&gt;</p>
+    </div>
+  </div>
+  <hr>
   
   <!-- Buttons -->
   <div class="buttons">
-    <button id="bionifyButton" class="btn btn-primary" on:click={bionify} disabled={isBionicEnabled}>Bionify webpage text</button>
-    <button id="unbionifyButton" class="btn btn-secondary" on:click={unbionify} disabled={!isBionicEnabled}>Unbionify webpage text</button>
+    <button id="bionifyButton" class="btn" on:click={toggleBionify} class:btn-primary={!isBionicEnabled} class:btn-secondary={isBionicEnabled} disabled={isBionicEnabled}>Bionify webpage text</button>
+    <button id="unbionifyButton" class="btn" on:click={toggleUnbionify} class:btn-primary={isBionicEnabled} class:btn-secondary={!isBionicEnabled} disabled={!isBionicEnabled}>Unbionify webpage text</button>
   </div>
- 
+  
   <div class="buttons">
-    <button class="btn btn-primary" on:click={activateCues} >Activate motivational cues</button>
+    <button class="btn" on:click={toggleActivateCues} class:btn-primary={!isCuesActive} class:btn-secondary={isCuesActive}>Activate motivational cues</button>
+    <button class="btn" on:click={toggleDeactivateCues} class:btn-primary={isCuesActive} class:btn-secondary={!isCuesActive}>Deactivate motivational cues</button>
   </div>
+  
 
   <!-- Progress Section -->
   <h2>How have you been doing so far?</h2>
   
-  <canvas id="chart"></canvas>
+  <!--<canvas id="chart"></canvas>-->
+  <div class="chart">
+    <canvas bind:this={chartCanvas}></canvas>
+  </div>
+  
 
   <div class="actions">
     <button class="btn stop-btn" on:click={stopActivity}>Stop current activity</button>
-    <p class="countdown">The dashboard will close in <strong>{countdown}</strong> seconds!</p>
+    <p class="countdown">The dashboard will close in <strong>{countdown} seconds!</strong> </p>
   </div>
 </div>
 
@@ -299,65 +368,77 @@ async function showMotivationalCue() {
     font-weight: bold;
   }
 
-  hr {
-    border: 0;
-    height: 2px;
-    background-color: rgb(1, 1, 124);
+  .schedule {
+    font-size: 16px;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 20px;
   }
 
-  .page1-header {
+  .schedule-name{
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .schedule-time{
+    display: flex;
+    justify-content: center;
+    gap:50px;
+
+  }
+
+  hr {
+    border: 1px solid#73707E;
+    margin-bottom: 20px;
+  }
+
+  .header {
     display: flex;
     height: 25px;
     margin-bottom: 10px;
   }
 
-  .page1-header h1 {
+  .header h1 {
     font-size: 1.5em;
     margin-left: 10;
     margin-right: 400px;
   }
 
-  .page1-header img {
+  .header img {
     display: block;
   }
 
+  .header-hr {
+    width: 100%;
+    border: 1.5px solid rgb(1, 1, 124);
+    
+  }
+
   h2 {
+    font-size: 16px;
     margin-top: 15px;
     font-weight: bold;
     text-align: center;
   }
-
-  .actions {
-    text-align: center;
-    margin-top: 20px;
-  }
-
-  strong {
-    font-weight: bold;
-  }
-
-  hr {
-    width: 90%;
-    border: 1px solid #222;
-    
-  }
+  
 
   .buttons{
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 50px;
     margin-top: 20px;
+    
   }
 
   .btn {
-    padding: 10px 20px;
+    padding: 10px 50px;
     border: none;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     border-radius: 10px;
     transition: 0.3s;
+    
   }
 
   .btn-primary {
@@ -371,19 +452,39 @@ async function showMotivationalCue() {
   }
 
   .btn-primary:hover, .btn-secondary:hover {
-    opacity: 0.8;
+    transform: scale(1.05);
+  }
+
+  .chart{
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    margin-left: 250px;
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+  .actions {
+    text-align: center;
+    margin-top: 20px;
   }
 
   .stop-btn {
+    text-align: center;
     background: red;
     color: white;
     border-radius: 10px;
     margin-top: 20px;
-    align-self: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .stop-btn:hover{
+    transform: scale(1.05);
   }
 
   .countdown {
-    font-weight: bold;
+    text-align: center;
     font-size: 18px;
   }
 
