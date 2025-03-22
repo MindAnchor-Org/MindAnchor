@@ -22,18 +22,18 @@
     text: "View your focus journey in an interactive pie chart with analysis on key improvements and distraction reductions."
   },
   {
-    icon: "/calendar-icon.png", // Replace with the actual path of your calendar image
+    icon: "/calendar-icon.png", 
     text: "Sort and track your progress over days, weeks, months, or years to identify trends."
   },
   {
-    icon: "/streak-icon.png", // Replace with the actual pat
+    icon: "/streak-icon.png", 
     text: "Earn streak badges and focus points to celebrate your productivity milestones."
   }
 ];
 
 
   const handlePayNow = () => {
-    // Handle payment logic here
+  
     console.log('Processing payment...');
   };
 </script>

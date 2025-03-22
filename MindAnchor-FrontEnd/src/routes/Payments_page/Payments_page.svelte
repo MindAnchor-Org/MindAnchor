@@ -5,11 +5,11 @@
     let expiry: string = '';
     let cvc: string = '';
     let cardholderName: string = '';
-    let country: string = 'brazil';
+    let country: string = 'sri-lanka';
   
     const handleSubmit = (event: SubmitEvent) => {
       event.preventDefault();
-      // Handle payment submission here
+      
       console.log({
         email,
         cardNumber,
@@ -27,7 +27,7 @@
       <h1>MindAnchor</h1>
     </header>
   
-    <h2>Checkout</h2>
+    <h2 id="checkout">Checkout</h2>
   
     <div class="plan">
       <label for="plan">Premium version</label>
@@ -38,7 +38,7 @@
     
     <hr>
   
-    <h3>Payment Method</h3>
+    <h3 id="paymentMethod">Payment Method</h3>
   
     <form class="payment-form" on:submit={handleSubmit}>
       <label for="email">Email</label>
@@ -60,7 +60,7 @@
           required
         >
         <div class="card-icons">
-          <img src="/credit-debit-logo.jpg" alt="Credit/Debit Cards">
+          <img src="/Visa-Logo.png" alt="Credit/Debit Cards">
         </div>
       </div>
       
@@ -92,7 +92,7 @@
   
       <label for="country">Country or region</label>
       <select id="country" bind:value={country}>
-        <option value="brazil">Brazil</option>
+        <option value="sri-lanka">Sri Lanka</option>
         <option value="usa">United States</option>
         <option value="uk">United Kingdom</option>
         <option value="canada">Canada</option>
@@ -109,6 +109,16 @@
       border-radius: 10px;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
       width: 380px;
+    }
+
+    #checkout {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    #paymentMethod{
+      font-size: 18px;
+      font-weight: bold;
     }
   
     header {
@@ -136,6 +146,9 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: 10px;
+      border: #0056b3 1px solid;
+      padding: 10px;
+      border-radius: 6px;
     }
   
     .price {
