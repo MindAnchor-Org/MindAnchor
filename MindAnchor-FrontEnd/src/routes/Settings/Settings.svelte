@@ -479,6 +479,6 @@
 
         </div>
     </div>
-    <button class="save-btn" on:click={() => {saveSettings(); saveImageToChromeStorage();}}>Save Settings</button>
+    <button class="save-btn" on:click={() => {saveSettings();}}>Save Settings</button>
   
   </div>
