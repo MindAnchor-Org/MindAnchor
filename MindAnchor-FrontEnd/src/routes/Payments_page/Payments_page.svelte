@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { currentPage } from "../../lib/store";
 
     let email: string = '';
     let cardNumber: string = '';
@@ -9,6 +10,7 @@
   
     const handleSubmit = (event: SubmitEvent) => {
       event.preventDefault();
+      currentPage.set('Payment_Success');
       
       console.log({
         email,

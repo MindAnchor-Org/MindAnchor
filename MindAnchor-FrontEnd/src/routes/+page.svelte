@@ -8,6 +8,7 @@
   import SubscriptionPlan from './Subscription/SubscriptionPlan.svelte';
   import Settings from './Settings/Settings.svelte';
   import PaymentsPage from './Payments_page/Payments_page.svelte';
+  import PaymentSuccess from './Payment_Success/Payment_Success.svelte';
 </script>
   
 {#if $currentPage === 'WelcomePage'}
@@ -26,4 +27,6 @@
     <Settings/> 
 {:else if $currentPage === 'Payments_page'}
     <PaymentsPage/>
+    {:else if $currentPage === 'Payment_Success'}
+    <PaymentSuccess/>
 {/if}

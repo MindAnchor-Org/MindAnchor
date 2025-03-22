@@ -1,7 +1,8 @@
 <script lang="ts">
+    import { currentPage } from "../../lib/store";
     const goToHome = () => {
     
-      window.location.href = '/'
+        currentPage.set('BlackList_WhiteListPage');
     }
   </script>
   
@@ -23,16 +24,20 @@
   <style>
     .success-container {
       background: white;
-      padding: 2rem;
+      padding: 4rem;
       border-radius: 1rem;
       box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
       text-align: center;
-      max-width: 400px;
+      min-width: 300px;
+      max-width: 500px;
       margin: 0 auto;
+
     }
   
     .success-icon {
       margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: center;
     }
   
     h1 {
