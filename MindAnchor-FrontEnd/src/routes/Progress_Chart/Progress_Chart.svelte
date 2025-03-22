@@ -232,15 +232,20 @@
       margin: 15px 0;
   }
 
-  .challenge-title {
+  /* .last-distracted-datetime {
       font-weight: bold;
       font-size: 1.2em;
   }
 
-  .challenge-desc {
+  .not-distracted-streak {
       font-weight: lighter;
       font-size: 0.9em;
       color: #666;
+  } */
+
+  .challenge p {
+    font-weight: bold;
+      font-size: 1.2em;
   }
 
   .progress-bar-complete {
@@ -305,34 +310,11 @@
       </ul>
     </div>
     <div class="game-container">
-        <h1>Daily Missions</h1>          
-          <div class="challenge">
-            <p class="challenge-title">"1-Hour Focus Sprint"</p>
-            <p class="challenge-desc">Avoid distractions for an hour.</p>
-            <div class="progress-bar-total">
-              <div class="progress-bar-complete"></div>
-            </div>
-          </div>
-        
-          <div class="challenge">
-            <p class="challenge-title">"Morning Warrior"</p>
-            <p class="challenge-desc">No distractions before noon.</p>
-            <div class="progress-bar-total">
-              <div class="progress-bar-complete"></div>
-            </div>
-          </div>
-        
-          <div class="challenge">
-            <p class="challenge-title">"Evening Productivity"</p>
-            <p class="challenge-desc">Focus before winding down.</p>
-            <div class="progress-bar-total">
-              <div class="progress-bar-complete"></div>
-            </div>
-          </div>
-        
-          <div class="challenge">
-            <p class="challenge-title">"Distraction Reduction Challenge"</p>
-            <p class="challenge-desc">Take breaks when necessary.</p>
+        <h1>Challenge for you : No social media streak!</h1>          
+          <div class="challenge">            
+            <p class="last-distracted-datetime">You were last distracted by social media at </p>
+            <p class="not-distracted-streak">Since then, you have successfully avoided social media related distractions for </p>
+            <p class="extra-day-point">Add another day\point to your streak by avoiding social media for </p>
             <div class="progress-bar-total">
               <div class="progress-bar-complete"></div>
             </div>
