@@ -2,32 +2,29 @@
     import { onMount } from 'svelte';
     import { currentPage } from '../../lib/store';
 
-    onMount(() => {
-        loadSettings();
-        loadImageFromLocalStorage();
-    });
-  
-    //Settings section
     let backgroundColor = '#ffffff';
     let textColor = '#000000';
-
-    // Upload image section
     let uploadedImage: File | null = null;
     let previewImage: string | null = null;
     let isDragging = false;
     let errorMessage = "";
     let fileInput: HTMLInputElement | null = null;
 
-    const MAX_FILE_SIZE = 2 * 1024 * 1024;
+    const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
     const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
 
+    let port: chrome.runtime.Port | null = null; 
+
+    onMount(() => {
+        loadSettings();
+        loadImageFromChromeStorage();
+    });
 
     function isValidFileSize(file: File) {
         return file.size <= MAX_FILE_SIZE;
     }
 
     function isValidImageType(file: File) {
-        console.log("File type:", file.type);
         return allowedTypes.includes(file.type);
     }
 
@@ -37,12 +34,10 @@
         if (target.files && target.files.length > 0) {
             uploadedImage = target.files[0];
             validateAndSetImage(uploadedImage);
-        }else if (!target.files || target.files.length === 0) {
+        } else {
             target.value = "";
-            return;
         }
     }
-
 
     function validateAndSetImage(file: File) {
         if (!file) return;
@@ -57,18 +52,18 @@
         errorMessage = "";
         uploadedImage = file;
         previewImage = URL.createObjectURL(file);
+        saveImageToChromeStorage();
     }
-    
-  
+
     function handleDragOver(event: DragEvent) {
         event.preventDefault();
         isDragging = true;
     }
-  
+
     function handleDragLeave() {
         isDragging = false;
     }
-  
+
     function handleDrop(event: DragEvent) {
         event.preventDefault();
         isDragging = false;
@@ -83,59 +78,67 @@
         uploadedImage = null;
         previewImage = null;
         errorMessage = "";
-        if (fileInput && fileInput.value) { 
+        if (fileInput) { 
             fileInput.value = "";
         }
+        clearImageFromChromeStorage();
     }
-
-    function loadImageFromLocalStorage() {
-        const savedImage = localStorage.getItem("uploadedImage"); // Retrieve the saved image
-        if (savedImage) {
-            previewImage = savedImage; // Assign the saved image to the previewImage variable
-        }
-    }
-
-    function saveImageToLocalStorage() {
-        if (uploadedImage) {
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                if (event.target?.result) {
-                    localStorage.setItem("uploadedImage", event.target.result as string);
-                }
-            };
-            reader.readAsDataURL(uploadedImage);
-        }else {
-            clearImageFromLocalStorage(); // Clear the saved image if no image is uploaded
-        }
-    }
-
-    function clearImageFromLocalStorage() {
-    localStorage.removeItem("uploadedImage");  // Remove the saved image from localStorage
-}
-
-
 
     function loadSettings() {
         const savedSettings = localStorage.getItem("userSettings");
         if (savedSettings) {
             const settings = JSON.parse(savedSettings);
-            
             backgroundColor = settings.backgroundColor || '#ffffff';
             textColor = settings.textColor || '#000000';
         }
     }
 
+    function saveImageToChromeStorage() {
+        if (uploadedImage) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                if (event.target?.result) {
+                    chrome.storage.local.set({ uploadedImage: event.target.result }, () => {
+                        console.log("Image saved to Chrome storage");
+                    });
+                }
+            };
+            reader.readAsDataURL(uploadedImage);
+            saveSettings();
+        }
+    }
+    function saveColors(){
+        chrome.storage.local.set({backgroundColor : backgroundColor},() => {
+            console.log("Background color has been saved!");
+        })
+        chrome.storage.local.set({textColor : textColor},() => {
+            console.log("Text color has been saved!");
+        })
+    }
+
+    function loadImageFromChromeStorage() {
+        chrome.storage.local.get(["uploadedImage"], (result) => {
+            if (result.uploadedImage) {
+                previewImage = result.uploadedImage;
+            }
+        });
+    }
+
     function saveSettings() {
-        const settings = {
-            backgroundColor,
-            textColor
-        };
+        const settings = { backgroundColor, textColor };
+        saveColors();
         localStorage.setItem("userSettings", JSON.stringify(settings));
         alert("Settings saved successfully!");
     }
-  
+
+    function clearImageFromChromeStorage() {
+        chrome.storage.local.remove("uploadedImage", () => {
+            console.log("Image removed from Chrome storage");
+        });
+    }
+
     function goToUserProgress() {
-      currentPage.set('ProgressChart');
+        currentPage.set('ProgressChart');
     }
     function goToBlackList_WhiteListPage() {
         currentPage.set('BlackList_WhiteListPage');
@@ -144,6 +147,7 @@
         currentPage.set('Subscription');
     }
 </script>
+
   
 <style>
   
@@ -452,7 +456,6 @@
             <input type="file" id="fileInput" class="hidden-input" accept="image/jpeg, image/png, image/gif" bind:this={fileInput} on:change={handleImageUpload} />
         </div>
   
-        
 
         <div class="preferences-section">
         
@@ -476,6 +479,6 @@
 
         </div>
     </div>
+    <button class="save-btn" on:click={() => {saveSettings();}}>Save Settings</button>
   
-    <button class="save-btn" on:click={() => {saveSettings(); saveImageToLocalStorage();}}>Save Settings</button>
   </div>

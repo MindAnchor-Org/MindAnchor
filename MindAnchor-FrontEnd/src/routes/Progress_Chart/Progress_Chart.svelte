@@ -196,8 +196,8 @@
   }
 
   h1 {
-    font-size: 15px;
-    font-weight: bolder;
+    font-size: 17px;
+    font-weight: bold;
     text-align: center;
   }
 
@@ -211,42 +211,30 @@
     height: 200px;
   }
 
-  .statements-container {
+  .statements-container, .game-container {
+    line-height: 30px;
     width: 600px;
-    height: 300px;
     ul li {
       font-size: 14px;
       text-align: justify;
       list-style: square;
-      line-height: 20px;
-
     }
   }
 
+  .statements-container {
+    height: 200px;
+    
+  }
+
   .game-container {
-    width: 600px;
     height: 300px;
-  }
-
-  .challenge {
-      margin: 15px 0;
-  }
-
-  .challenge-title {
-      font-weight: bold;
-      font-size: 1.2em;
-  }
-
-  .challenge-desc {
-      font-weight: lighter;
-      font-size: 0.9em;
-      color: #666;
+    
   }
 
   .progress-bar-complete {
     width: 100%;
     height: 10px;
-    background-color: #2e9221;
+    background-color: #40ca2d;
     border-radius: 5px;
     overflow: hidden;
   }
@@ -294,48 +282,25 @@
         <h1>Top 11 domains you have accessed the most</h1><br>
         <canvas bind:this={chartContainer}></canvas>
     </div>
-    <br><br><br>
+    <br><br><br><br>
     <div class="statements-container">
         <h1>How long have you accessed popular website categories?</h1>
-        <br>
       <ul>
         <li>Entertainment: {entertainmentPercentage.toFixed(2)}% of your browsing experience was spent on Entertainment (Netflix, YouTube, Spotify, Hulu, Disney+)</li>
         <li>Shopping: {shoppingPercentage.toFixed(2)}% of your browsing experience was spent on Shopping (Amazon, eBay, Walmart, Etsy, Best Buy)</li>
         <li>Social Media: {socialMediaPercentage.toFixed(2)}% of your browsing experience was spent on Social Media (Facebook, Instagram, Twitter, LinkedIn, TikTok)</li>
       </ul>
     </div>
-    <div class="game-container">
-        <h1>Daily Missions</h1>          
-          <div class="challenge">
-            <p class="challenge-title">"1-Hour Focus Sprint"</p>
-            <p class="challenge-desc">Avoid distractions for an hour.</p>
-            <div class="progress-bar-total">
-              <div class="progress-bar-complete"></div>
-            </div>
-          </div>
-        
-          <div class="challenge">
-            <p class="challenge-title">"Morning Warrior"</p>
-            <p class="challenge-desc">No distractions before noon.</p>
-            <div class="progress-bar-total">
-              <div class="progress-bar-complete"></div>
-            </div>
-          </div>
-        
-          <div class="challenge">
-            <p class="challenge-title">"Evening Productivity"</p>
-            <p class="challenge-desc">Focus before winding down.</p>
-            <div class="progress-bar-total">
-              <div class="progress-bar-complete"></div>
-            </div>
-          </div>
-        
-          <div class="challenge">
-            <p class="challenge-title">"Distraction Reduction Challenge"</p>
-            <p class="challenge-desc">Take breaks when necessary.</p>
-            <div class="progress-bar-total">
-              <div class="progress-bar-complete"></div>
-            </div>
-          </div>
+    <br><br>
+    <div class="game-container">         
+      <h1>Challenge for you : NO SOCIAL MEDIA STREAK!</h1>     
+      <ul>
+        <li>You were last distracted by social media at </li>
+        <li>Since then, you have successfully avoided social media related distractions for </li>
+        <li>Add another day\point to your streak by avoiding social media for </li>
+      </ul>
+      <div class="progress-bar-total">
+        <div class="progress-bar-complete"></div>
+      </div>         
     </div>
 </div>

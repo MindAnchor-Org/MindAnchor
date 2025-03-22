@@ -120,63 +120,75 @@ function handleClassification(tabId, url) {
     });
   });
 }
-
 // Function to inject banner on blacklisted sites
 function injectBanner(message, tabId) {
-  const banner = document.createElement("div");
-  banner.style.position = "fixed";
-  banner.style.top = "0";
-  banner.style.left = "0";
-  banner.style.width = "100%";
-  banner.style.height = "100%";
-  banner.style.backgroundColor = "red";
-  banner.style.color = "white";
-  banner.style.padding = "10px";
-  banner.style.textAlign = "center";
-  banner.style.zIndex = "9999";
-  banner.style.display = "flex";
-  banner.style.flexDirection = "column";
-  banner.style.justifyContent = "center";
-  banner.style.alignItems = "center";
-  banner.style.fontSize = "24px";
-  banner.innerText = message;
+  chrome.storage.local.get(["uploadedImage", "backgroundColor", "textColor"], (data) => {
+    let image = data.uploadedImage || null;
+    let backgroundColor = data.backgroundColor || "red";
+    let textColor = data.textColor || "white";
 
-  // Create close button
-  const closeButton = document.createElement("button");
-  closeButton.innerText = "Close";
-  closeButton.style.marginTop = "20px";
-  closeButton.style.padding = "10px 20px";
-  closeButton.style.backgroundColor = "white";
-  closeButton.style.color = "red";
-  closeButton.style.border = "none";
-  closeButton.style.cursor = "pointer";
-  closeButton.style.fontSize = "18px";
+    const banner = document.createElement("div");
+    banner.style.position = "fixed";
+    banner.style.top = "0";
+    banner.style.left = "0";
+    banner.style.width = "100%";
+    banner.style.height = "100%";
 
-  closeButton.addEventListener("click", () => {
-    banner.remove();
-    chrome.runtime.sendMessage({ action: "closeTab" });
+    if (image) {
+      banner.style.background = `url(${image}) center/cover no-repeat`;
+    } else {
+      banner.style.backgroundColor = backgroundColor;
+    }
+
+    banner.style.color = textColor;
+    banner.style.padding = "10px";
+    banner.style.textAlign = "center";
+    banner.style.zIndex = "9999";
+    banner.style.display = "flex";
+    banner.style.flexDirection = "column";
+    banner.style.justifyContent = "center";
+    banner.style.alignItems = "center";
+    banner.style.fontSize = "24px";
+    banner.innerText = message;
+
+    // Create close button
+    const closeButton = document.createElement("button");
+    closeButton.innerText = "Close";
+    closeButton.style.marginTop = "20px";
+    closeButton.style.padding = "10px 20px";
+    closeButton.style.backgroundColor = "white";
+    closeButton.style.color = "red";
+    closeButton.style.border = "none";
+    closeButton.style.cursor = "pointer";
+    closeButton.style.fontSize = "18px";
+
+    closeButton.addEventListener("click", () => {
+      banner.remove();
+      chrome.runtime.sendMessage({ action: "closeTab" });
+    });
+
+    // Create incorrect classification button
+    const incorrectButton = document.createElement("button");
+    incorrectButton.innerText = "Incorrect Classification";
+    incorrectButton.style.marginTop = "10px";
+    incorrectButton.style.padding = "10px 20px";
+    incorrectButton.style.backgroundColor = "yellow";
+    incorrectButton.style.color = "black";
+    incorrectButton.style.border = "none";
+    incorrectButton.style.cursor = "pointer";
+    incorrectButton.style.fontSize = "18px";
+
+    incorrectButton.addEventListener("click", () => {
+      banner.remove();
+      chrome.runtime.sendMessage({ action: "reportIncorrect", tabId: tabId });
+    });
+
+    banner.appendChild(closeButton);
+    banner.appendChild(incorrectButton);
+    document.body.prepend(banner);
   });
-
-  // Create incorrect classification button
-  const incorrectButton = document.createElement("button");
-  incorrectButton.innerText = "Incorrect Classification";
-  incorrectButton.style.marginTop = "10px";
-  incorrectButton.style.padding = "10px 20px";
-  incorrectButton.style.backgroundColor = "yellow";
-  incorrectButton.style.color = "black";
-  incorrectButton.style.border = "none";
-  incorrectButton.style.cursor = "pointer";
-  incorrectButton.style.fontSize = "18px";
-
-  incorrectButton.addEventListener("click", () => {
-    banner.remove();
-    chrome.runtime.sendMessage({ action: "reportIncorrect", tabId: tabId });
-  });
-
-  banner.appendChild(closeButton);
-  banner.appendChild(incorrectButton);
-  document.body.prepend(banner);
 }
+
 // Close tab listener
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "closeTab") {
@@ -189,7 +201,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     });
   }
 });
-
 
 function injectNotification(message, tabId) {
   const notification = document.createElement("div");
