@@ -1,11 +1,11 @@
 <script lang="ts">
   import { currentPage, isBionified } from "../../lib/store";
   import { onMount, onDestroy } from "svelte";
-  import Chart from "chart.js/auto";
+  
   import QuoteService from '../../lib/services/quoteService';
   import MotivationalQuote from '../../lib/components/MotivationalQuote.svelte';
   let countdown = 30;
-  let chartCanvas: any;
+  
   let interval: number | null = null;
   let isBionicEnabled = false;
   let blacklisturls: string | null = null;
@@ -128,32 +128,7 @@
       console.error("No schedules found in localStorage.");
     }
 
-    if (chartCanvas) {
-      new Chart(chartCanvas, {
-        type: "pie",
-        data: {
-          labels: ["8.34%", "12.5%", "16.67%", "20.83%", "41.66%"],
-          datasets: [
-            {
-              data: [8.34, 12.5, 16.67, 20.83, 41.66], // Percentage values
-              backgroundColor: [ "#e6effc", "#9ec1ff", "#aecbef", "#5a7ebb", "#2e1a78"],
-              borderWidth: 1
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: {
-              display: false
-          },
-          tooltip: {
-            enabled: true
-          }
-          }
-        }
-      });
-    }
+    
 
     interval = window.setInterval(() => {
       if (countdown > 0) {
@@ -317,16 +292,6 @@ async function showMotivationalCue() {
     <button class="btn" on:click={toggleActivateCues} class:btn-primary={!isCuesActive} class:btn-secondary={isCuesActive}>Activate motivational cues</button>
     <button class="btn" on:click={toggleDeactivateCues} class:btn-primary={isCuesActive} class:btn-secondary={!isCuesActive}>Deactivate motivational cues</button>
   </div>
-  
-
-  <!-- Progress Section -->
-  <h2>How have you been doing so far?</h2>
-  
-  <!--<canvas id="chart"></canvas>-->
-  <div class="chart">
-    <canvas bind:this={chartCanvas}></canvas>
-  </div>
-  
 
   <div class="actions">
     <button class="btn stop-btn" on:click={stopActivity}>Stop current activity</button>
@@ -398,14 +363,6 @@ async function showMotivationalCue() {
     
   }
 
-  h2 {
-    font-size: 16px;
-    margin-top: 15px;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-
   .buttons{
     display: flex;
     justify-content: center;
@@ -437,15 +394,6 @@ async function showMotivationalCue() {
 
   .btn-primary:hover, .btn-secondary:hover {
     transform: scale(1.05);
-  }
-
-  .chart{
-    align-items: center;
-    justify-content: center;
-    margin-top: 15px;
-    margin-left: 250px;
-    max-width: 200px;
-    max-height: 200px;
   }
 
   .actions {
