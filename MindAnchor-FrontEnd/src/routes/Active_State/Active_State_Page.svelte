@@ -328,10 +328,6 @@ async function showMotivationalCue() {
     text-align: center;
   }
 
-  .description {
-    text-align: center;
-  }
-
   .actions {
     text-align: center;
     margin-top: 20px;
