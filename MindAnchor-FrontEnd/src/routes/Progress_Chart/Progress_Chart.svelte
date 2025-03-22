@@ -284,7 +284,7 @@
     </div>
     <br><br><br><br>
     <div class="statements-container">
-        <h1>How long have you accessed popular website categories?</h1>
+        <h1>How long have you browsed these popular website categories?</h1>
       <ul>
         <li>Entertainment: {entertainmentPercentage.toFixed(2)}% of your browsing experience was spent on Entertainment (Netflix, YouTube, Spotify, Hulu, Disney+)</li>
         <li>Shopping: {shoppingPercentage.toFixed(2)}% of your browsing experience was spent on Shopping (Amazon, eBay, Walmart, Etsy, Best Buy)</li>
@@ -293,11 +293,11 @@
     </div>
     <br><br>
     <div class="game-container">         
-      <h1>Challenge for you : NO SOCIAL MEDIA STREAK!</h1>     
+      <h1>Challenge for you : NO-SOCIAL-MEDIA STREAK!</h1>
       <ul>
         <li>You were last distracted by social media at </li>
         <li>Since then, you have successfully avoided social media related distractions for </li>
-        <li>Add another day\point to your streak by avoiding social media for </li>
+        <li>Add +1 day\point to your streak by avoiding social media for hours</li>
       </ul>
       <div class="progress-bar-total">
         <div class="progress-bar-complete"></div>
