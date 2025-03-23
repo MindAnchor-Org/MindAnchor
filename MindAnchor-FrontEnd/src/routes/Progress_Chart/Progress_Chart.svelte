@@ -8,10 +8,16 @@
   let shoppingPercentage: number = 0;
   let socialMediaPercentage: number = 0;
 
-  // Fetch domain durations from chrome storage and update the chart
+  // NO-SOCIAL-MEDIA STREAK VARIABLES
+  let lastSocialMediaVisit: string = "Unknown"; // Last distracted date & time
+  let elapsedDays: number = 0; // Days since last distraction
+  let elapsedHours: number = 0; // Hours since last distraction
+  let progress: number = 0; // Progress bar percentage
+
   onMount(() => {
-    chrome.storage.local.get({ domainDurations: {} }, (data) => {
+    chrome.storage.local.get({ domainDurations: {}, lastSocialMediaVisit: null }, (data) => {
       const domainDurations = data.domainDurations || {};
+      const lastVisitTimestamp = data.lastSocialMediaVisit;
 
       // Convert object into an array of [domain, duration] pairs
       const domainArray: [string, number][] = Object.entries(domainDurations) as [string, number][];
@@ -30,20 +36,9 @@
       const totalDuration = domainData.reduce((acc, duration) => acc + duration, 0);
 
       // Category-specific domain lists
-      const entertainmentDomains = [
-        'netflix.com', 'youtube.com', 'spotify.com', 
-        'hulu.com', 'disneyplus.com'
-      ];
-
-      const shoppingDomains = [
-        'amazon.com', 'ebay.com', 'walmart.com', 
-        'etsy.com', 'bestbuy.com'
-      ];
-
-      const socialMediaDomains = [
-        'facebook.com', 'instagram.com', 'twitter.com', 
-        'linkedin.com', 'tiktok.com'
-      ];
+      const entertainmentDomains = ["netflix.com", "youtube.com", "spotify.com", "hulu.com", "disneyplus.com"];
+      const shoppingDomains = ["amazon.com", "ebay.com", "walmart.com", "etsy.com", "bestbuy.com"];
+      const socialMediaDomains = ["facebook.com", "instagram.com", "twitter.com", "linkedin.com", "tiktok.com"];
 
       // Calculate durations for each category
       let entertainmentDuration = 0;
@@ -57,6 +52,8 @@
           shoppingDuration += duration;
         } else if (socialMediaDomains.includes(domain)) {
           socialMediaDuration += duration;
+          // Update last social media visit timestamp only if social media was visited
+          chrome.storage.local.set({ lastSocialMediaVisit: Date.now() });
         }
       });
 
@@ -64,6 +61,33 @@
       entertainmentPercentage = (entertainmentDuration / totalDuration) * 100;
       shoppingPercentage = (shoppingDuration / totalDuration) * 100;
       socialMediaPercentage = (socialMediaDuration / totalDuration) * 100;
+
+      // NO-SOCIAL-MEDIA STREAK LOGIC
+      if (lastVisitTimestamp) {
+        const now = new Date();
+        const lastVisitDate = new Date(lastVisitTimestamp);
+
+        // Store original timestamp for display
+        lastSocialMediaVisit = lastVisitDate.toLocaleString(); // ✅ Keeps actual time
+
+        // Calculate elapsed days
+        const nowMidnight = new Date(now);
+        nowMidnight.setHours(0, 0, 0, 0);
+
+        const lastVisitMidnight = new Date(lastVisitDate);
+        lastVisitMidnight.setHours(0, 0, 0, 0);
+
+        elapsedDays = Math.floor((nowMidnight.getTime() - lastVisitMidnight.getTime()) / (1000 * 60 * 60 * 24));
+
+        // Calculate elapsed hours
+        elapsedHours = Math.floor((now.getTime() - lastVisitDate.getTime()) / (1000 * 60 * 60));
+
+        // Calculate progress bar percentage
+        progress = (elapsedHours / 24) * 100;
+      }
+
+      // Update the progress bar dynamically
+      updateProgressBar(progress);
 
       // Update the chart
       if (chartContainer) {
@@ -76,7 +100,7 @@
                 label: "Domain Usage Time",
                 data: domainData,
                 backgroundColor: [
-                  "#87CEEB", "#4169E1", "#000080", "#89CFF0", "#191970", 
+                  "#87CEEB", "#4169E1", "#000080", "#89CFF0", "#191970",
                   "#40E0D0", "#4682B4", "#1E90FF", "#007BA7", "#5F9EA0", "#00BFFF"
                 ],
                 borderWidth: 1
@@ -97,34 +121,25 @@
     });
   });
 
+  // Function to update the progress bar
+  function updateProgressBar(progress: number): void {
+    const progressBar: HTMLElement | null = document.querySelector(".progress-bar-complete");
+
+    if (progressBar) {
+      progressBar.style.width = `${progress}%`;
+    }
+  }
+
   // Navigation functions
   function goToBlackList_WhiteListPage() {
-      currentPage.set('BlackList_WhiteListPage');
+    currentPage.set("BlackList_WhiteListPage");
   }
   function goToSettings() {
-      currentPage.set('Settings');
+    currentPage.set("Settings");
   }
   function goToSubscription() {
-      currentPage.set('Subscription');
+    currentPage.set("Subscription");
   }
-
-  // Function to update the progress bar
-  function updateProgressBar(challengeIndex: number, progress: number): void {
-      const progressBar: HTMLElement | null = document.querySelectorAll('.progress-bar-complete')[challengeIndex] as HTMLElement | null;
-
-      if (progressBar) {
-          progressBar.style.width = `${progress}%`;
-      }
-  }
-
-  // Example: Initialize progress for the challenges
-  onMount(() => {
-    // These can be dynamic values or from the progress data
-    updateProgressBar(0, 60); // "1-Hour Focus Sprint"
-    updateProgressBar(1, 80); // "Morning Warrior"
-    updateProgressBar(2, 50); // "Evening Productivity"
-    updateProgressBar(3, 30); // "Distraction Reduction Challenge"
-  });
 </script>
 
 <style>
@@ -227,13 +242,13 @@
   }
 
   .game-container {
-    height: 300px;
+    margin-bottom: 15px;
     
   }
 
   .progress-bar-complete {
     width: 100%;
-    height: 10px;
+    height: 5px;
     background-color: #40ca2d;
     border-radius: 5px;
     overflow: hidden;
@@ -241,11 +256,23 @@
 
   .progress-bar-total {
     width: 100%;
-    height: 10px;
+    height: 5px;
     background-color: rgb(151, 151, 151);
     border-radius: 5px;
     overflow: hidden;
     z-index: -1;
+  }
+
+  .green, .red {
+    font-weight: bolder;
+  }
+
+  .green {
+    color: #108a00;
+  }
+
+  .red {
+    color: #990000;
   }
 </style>
 
@@ -292,15 +319,15 @@
       </ul>
     </div>
     <br><br>
-    <div class="game-container">         
-      <h1>Challenge for you : NO-SOCIAL-MEDIA STREAK!</h1>
+    <div class="game-container">
+      <h1>Challenge for you: NO-SOCIAL-MEDIA STREAK!</h1>
       <ul>
-        <li>You were last distracted by social media at </li>
-        <li>Since then, you have successfully avoided social media related distractions for </li>
-        <li>Add +1 day\point to your streak by avoiding social media for hours</li>
+        <li>You were last distracted by social media on <span class="red">{lastSocialMediaVisit}</span>.</li>
+        <li>Since then, you have successfully avoided social media for <span class="green">{elapsedDays} days</span>.</li>
+        <li>Add +1 day to your streak by avoiding social media for <span class="green">{elapsedHours} hours</span>.</li>
       </ul>
       <div class="progress-bar-total">
         <div class="progress-bar-complete"></div>
-      </div>         
-    </div>
+      </div>  
+    </div>     
 </div>
