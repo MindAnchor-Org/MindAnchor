@@ -116,7 +116,7 @@ function handleClassification(tabId, url) {
           }
           console.log(message);
         })
-        .catch(error => console.error("Fetch Error:", error));
+        // .catch(error => console.error("Fetch Error:", error));
     });
   });
 }

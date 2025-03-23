@@ -45,82 +45,71 @@
         const schedules = JSON.parse(storedData);
 
         // Validate the structure of the data
-        if (
-          Array.isArray(schedules) &&
-          schedules.length > 0 &&
-          schedules[0].blacklistWhitelist &&
-          Array.isArray(schedules[0].blacklistWhitelist.blacklistUrls) &&
-          Array.isArray(schedules[0].blacklistWhitelist.whitelistUrls) &&
-          Array.isArray(schedules[0].blacklistWhitelist.blacklistCategories) &&
-          Array.isArray(schedules[0].blacklistWhitelist.whitelistCategories)
-        ) {
+        
           // Data is valid, proceed
-          const schedule = schedules[0];
-          blacklisturls = schedule.blacklistWhitelist.blacklistUrls;
-          whitelisturls = schedule.blacklistWhitelist.whitelistUrls;
-          const blacklistCategories = schedule.blacklistWhitelist.blacklistCategories;
-          const whitelistCategories = schedule.blacklistWhitelist.whitelistCategories;
+        const schedule = schedules[0];
+        blacklisturls = schedule.blacklistWhitelist.blacklistUrls;
+        whitelisturls = schedule.blacklistWhitelist.whitelistUrls;
+        const blacklistCategories = schedule.blacklistWhitelist.blacklistCategories;
+        const whitelistCategories = schedule.blacklistWhitelist.whitelistCategories;
 
           // Filter selected categories
-          selectedBlacklistCategories = blacklistCategories
-            .filter((category: { selected: any; }) => category.selected)
-            .map((category: { name: any; }) => category.name);
+        selectedBlacklistCategories = blacklistCategories
+          .filter((category: { selected: any; }) => category.selected)
+          .map((category: { name: any; }) => category.name);
 
-          selectedWhitelistCategories = whitelistCategories
-            .filter((category: { selected: any; }) => category.selected)
-            .map((category: { name: any; }) => category.name);
+        selectedWhitelistCategories = whitelistCategories
+          .filter((category: { selected: any; }) => category.selected)
+          .map((category: { name: any; }) => category.name);
 
-          console.log("Selected Blacklist Categories:", selectedBlacklistCategories);
+        console.log("Selected Blacklist Categories:", selectedBlacklistCategories);
 
           // Save to chrome.storage.local
-          chrome.storage.local.set(
-            { BlacklistCategories: selectedBlacklistCategories },
-            function () {
-              if (chrome.runtime.lastError) {
-                console.error("Error saving data:", chrome.runtime.lastError);
-              } else {
-                console.log("Data saved successfully from activestate page");
-              }
+        chrome.storage.local.set(
+          { BlacklistCategories: selectedBlacklistCategories },
+          function () {
+            if (chrome.runtime.lastError) {
+              console.error("Error saving data:", chrome.runtime.lastError);
+            } else {
+              console.log("Data saved successfully from activestate page");
             }
-          );
+          }
+        );
 
-          chrome.storage.local.set(
-            { WhitelistCategories: selectedWhitelistCategories },
-            function () {
-              if (chrome.runtime.lastError) {
-                console.error("Error saving data:", chrome.runtime.lastError);
-              } else {
-                console.log("Data saved successfully from activestate page");
-              }
+        chrome.storage.local.set(
+          { WhitelistCategories: selectedWhitelistCategories },
+          function () {
+            if (chrome.runtime.lastError) {
+              console.error("Error saving data:", chrome.runtime.lastError);
+            } else {
+              console.log("Data saved successfully from activestate page");
             }
-          );
+          }
+        );
 
-          chrome.storage.local.set(
-            { BlacklistUrls: blacklisturls },
-            function () {
-              if (chrome.runtime.lastError) {
-                console.error("Error saving data:", chrome.runtime.lastError);
-              } else {
-                console.log("Data saved successfully from activestate page");
-              }
+        chrome.storage.local.set(
+          { BlacklistUrls: blacklisturls },
+          function () {
+            if (chrome.runtime.lastError) {
+              console.error("Error saving data:", chrome.runtime.lastError);
+            } else {
+              console.log("Data saved successfully from activestate page");
             }
-          );
-          chrome.storage.local.set(
-            { WhitelistUrls: whitelisturls },
-            function () {
-              if (chrome.runtime.lastError) {
-                console.error("Error saving data:", chrome.runtime.lastError);
-              } else {
-                console.log("Data saved successfully from activestate page");
-              }
+          }
+        );
+        chrome.storage.local.set(
+          { WhitelistUrls: whitelisturls },
+          function () {
+            if (chrome.runtime.lastError) {
+              console.error("Error saving data:", chrome.runtime.lastError);
+            } else {
+              console.log("Data saved successfully from activestate page");
             }
-          );
+          }
+        );
           // Save to localStorage
-          localStorage.setItem("BlacklistCategories", JSON.stringify(selectedBlacklistCategories));
-          localStorage.setItem("WhitelistCategories", JSON.stringify(selectedWhitelistCategories));
-        } else {
-          console.error("Invalid data structure in schedules.");
-        }
+        localStorage.setItem("BlacklistCategories", JSON.stringify(selectedBlacklistCategories));
+        localStorage.setItem("WhitelistCategories", JSON.stringify(selectedWhitelistCategories));
       } catch (error) {
         console.error("Error parsing schedules:", error);
       }
