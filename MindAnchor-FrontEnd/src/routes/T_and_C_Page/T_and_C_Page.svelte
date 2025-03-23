@@ -90,13 +90,25 @@
     <h3>TERMS AND CONDITIONS</h3>
     <div class="terms-box">
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.
-        Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis
-        sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.
+        <b>Introduction</b>
+        This Privacy Policy describes how Focalize (“Company” “we,” “us,” or “our”) collects, uses, and discloses your personal information when you use our Chrome extension. It also explains your choices regarding your information and how you can contact us. We value your privacy and encourage you to read the Privacy Policy and use it to make informed decisions.
+        By using the Focalize Extension, you acknowledge that you have read and understood the terms of this Privacy Policy.        
       </p>
       <p>
-        Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent
-        per conubia nostra, per inceptos himenaeos.
+        <b>Information We Collect</b>
+        Mind Anchor: You can create custom focus modes within the Extension that define the type of focus mode to be activated and which website categories should be blocked while the mode is active. This information will be stored in our servers.
+      </p>
+      <p>
+        <b>How We Use Your Information </b>
+          Mind Anchor: We use the information you provide when creating focus modes to personalize your experience and help you stay focused while browsing.
+      </p>
+      <p>
+        <b>Data Sharing</b>
+        We do not share any personal information or website usage data with any third parties.
+      </p>
+      <p>
+        <b>Data Storage</b>
+        All information collected by the Extension is stored locally on your device and is never transmitted to our servers. You can access and manage your stored data through the Extension’s settings.
       </p>
     </div>
   
@@ -104,7 +116,6 @@
       <input id="agree" type="checkbox" bind:checked={agreed}>
       <label for="agree">I agree to all terms and conditions</label>
     </div>
-  
     <button class="continue-btn" on:click={handleContinue} disabled={!agreed}>
       Continue
     </button>
