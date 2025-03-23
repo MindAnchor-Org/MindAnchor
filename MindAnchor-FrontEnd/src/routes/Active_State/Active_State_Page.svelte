@@ -257,19 +257,6 @@ async function showMotivationalCue() {
     <h1> MindAnchor</h1>
   </div>
   <hr class="header-hr">
-
-  <!-- Schedule Details -->
-  <div class="schedule">
-    <div class ="schedule-name">
-      <p><strong>Schedule Name:</strong> &lt;name&gt;</p>
-    </div>
-  
-    <div class="schedule-time">
-      <p><strong>Start Time Date:</strong> &lt;date&gt;&lt;time&gt;</p>
-      <p><strong>End Time Date:</strong> &lt;date&gt;&lt;time&gt;</p>
-    </div>
-  </div>
-  <hr>
   
   <!-- Buttons -->
   <div class="buttons">
@@ -279,7 +266,6 @@ async function showMotivationalCue() {
   
   <div class="buttons">
     <button class="btn" on:click={toggleActivateCues} class:btn-primary={!isCuesActive} class:btn-secondary={isCuesActive}>Activate motivational cues</button>
-    <button class="btn" on:click={toggleDeactivateCues} class:btn-primary={isCuesActive} class:btn-secondary={!isCuesActive}>Deactivate motivational cues</button>
   </div>
 
   <div class="actions">
@@ -304,25 +290,6 @@ async function showMotivationalCue() {
     font-size: 1.8em;
     margin: 0 0 10px;
     font-weight: bold;
-  }
-
-  .schedule {
-    font-size: 16px;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-
-  .schedule-name{
-    text-align: center;
-    margin-bottom: 10px;
-  }
-
-  .schedule-time{
-    display: flex;
-    justify-content: center;
-    gap:50px;
-
   }
 
   hr {

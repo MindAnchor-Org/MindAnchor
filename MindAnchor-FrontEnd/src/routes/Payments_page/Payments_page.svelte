@@ -21,12 +21,18 @@
         country
       });
     };
+
+    function goToBlackList_WhiteListPage(){
+      currentPage.set('BlackList_WhiteListPage');
+  }
   </script>
   
   <div class="container">
-    <header>
-      <img src="/cover.png" alt="MindAnchor Logo" class="logo">
-      <h1>MindAnchor</h1>
+    <header> 
+      <div on:click={goToBlackList_WhiteListPage}>
+        <img src="/cover.png" alt="MindAnchor Logo" class="logo">
+        <h1><strong>MindAnchor</strong></h1>
+      </div>
     </header>
   
     <h2 id="checkout">Checkout</h2>
