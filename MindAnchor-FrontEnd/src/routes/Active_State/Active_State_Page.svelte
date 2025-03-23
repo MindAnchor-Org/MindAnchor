@@ -251,8 +251,8 @@ async function showMotivationalCue() {
   
   <!-- Buttons -->
   <div class="buttons">
-    <button id="bionifyButton" class="btn" on:click={toggleBionify} class:btn-primary={!isBionicEnabled} class:btn-secondary={isBionicEnabled} disabled={isBionicEnabled}>Bionify webpage text</button>
-    <button id="unbionifyButton" class="btn" on:click={toggleUnbionify} class:btn-primary={isBionicEnabled} class:btn-secondary={!isBionicEnabled} disabled={!isBionicEnabled}>Unbionify webpage text</button>
+    <button id="bionifyButton" class="btn" on:click={bionify} class:btn-primary={!isBionicEnabled} class:btn-secondary={isBionicEnabled} disabled={isBionicEnabled}>Bionify webpage text</button>
+    <button id="unbionifyButton" class="btn" on:click={unbionify} class:btn-primary={isBionicEnabled} class:btn-secondary={!isBionicEnabled} disabled={!isBionicEnabled}>Unbionify webpage text</button>
   </div>
   
   <div class="buttons">
