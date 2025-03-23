@@ -62,6 +62,11 @@
       shoppingPercentage = (shoppingDuration / totalDuration) * 100;
       socialMediaPercentage = (socialMediaDuration / totalDuration) * 100;
 
+      // Handle NaN cases
+      if (isNaN(entertainmentPercentage)) entertainmentPercentage = 0;
+      if (isNaN(shoppingPercentage)) shoppingPercentage = 0;
+      if (isNaN(socialMediaPercentage)) socialMediaPercentage = 0;
+
       // NO-SOCIAL-MEDIA STREAK LOGIC
       if (lastVisitTimestamp) {
         const now = new Date();
