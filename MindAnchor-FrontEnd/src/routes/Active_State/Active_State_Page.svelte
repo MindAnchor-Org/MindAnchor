@@ -180,15 +180,6 @@ async function showMotivationalCue() {
   isBionicEnabled = !isBionicEnabled;
   }
 
-  function toggleActivateCues() {
-  // Toggle the motivational cues active state
-  isCuesActive = !isCuesActive;
-  }
-
-  function toggleDeactivateCues() {
-  // Toggle the deactivate cues active state
-  isCuesActive = !isCuesActive;
-  }
 
   onMount(() => {
     activateCues(); // Automatically start cues when the session begins
@@ -265,7 +256,7 @@ async function showMotivationalCue() {
   </div>
   
   <div class="buttons">
-    <button class="btn" on:click={toggleActivateCues} class:btn-primary={!isCuesActive} class:btn-secondary={isCuesActive}>Activate motivational cues</button>
+    <button class="btn" on:click={activateCues} class:btn-primary={!isCuesActive}>Give me some motivation!</button>
   </div>
 
   <div class="actions">
