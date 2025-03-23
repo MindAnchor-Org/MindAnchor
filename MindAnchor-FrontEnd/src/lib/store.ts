@@ -1,20 +1,27 @@
 import { writable } from 'svelte/store';
 
-// Checks whether the browser environment before accessing localStorage
-const savedPage = typeof window !== 'undefined' 
-  ? localStorage.getItem('currentPage') || 'BlackList_WhiteListPage' 
-  : 'BlackList_WhiteListPage'; 
+// Check if the user is using the extension for the first time
+const isFirstTime = typeof window !== 'undefined' && !localStorage.getItem('hasUsedExtension');
+
+// Determine the initial page based on first-time usage
+const savedPage = typeof window !== 'undefined'
+  ? (isFirstTime ? 'T_and_C_page' : localStorage.getItem('currentPage') || 'BlackList_WhiteListPage')
+  : 'BlackList_WhiteListPage';
 
 // Store for managing the current page
 export const currentPage = writable(savedPage);
 
 export const isBionified = writable(false);
 
-
 // Subscribe to changes in currentPage and save to localStorage only in the browser
 if (typeof window !== 'undefined') {
   currentPage.subscribe(value => {
     localStorage.setItem('currentPage', value);
+
+    // If the user navigates away from the WelcomePage or T_and_C_Page, mark the extension as used
+    if (value !== 'WelcomePage' && value !== 'T_and_C_Page') {
+      localStorage.setItem('hasUsedExtension', 'true');
+    }
   });
 }
 

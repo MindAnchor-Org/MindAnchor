@@ -11,7 +11,7 @@
           } else {
               clearInterval(timer);
               // Redirect to dashboard or next page
-              currentPage.set('ScheduleSummaryPage'); // Update the URL as needed
+              currentPage.set('BlackList_WhiteListPage'); // Update the URL to the next page
           }
       }, 1000);
 
@@ -20,7 +20,7 @@
 
   function handleExperienceNow() {
       // Redirect to dashboard or next page
-      currentPage.set('ScheduleSummaryPage'); // Update the URL as needed
+      currentPage.set('BlackList_WhiteListPage'); // Update the URL as needed
   }
 </script>
 

@@ -2,14 +2,19 @@
   import { currentPage } from "../../lib/store";
 
     /* import { onMount } from 'svelte'; */ // Not needed in this case
-    let agreed = false;
+  let agreed = false;
+
+  function handleContinue() {
+    currentPage.set("WelcomePage"); // Redirect to WelcomePage after agreeing
+  }
+
   </script>
   
   <style>
     :global(html, body) {
       margin: 0;
       padding: 0;
-      overflow: hidden;
+      overflow: auto;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -100,10 +105,7 @@
       <label for="agree">I agree to all terms and conditions</label>
     </div>
   
-    <button class="continue-btn" on:click={() => {
-      alert('Continuing...');
-      currentPage.set("WelcomePage");
-      }} disabled={!agreed}>
+    <button class="continue-btn" on:click={handleContinue} disabled={!agreed}>
       Continue
     </button>
   </div>
