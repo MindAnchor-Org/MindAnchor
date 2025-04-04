@@ -12,7 +12,7 @@ CORS(app)
 classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli", framework="pt",
                       cache_dir="~/.cache/huggingface")
 
-CONFIDENCE_THRESHOLD = 0.5
+CONFIDENCE_THRESHOLD = 0.5 # Set a confidence threshold for classification
 
 
 def extract_website_content(url):

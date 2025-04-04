@@ -5,7 +5,7 @@ const isFirstTime = typeof window !== 'undefined' && !localStorage.getItem('hasU
 
 // Determine the initial page based on first-time usage
 const savedPage = typeof window !== 'undefined'
-  ? (isFirstTime ? 'T_and_C_page' : localStorage.getItem('currentPage') || 'BlackList_WhiteListPage')
+  ? (isFirstTime ? 'WelcomePage' : localStorage.getItem('currentPage') || 'BlackList_WhiteListPage')
   : 'BlackList_WhiteListPage';
 
 // Store for managing the current page
@@ -19,7 +19,7 @@ if (typeof window !== 'undefined') {
     localStorage.setItem('currentPage', value);
 
     // If the user navigates away from the WelcomePage or T_and_C_Page, mark the extension as used
-    if (value !== 'WelcomePage' && value !== 'T_and_C_Page') {
+    if (value !== 'WelcomePage') {
       localStorage.setItem('hasUsedExtension', 'true');
     }
   });
