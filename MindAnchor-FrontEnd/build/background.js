@@ -103,7 +103,7 @@ function handleClassification(tabId, url) {
           } else if (data.category_type === "whitelist") {
             message = `This website (${data.url}) is categorized as "${data.predicted_category}" and is on your whitelist.`;
           } else if (data.category_type === "undefined") {
-            message = 'Failed to classify this website. What do you want to do?';
+            message = 'Unable to categorize this website. What do you want to do?';
             chrome.tabs.get(tabId, function (tabInfo) {
               if (!chrome.runtime.lastError) {
                 chrome.scripting.executeScript({
