@@ -1,0 +1,55 @@
+name: CI/CD Pipeline for MindAnchor
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install frontend dependencies
+        working-directory: MindAnchor/MindAnchor-FrontEnd
+        run: |
+          npm install
+          npm install @sveltejs/kit
+          npm install chart.js
+
+      - name: Build frontend
+        working-directory: MindAnchor/MindAnchor-FrontEnd
+        run: npm run devext
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install backend dependencies
+        working-directory: MindAnchor
+        run: |
+          pip install flask flask-cors requests beautifulsoup4 transformers tldextract
+          pip install torch torchvision torchaudio
+
+      - name: Run backend classification
+        working-directory: MindAnchor
+        run: python Classification.py
+
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: mindanchor-build
+          path: |
+            MindAnchor/MindAnchor-FrontEnd/build/
+            MindAnchor/**/*.py
