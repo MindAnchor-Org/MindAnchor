@@ -158,13 +158,16 @@
           type="text" 
           id="card-info" 
           bind:value={cardNumber}
-          placeholder="1234 1234 1234 1234" 
+          placeholder="1234 1234 1234 1234"
+          on:input={formatCardNumber}
+          on:blur={() => validateCardNumber(cardNumber)} 
           required
-        >
+        />
         <div class="card-icons">
           <img src="/Visa-Logo.png" alt="Credit/Debit Cards">
         </div>
       </div>
+      {#if cardNumberError}<div class="error">{cardNumberError}</div>{/if}
       
       <div class="card-input">
         <input 
