@@ -26,6 +26,30 @@
     emailError = isValid ? '' : 'Invalid email format.';
     return isValid;
   }
+
+  function validateCardNumber(number: string): boolean {
+    const cleanNumber = number.replace(/\s+/g, '');
+    if (!/^\d{13,19}$/.test(cleanNumber)) {
+      cardNumberError = 'Card number must be 13-19 digits.';
+      return false;
+    }
+
+    
+    let sum = 0, shouldDouble = false;
+    for (let i = cleanNumber.length - 1; i >= 0; i--) {
+      let digit = parseInt(cleanNumber.charAt(i));
+      if (shouldDouble) {
+        digit *= 2;
+        if (digit > 9) digit -= 9;
+      }
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+
+    const isValid = sum % 10 === 0;
+    cardNumberError = isValid ? '' : 'Invalid card number.';
+    return isValid;
+  }
   
   </script>
   
