@@ -50,7 +50,29 @@
     cardNumberError = isValid ? '' : 'Invalid card number.';
     return isValid;
   }
-  
+
+  function validateExpiry(expiry: string): boolean {
+    const match = expiry.match(/^(\d{2})\s?\/\s?(\d{2})$/);
+    if (!match) {
+      expiryError = 'Expiry must be in MM/YY format.';
+      return false;
+    }
+    const [_, monthStr, yearStr] = match;
+    const month = parseInt(monthStr);
+    const year = parseInt('20' + yearStr);
+
+    if (month < 1 || month > 12) {
+      expiryError = 'Invalid month.';
+      return false;
+    }
+
+    const now = new Date();
+    const expiryDate = new Date(year, month);
+    const isValid = expiryDate > now;
+    expiryError = isValid ? '' : 'Card has expired.';
+    return isValid;
+  }
+
   </script>
   
   <div class="container">
