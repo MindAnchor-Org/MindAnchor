@@ -73,6 +73,12 @@
     return isValid;
   }
 
+  function validateCVC(cvcVal: string): boolean {
+    const isValid = /^\d{3,4}$/.test(cvcVal);
+    cvcError = isValid ? '' : 'CVC must be 3 or 4 digits.';
+    return isValid;
+  }
+
   </script>
   
   <div class="container">
