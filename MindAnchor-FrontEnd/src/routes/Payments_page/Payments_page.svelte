@@ -117,7 +117,6 @@
   function goToBlackList_WhiteListPage() {
     currentPage.set('BlackList_WhiteListPage');
   }
-
   </script>
   
   <div class="container">
@@ -147,9 +146,11 @@
         type="email" 
         id="email" 
         bind:value={email}
-        placeholder="Enter your email" 
+        placeholder="Enter your email"
+        on:blur={() => validateEmail(email)} 
         required
-      >
+      />
+      {#if emailError}<div class="error">{emailError}</div>{/if}
   
       <label for="card-info">Card information</label>
       <div class="card-wrapper">
