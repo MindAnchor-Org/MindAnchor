@@ -21,9 +21,12 @@
     cardNumber = formatted;
   }
 
-    function goToBlackList_WhiteListPage(){
-      currentPage.set('BlackList_WhiteListPage');
+  function validateEmail(email: string): boolean {
+    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    emailError = isValid ? '' : 'Invalid email format.';
+    return isValid;
   }
+  
   </script>
   
   <div class="container">
