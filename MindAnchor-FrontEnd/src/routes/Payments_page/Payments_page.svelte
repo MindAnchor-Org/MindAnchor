@@ -79,6 +79,12 @@
     return isValid;
   }
 
+  function validateCardholder(name: string): boolean {
+    const isValid = /^[a-zA-Z]+(?: [a-zA-Z]+)+$/.test(name);
+    cardholderNameError = isValid ? '' : 'Enter full name on card.';
+    return isValid;
+  }
+
   </script>
   
   <div class="container">
