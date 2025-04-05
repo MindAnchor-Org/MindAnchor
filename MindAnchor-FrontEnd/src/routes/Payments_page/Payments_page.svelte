@@ -174,16 +174,18 @@
           type="text" 
           id="expiry" 
           bind:value={expiry}
-          placeholder="MM / YY" 
+          placeholder="MM / YY"
+          on:blur={() => validateExpiry(expiry)} 
           required
-        >
+        />
         <input 
           type="text" 
           id="cvc" 
           bind:value={cvc}
-          placeholder="CVC" 
+          placeholder="CVC"
+          on:blur={() => validateCVC(cvc)} 
           required
-        >
+        />
       </div>
   
       <label for="cardholder">Cardholder name</label>
