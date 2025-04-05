@@ -85,6 +85,17 @@
     return isValid;
   }
 
+  function validateForm(): boolean {
+    const validations = [
+      validateEmail(email),
+      validateCardNumber(cardNumber),
+      validateExpiry(expiry),
+      validateCVC(cvc),
+      validateCardholder(cardholderName)
+    ];
+    return validations.every(Boolean);
+  }
+
   </script>
   
   <div class="container">
