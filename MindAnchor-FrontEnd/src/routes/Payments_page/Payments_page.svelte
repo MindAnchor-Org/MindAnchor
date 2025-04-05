@@ -1,12 +1,12 @@
 <script lang="ts">
   import { currentPage } from "../../lib/store";
 
-    let email: string = '';
-    let cardNumber: string = '';
-    let expiry: string = '';
-    let cvc: string = '';
-    let cardholderName: string = '';
-    let country: string = 'sri-lanka';
+  let email = '';
+  let cardNumber = '';
+  let expiry = '';
+  let cvc = '';
+  let cardholderName = '';
+  let country = 'sri-lanka';
   
     const handleSubmit = (event: SubmitEvent) => {
       event.preventDefault();
