@@ -114,6 +114,10 @@
     });
   };
 
+  function goToBlackList_WhiteListPage() {
+    currentPage.set('BlackList_WhiteListPage');
+  }
+
   </script>
   
   <div class="container">
