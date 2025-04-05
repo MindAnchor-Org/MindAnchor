@@ -14,19 +14,12 @@
   let cvcError = '';
   let cardholderNameError = '';
   
-    const handleSubmit = (event: SubmitEvent) => {
-      event.preventDefault();
-      currentPage.set('Payment_Success');
-      
-      console.log({
-        email,
-        cardNumber,
-        expiry,
-        cvc,
-        cardholderName,
-        country
-      });
-    };
+  function formatCardNumber(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const digitsOnly = input.value.replace(/\D/g, '');
+    const formatted = digitsOnly.replace(/(.{4})/g, '$1 ').trim();
+    cardNumber = formatted;
+  }
 
     function goToBlackList_WhiteListPage(){
       currentPage.set('BlackList_WhiteListPage');
