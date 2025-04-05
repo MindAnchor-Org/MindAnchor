@@ -7,6 +7,12 @@
   let cvc = '';
   let cardholderName = '';
   let country = 'sri-lanka';
+
+  let emailError = '';
+  let cardNumberError = '';
+  let expiryError = '';
+  let cvcError = '';
+  let cardholderNameError = '';
   
     const handleSubmit = (event: SubmitEvent) => {
       event.preventDefault();
