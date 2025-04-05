@@ -187,15 +187,19 @@
           required
         />
       </div>
+      {#if expiryError}<div class="error">{expiryError}</div>{/if}
+      {#if cvcError}<div class="error">{cvcError}</div>{/if}
   
       <label for="cardholder">Cardholder name</label>
       <input 
         type="text" 
         id="cardholder" 
         bind:value={cardholderName}
-        placeholder="Full name on card" 
+        placeholder="Full name on card"
+        on:blur={() => validateCardholder(cardholderName)} 
         required
-      >
+      />
+      {#if cardholderNameError}<div class="error">{cardholderNameError}</div>{/if}
   
       <label for="country">Country or region</label>
       <select id="country" bind:value={country}>
