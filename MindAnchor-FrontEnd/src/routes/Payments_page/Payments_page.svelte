@@ -288,7 +288,6 @@
       border: 1px solid #ccc;
       border-radius: 6px;
       font-size: 16px;
-      text-align: left;
       box-sizing: border-box;
     }
   
@@ -308,9 +307,6 @@
       outline: none;
       width: 100%;
       font-size: 16px;
-      text-align: left;
-      padding: 0;
-      margin: 0;
     }
   
     .card-icons {
@@ -331,7 +327,6 @@
   
     .card-input input {
       flex: 1;
-      text-align: left;
     }
   
     .pay-button {
@@ -355,5 +350,11 @@
       color: #666;
       font-size: 14px;
       margin: 5px 0;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: 4px;
     }
   </style>
