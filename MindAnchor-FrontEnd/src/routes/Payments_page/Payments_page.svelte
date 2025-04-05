@@ -96,6 +96,24 @@
     return validations.every(Boolean);
   }
 
+  const handleSubmit = (event: SubmitEvent) => {
+    event.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
+
+    currentPage.set('Payment_Success');
+
+    console.log({
+      email,
+      cardNumber,
+      expiry,
+      cvc,
+      cardholderName,
+      country
+    });
+  };
+
   </script>
   
   <div class="container">
