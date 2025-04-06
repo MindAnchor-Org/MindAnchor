@@ -91,3 +91,18 @@
     window.bionifyText();
   }
 })();
+
+// Automatically classify the current page
+fetch('https://web-production-fc27.up.railway.app/', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    url: window.location.href,     // get the current page URL
+    blacklist: [],                 // you can customize these
+    whitelist: []
+  })
+})
+.then(response => response.json())
+.then(data => console.log('Classification result:', data))
+.catch(error => console.error('Error:', error));
+
