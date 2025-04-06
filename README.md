@@ -1,4 +1,4 @@
-# MindAnchor - AI-Powered ADHD Focus Assistant 🧠🔗
+# MindAnchor - ML-Powered ADHD Focus Assistant 🧠🔗
 
 ![MindAnchor Logo](https://github.com/RafanLiya/MindAnchor/blob/main/MindAnchor-FrontEnd/static/cover.png)
 
