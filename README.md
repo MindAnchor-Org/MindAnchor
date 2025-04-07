@@ -61,7 +61,7 @@ MindAnchor is a machine learning-based browser extension designed to help indivi
 
 4. Run development server:
    ```bash
-   npm start
+   npm run devext
    ```
 
 ## 👨‍💻 Development Team
