@@ -40,6 +40,8 @@ jobs:
         run: |
           pip install flask flask-cors requests beautifulsoup4 transformers tldextract
           pip install torch torchvision torchaudio
+          pip install --upgrade transformers accelerate huggingface_hub
+          pip install huggingface_hub[hf_xet]
 
       - name: Run backend classification
         run: python Classification.py
