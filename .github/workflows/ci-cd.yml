@@ -21,7 +21,7 @@ jobs:
           node-version: '18'
 
       - name: Install frontend dependencies
-        working-directory: MindAnchor/MindAnchor-FrontEnd
+        working-directory: MindAnchor-FrontEnd
         run: |
           npm install
           npm install @sveltejs/kit
