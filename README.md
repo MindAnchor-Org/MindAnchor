@@ -44,26 +44,6 @@ MindAnchor is a machine learning-based browser extension designed to help indivi
 - BeautifulSoup for content extraction
 - Zero-shot classification
 
-## 📥 Installation
-
-1. Clone repository:
-   ```bash
-   git clone https://github.com/RafanLiya/MindAnchor.git
-   cd MindAnchor
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Configure environment variables in `.env` file
-
-4. Run development server:
-   ```bash
-   npm run devext
-   ```
-
 ## 👨‍💻 Development Team
 
 | Name | Role | Key Contributions |
