@@ -62,7 +62,7 @@ MIT License - Copyright © 2025 SE-52 Group, Informatics Institute of Technology
 
 ## 📬 Contact
 
-For support or inquiries: liyakkathkhan.20220656@iit.ac.lk
+For support or inquiries: rafanliya@gmail.com or mindanchorapp@gmail.com
 
 ---
 
