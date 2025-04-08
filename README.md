@@ -51,9 +51,9 @@ MindAnchor is a machine learning-based browser extension designed to help indivi
 | L. Rafan | Fulstack Dev | Gamification and Analytics implementation |
 | M. Rishan | Fullstack Dev | Zero-shot classification implementation |
 | S. Suwagath | Fullstack Dev | API Integration |
-| W.A. Vinuki | Frontend Dev | UI Components |
-| R. Christina | UI/UX Designer | Interface Design |
-| A.R. Divni | Frontend Dev | Interface design |
+| W.A. Vinuki | Fullstack Dev | Payment Gateway Integration |
+| R. Christina | Fullstack Dev | Interface Design |
+| A.R. Divni | Fullstack Dev | User Configuration Implementation |
 
 
 ## 📜 License
